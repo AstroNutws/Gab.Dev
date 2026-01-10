@@ -8,125 +8,166 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="blob-bg"></div>
+    <div class="glow-overlay"></div>
 
     <header class="navigation">
         <a href="#" class="logo">GAB.DEV<span class="dot">.</span></a>
         <nav class="nav-links">
             <a href="#about">About</a>
-            <a href="#projects">Work</a>
-            <a href="#tech">Stack</a>
-            <a href="mailto:joshuagabrieldeleon820@gmail.com" class="say-hi-btn">Connect</a>
+            <a href="#projects">Projects</a>
+            <a href="#tech">Tech Stack</a>
+            <a href="mailto:joshuagabrieldeleon820@gmail.com" class="say-hi-btn">Say Hi 👋</a>
         </nav>
     </header>
 
     <main>
         <section class="hero" id="about">
             <div class="hero-content">
-                <div class="badge">Backend & Database Specialist</div>
+                <div class="badge">Software Developer - Database & Backend Focus</div>
                 <h1>Joshua Gabriel <br><span class="gradient-text">De Leon</span></h1>
+                
                 <p class="hero-sub">
-                    I build robust systems with <strong>PAWN</strong>, <strong>VB.NET</strong>, and <strong>SQL Server</strong>. 
-                    Bridging the gap between complex backend logic and seamless user experiences.
+                    Dedicated developer with expertise in <strong>backend logic</strong> and <strong>server-side architecture</strong>. 
+                    Excellent command of <strong>PAWN</strong> and <strong>MySQL</strong> optimization.
                 </p>
+
+                <div class="bio-box">
+                    <p>
+                        I bridge the gap between technical implementation and intuitive user experience by leveraging my skills in 
+                        <strong>database management</strong> (PostgreSQL, SQL Server) and <strong>Graphic Design</strong> via Photoshop. 
+                        My goal is to build robust, scalable solutions for complex data architectures.
+                    </p>
+                </div>
+
                 <div class="hero-cta">
-                    <a href="#projects" class="btn-primary">View Projects</a>
-                    <div class="social-mini">
-                        <a href="https://github.com/astronutwss" target="_blank">GitHub</a>
-                    </div>
+                    <a href="#projects" class="btn-primary">Explore My Work</a>
+                    <a href="https://github.com/astronutwss" target="_blank" class="github-link">
+                        <i data-lucide="github"></i>
+                    </a>
                 </div>
             </div>
             <div class="hero-image">
-                <div class="image-wrapper">
-                    <img src="pfp.jpg" alt="Joshua Gabriel De Leon">
+                <div class="image-frame">
+                    <img src="pfp.jpg" alt="Joshua Gabriel De Leon Professional Portrait">
                 </div>
             </div>
         </section>
 
         <section class="projects-section" id="projects">
             <div class="section-header">
-                <span class="subtitle">Selected Work</span>
-                <h2>Featured Projects</h2>
+                <span class="subtitle">Showcase</span>
+                <h2>Portfolio Projects</h2>
             </div>
 
             <div class="project-grid">
                 <div class="project-card featured">
-                    <div class="project-content">
-                        <span class="tag-new">LATEST</span>
+                    <div class="card-inner">
+                        <div class="card-head">
+                            <i data-lucide="qr-code" class="icon-blue"></i>
+                            <span class="status-tag">Primary Project</span>
+                        </div>
                         <h3>Attendance QRSYS</h3>
-                        <p>A high-performance QR-based tracking system. Streamlining attendance with instant verification and secure data logging.</p>
-                        <div class="project-meta">
+                        <p>High-performance QR tracking system. Designed for rapid verification and secure data logging with cloud integration.</p>
+                        <div class="tag-row">
                             <span>Web Logic</span>
                             <span>Firebase</span>
-                            <span>QR Auth</span>
+                            <span>Real-time</span>
                         </div>
-                        <a href="https://astronutws.github.io/Attendance-QRSYS/" target="_blank" class="project-link">Launch Project ↗</a>
+                        <a href="https://astronutws.github.io/Attendance-QRSYS/" target="_blank" class="project-link">
+                            Launch Project <i data-lucide="external-link"></i>
+                        </a>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-content">
+                    <div class="card-inner">
+                        <i data-lucide="server" class="icon-gray"></i>
                         <h3>Gang War Ph</h3>
-                        <p>Custom data-driven multiplayer game mode with complex persistence and economic systems.</p>
-                        <div class="project-meta">
+                        <p>A fully customized game mode built on PAWN, featuring complex persistence and integrated economic systems.</p>
+                        <div class="tag-row">
                             <span>PAWN</span>
                             <span>MySQL</span>
                         </div>
-                        <a href="https://github.com/astronutwss/gwph/" target="_blank" class="project-link">Source Code ↗</a>
+                        <a href="https://github.com/astronutwss/gwph/" target="_blank" class="project-link">
+                            View Source <i data-lucide="github"></i>
+                        </a>
                     </div>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-content">
+                    <div class="card-inner">
+                        <i data-lucide="shield-check" class="icon-gray"></i>
                         <h3>Discord-Verify</h3>
-                        <p>Secure bridge linking in-game accounts to Discord identities via server-side logic.</p>
-                        <div class="project-meta">
-                            <span>Pawno</span>
-                            <span>API</span>
+                        <p>Secure server-side verification bridge developed to link in-game accounts with Discord identities.</p>
+                        <div class="tag-row">
+                            <span>Backend</span>
+                            <span>API Logic</span>
                         </div>
-                        <a href="https://github.com/astronutwss/discord-verify" target="_blank" class="project-link">Source Code ↗</a>
+                        <a href="https://github.com/astronutwss/discord-verify" target="_blank" class="project-link">
+                            View Source <i data-lucide="github"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="tech-section" id="tech">
-            <div class="glass-container">
-                <h2>Technical Proficiency</h2>
+            <div class="tech-container">
+                <div class="section-header text-center">
+                    <span class="subtitle">Expertise</span>
+                    <h2>Technical Stack</h2>
+                </div>
                 <div class="tech-grid">
-                    <div class="tech-item">
-                        <img src="pawn.png" alt="PAWN">
-                        <span>PAWN</span>
+                    <div class="tech-card">
+                        <i data-lucide="terminal"></i>
+                        <h4>PAWN</h4>
+                        <p>Advanced Logic</p>
                     </div>
-                    <div class="tech-item">
-                        <img src="vb.png" alt="VB.NET">
-                        <span>VB.NET</span>
+                    <div class="tech-card">
+                        <i data-lucide="code-2"></i>
+                        <h4>VB.NET</h4>
+                        <p>Software Development</p>
                     </div>
-                    <div class="tech-item">
-                        <img src="mysql.png" alt="MySQL">
-                        <span>MySQL</span>
+                    <div class="tech-card">
+                        <i data-lucide="database"></i>
+                        <h4>Databases</h4>
+                        <p>MySQL & PostgreSQL</p>
                     </div>
-                    <div class="tech-item">
-                        <img src="postgresql.png" alt="PostgreSQL">
-                        <span>PostgreSQL</span>
+                    <div class="tech-card">
+                        <i data-lucide="cpu"></i>
+                        <h4>SQL Server</h4>
+                        <p>Administration</p>
                     </div>
-                    <div class="tech-item">
-                        <img src="sql.png" alt="SQL Server">
-                        <span>SQL Server</span>
+                    <div class="tech-card">
+                        <i data-lucide="pen-tool"></i>
+                        <h4>Photoshop</h4>
+                        <p>UI & Graphic Design</p>
                     </div>
-                    <div class="tech-item">
-                        <img src="ps.png" alt="Photoshop">
-                        <span>UI Design</span>
+                    <div class="tech-card">
+                        <i data-lucide="smartphone"></i>
+                        <h4>Kotlin</h4>
+                        <p>Mobile Dev</p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <section class="collab-cta">
+            <h3>Let's Collaborate!</h3>
+            <p>Ready to bring your vision to life with robust architecture and intuitive design.</p>
+            <a href="mailto:joshuagabrieldeleon820@gmail.com" class="btn-primary">Contact Me Now</a>
+        </section>
     </main>
 
     <footer>
-        <p>© 2026 GAB.DEV. Handcrafted for performance.</p>
+        <p>Handcrafted by Joshua Gabriel De Leon | Backend & Database Developer | 2026</p>
     </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
