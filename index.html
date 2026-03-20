@@ -473,7 +473,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 <button id="play-game-btn" title="Interactive Game" style="position:fixed;bottom:24px;right:68px;z-index:700;width:38px;height:38px;border-radius:50%;background:rgba(8,15,32,.85);border:1px solid rgba(79,142,247,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .32s,box-shadow .32s;backdrop-filter:blur(10px);color:var(--cyan);font-size:18px;font-weight:bold">🐍</button>
 
 <script>
-// ─── STARS ───────────────────────────────────────────────────────
 (function(){
   var c=document.getElementById('gate-stars');
   for(var i=0;i<120;i++){
@@ -484,172 +483,125 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   }
 })();
 
-// ─── AUDIO CORE ──────────────────────────────────────────────────
-var loAudio   = document.getElementById('lo-audio');
-var mainAudio = document.getElementById('main-audio');
-var muted     = false;
-var mainReady = false; // true once main.mp3 has buffered enough to play
+var loAudio=document.getElementById('lo-audio');
+var mainAudio=document.getElementById('main-audio');
+var muted=false;
 
-// Pre-buffer main.mp3 silently as soon as possible (no audible sound)
-mainAudio.volume = 0;
-mainAudio.load();
-mainAudio.addEventListener('canplaythrough', function onReady(){
-  mainReady = true;
-  mainAudio.removeEventListener('canplaythrough', onReady);
-}, false);
-
-// Fade out — always runs for full `ms` duration even if already paused,
-// so the callback fires at the right time regardless of autoplay block.
-function fadeOut(el, ms, onDone) {
-  var steps = 30, iv = ms / steps;
-  var startVol = (el && !el.paused) ? el.volume : 0;
-  var step = startVol / steps;
-  var count = 0;
-  var t = setInterval(function() {
+function fadeOut(el,ms,onDone){
+  var steps=30,iv=ms/steps,count=0;
+  var startVol=(el&&!el.paused)?el.volume:0;
+  var step=startVol/steps;
+  var t=setInterval(function(){
     count++;
-    startVol -= step;
-    if (!el.paused) {
-      try { el.volume = Math.max(0, startVol); } catch(e){}
-    }
-    if (count >= steps) {
+    startVol-=step;
+    if(!el.paused){try{el.volume=Math.max(0,startVol);}catch(e){}}
+    if(count>=steps){
       clearInterval(t);
-      if (el && !el.paused) { try { el.volume = 0; el.pause(); } catch(e){} }
-      if (onDone) onDone();
+      try{el.volume=0;el.pause();}catch(e){}
+      if(onDone)onDone();
     }
-  }, iv);
+  },iv);
 }
 
-// Fade in — waits for canplay if not yet buffered, then fades from 0 to target.
-function fadeIn(el, target, ms) {
-  if (!el) return;
-  function doFade() {
-    el.volume = 0;
-    el.currentTime = 0;
-    el.loop = true;
-    var p = el.play();
-    if (p && p.catch) p.catch(function(err){ console.warn('Play error:', err); });
-    var steps = 40, step = target / steps, cur = 0, iv = ms / steps;
-    var t = setInterval(function() {
-      cur += step;
-      if (cur >= target) {
-        try { el.volume = muted ? 0 : target; } catch(e){}
-        clearInterval(t);
-      } else {
-        try { el.volume = muted ? 0 : cur; } catch(e){}
-      }
-    }, iv);
-  }
-  // If already buffered enough, play immediately; otherwise wait for canplay
-  if (mainReady || el.readyState >= 3) {
-    doFade();
-  } else {
-    el.load();
-    var handler = function() {
-      el.removeEventListener('canplay', handler);
-      doFade();
-    };
-    el.addEventListener('canplay', handler);
-  }
+function fadeIn(el,target,ms){
+  if(!el)return;
+  el.volume=0;
+  el.loop=true;
+  var p=el.play();
+  if(p)p.catch(function(){});
+  var steps=40,step=target/steps,cur=0,iv=ms/steps;
+  var t=setInterval(function(){
+    cur+=step;
+    if(cur>=target){try{el.volume=muted?0:target;}catch(e){}clearInterval(t);}
+    else{try{el.volume=muted?0:cur;}catch(e){}}
+  },iv);
 }
 
-// ─── GATE CLICK ──────────────────────────────────────────────────
-document.getElementById('gate-btn').addEventListener('click', function() {
-  var gate   = document.getElementById('gate');
-  var loader = document.getElementById('loader');
+document.getElementById('gate-btn').addEventListener('click',function(){
+  var gate=document.getElementById('gate');
+  var loader=document.getElementById('loader');
 
-  // Play loading.mp3 — browser allows this because it's inside a user gesture
-  loAudio.volume = 0.6;
-  loAudio.currentTime = 0;
-  var lp = loAudio.play();
-  if (lp && lp.catch) lp.catch(function(){});
+  mainAudio.volume=0;
+  mainAudio.loop=true;
+  var prime=mainAudio.play();
+  if(prime)prime.catch(function(){});
+
+  loAudio.volume=0.6;
+  loAudio.currentTime=0;
+  var lp=loAudio.play();
+  if(lp)lp.catch(function(){});
 
   gate.classList.add('exit');
-  setTimeout(function(){ gate.style.display='none'; }, 850);
+  setTimeout(function(){gate.style.display='none';},850);
   loader.classList.add('active');
 
-  var bar   = document.getElementById('lo-bar');
-  var pct   = document.getElementById('lo-pct');
-  var logEl = document.getElementById('lo-log-txt');
-  var logs  = [
-    'Initializing environment...','Loading project registry...',
-    'Connecting to GitHub API...','Mounting portfolio assets...',
-    'Compiling skill modules...','Resolving dependencies...',
-    'Building component tree...','Warming up the engines...',
-    'Almost there — hold tight...','Launch sequence complete ✓'
-  ];
-  var TOTAL=4000, t0=null, logIdx=0;
+  var bar=document.getElementById('lo-bar');
+  var pct=document.getElementById('lo-pct');
+  var logEl=document.getElementById('lo-log-txt');
+  var logs=['Initializing environment...','Loading project registry...','Connecting to GitHub API...','Mounting portfolio assets...','Compiling skill modules...','Resolving dependencies...','Building component tree...','Warming up the engines...','Almost there — hold tight...','Launch sequence complete ✓'];
+  var TOTAL=4000,t0=null,logIdx=0;
 
-  function updateLog(p) {
+  function updateLog(p){
     var idx=Math.min(Math.floor(p/10),logs.length-1);
-    if(idx!==logIdx){ logIdx=idx; logEl.style.opacity='0'; setTimeout(function(){ logEl.textContent=logs[logIdx]; logEl.style.opacity='1'; },120); }
+    if(idx!==logIdx){logIdx=idx;logEl.style.opacity='0';setTimeout(function(){logEl.textContent=logs[logIdx];logEl.style.opacity='1';},120);}
   }
 
-  function tick(now) {
-    if(!t0) t0=now;
+  function tick(now){
+    if(!t0)t0=now;
     var progress=Math.min(((now-t0)/TOTAL)*100,100);
     bar.style.width=progress.toFixed(1)+'%';
     pct.textContent=Math.floor(progress)+'%';
     updateLog(progress);
-    if(progress<100){ requestAnimationFrame(tick); }
-    else { setTimeout(doLaunch, 300); }
+    if(progress<100){requestAnimationFrame(tick);}
+    else{setTimeout(doLaunch,300);}
   }
   requestAnimationFrame(tick);
 
-  function doLaunch() {
-    // Fade out loading.mp3 over 1s, THEN start main.mp3
-    // fadeOut always waits the full 1000ms before calling onDone,
-    // so there is never an overlap even if loAudio was blocked by autoplay.
-    fadeOut(loAudio, 1000, function() {
-      fadeIn(mainAudio, 0.5, 2500);
+  function doLaunch(){
+    mainAudio.pause();
+    fadeOut(loAudio,1000,function(){
+      mainAudio.currentTime=0;
+      fadeIn(mainAudio,0.5,2500);
     });
-
-    // Hide loader visually in parallel (doesn't affect audio timing)
     loader.classList.add('exit');
-    setTimeout(function() {
-      loader.style.display='none';
-      startPage();
-    }, 2200);
+    setTimeout(function(){loader.style.display='none';startPage();},2200);
   }
 });
 
-// ─── AUDIO TOGGLE ────────────────────────────────────────────────
-document.getElementById('audio-toggle').addEventListener('click', function() {
+document.getElementById('audio-toggle').addEventListener('click',function(){
   muted=!muted;
   var icon=document.getElementById('audio-icon');
   if(muted){
-    try{ loAudio.volume=0; mainAudio.volume=0; }catch(e){}
+    try{loAudio.volume=0;mainAudio.volume=0;}catch(e){}
     icon.innerHTML='<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
-  } else {
-    try{ if(!loAudio.paused) loAudio.volume=0.6; if(!mainAudio.paused) mainAudio.volume=0.5; }catch(e){}
+  }else{
+    try{if(!loAudio.paused)loAudio.volume=0.6;if(!mainAudio.paused)mainAudio.volume=0.5;}catch(e){}
     icon.innerHTML='<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>';
   }
 });
 
-// ─── VOLUME SLIDER ───────────────────────────────────────────────
 var audioToggle=document.getElementById('audio-toggle');
 var volSlider=document.getElementById('volume-slider');
 var volValue=document.getElementById('volume-value');
 var volWrap=document.getElementById('volume-slider-wrap');
-audioToggle.addEventListener('mouseenter',function(){ volWrap.classList.add('show'); });
-audioToggle.addEventListener('mouseleave',function(){ setTimeout(function(){ if(!volWrap.matches(':hover')) volWrap.classList.remove('show'); },100); });
-volWrap.addEventListener('mouseleave',function(){ volWrap.classList.remove('show'); });
+audioToggle.addEventListener('mouseenter',function(){volWrap.classList.add('show');});
+audioToggle.addEventListener('mouseleave',function(){setTimeout(function(){if(!volWrap.matches(':hover'))volWrap.classList.remove('show');},100);});
+volWrap.addEventListener('mouseleave',function(){volWrap.classList.remove('show');});
 volSlider.addEventListener('input',function(){
   volValue.textContent=this.value+'%';
   var vol=this.value/100;
   if(!muted){
-    try{ if(!loAudio.paused) loAudio.volume=vol*0.6; }catch(e){}
-    try{ if(!mainAudio.paused) mainAudio.volume=vol*0.5; }catch(e){}
+    try{if(!loAudio.paused)loAudio.volume=vol*0.6;}catch(e){}
+    try{if(!mainAudio.paused)mainAudio.volume=vol*0.5;}catch(e){}
   }
 });
 
-// Revive main audio if it stops for any reason (tab switch, etc.)
 setInterval(function(){
-  if(mainAudio && mainAudio.paused && !muted && mainReady){
+  if(mainAudio&&mainAudio.paused&&!muted&&mainAudio.readyState>0){
     mainAudio.play().catch(function(){});
   }
 },2000);
 
-// ─── SNAKE GAME ──────────────────────────────────────────────────
 var canvas=document.getElementById('snake-canvas'),ctx=canvas.getContext('2d');
 var snakeBtn=document.getElementById('snake-btn'),scoreEl=document.getElementById('snake-score'),speedEl=document.getElementById('snake-speed');
 var gridSize=8,tileSize=canvas.width/gridSize;
@@ -721,13 +673,11 @@ document.addEventListener('keydown',function(e){
 });
 drawGame();requestAnimationFrame(gameLoop);
 
-// ─── KONAMI EGG ──────────────────────────────────────────────────
 var egg=document.getElementById('lo-egg');
 egg.addEventListener('click',function(){egg.classList.toggle('show');});
 var kseq=[38,38,40,40,37,39,37,39,66,65],kpos=0;
 document.addEventListener('keydown',function(e){if(e.keyCode===kseq[kpos]){kpos++;if(kpos===kseq.length){kpos=0;egg.classList.add('show');}}else{kpos=0;}});
 
-// ─── CURSOR & TRAIL ──────────────────────────────────────────────
 var mx=innerWidth/2,my=innerHeight/2;
 var curEl=document.getElementById('cur'),trailCv=document.getElementById('trail-cv'),tc=trailCv.getContext('2d');
 var trail=[],TN=14;
@@ -744,7 +694,6 @@ function hookLinks(){
   });
 }hookLinks();
 
-// ─── BACKGROUND CANVAS ───────────────────────────────────────────
 var bgcv=document.getElementById('bgcv'),bx=bgcv.getContext('2d');
 var W=0,H=0,PN=55,CD=110,CD2=CD*CD,MR=90,MR2=MR*MR;
 var ptx=new Float32Array(PN),pty=new Float32Array(PN),pvx=new Float32Array(PN),pvy=new Float32Array(PN),prad=new Float32Array(PN),pcol=new Uint8Array(PN);
@@ -767,16 +716,13 @@ function loop(now){
   trail=trail.filter(function(p){return p.age<TN;});
 }requestAnimationFrame(loop);
 
-// ─── TYPEWRITER ──────────────────────────────────────────────────
 var phrases=['whoami','cat portfolio.md','./run projects','ls -la stack/','git log --oneline'];
 var pi=0,ci=0,dM=false,wt=0,tEl=document.getElementById('typed');
 (function ty(){if(wt-->0){setTimeout(ty,80);return;}var ph=phrases[pi];if(!dM){tEl.textContent=ph.slice(0,++ci);if(ci===ph.length){dM=true;wt=30;}setTimeout(ty,105);}else{tEl.textContent=ph.slice(0,--ci);if(ci===0){dM=false;pi=(pi+1)%phrases.length;wt=10;}setTimeout(ty,50);}})();
 
-// ─── LINK OVERLAY ────────────────────────────────────────────────
 var tov=document.getElementById('tov'),tovT=document.getElementById('tov-txt');
 function openLink(url,label){tovT.textContent=label||'Opening';tov.className='go';setTimeout(function(){window.open(url,'_blank');tov.className='bye';setTimeout(function(){tov.className='';},700);},660);}
 
-// ─── ICONS ───────────────────────────────────────────────────────
 var IGH='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
 var IEX='<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
 var IST='<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
@@ -784,7 +730,6 @@ var IFO='<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentCo
 var IGS='<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
 var ITE='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
 
-// ─── GITHUB LOADERS ──────────────────────────────────────────────
 var GH_USER='AstroNutws',GH_REPO='Gab.Dev',GH_BRANCH='main';
 function rawUrl(f){return 'https://raw.githubusercontent.com/'+GH_USER+'/'+GH_REPO+'/'+GH_BRANCH+'/'+f+'?t='+Date.now();}
 function fetchMd(f){return fetch(rawUrl(f)).then(function(r){if(!r.ok)throw new Error(f+' not found');return r.text();});}
