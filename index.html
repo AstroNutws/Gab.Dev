@@ -23,8 +23,7 @@ body.on-link #cur{filter:drop-shadow(0 0 9px rgba(38,217,240,1)) drop-shadow(0 0
 body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");background-size:250px;animation:grain 8s steps(10) infinite}
 @keyframes grain{0%{transform:translate(0,0)}10%{transform:translate(-3%,-4%)}20%{transform:translate(-5%,3%)}30%{transform:translate(4%,-1%)}40%{transform:translate(-1%,6%)}50%{transform:translate(-4%,2%)}60%{transform:translate(5%,-3%)}70%{transform:translate(-3%,5%)}80%{transform:translate(2%,-5%)}90%{transform:translate(-4%,-2%)}100%{transform:translate(0,0)}}
 
-/* =================== ENTRY GATE =================== */
-#gate{
+/* =================== ENTRY GATE =================== */#gate{
   position:fixed;inset:0;z-index:9000;
   background:var(--bg);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -296,6 +295,20 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 @media(max-width:1024px){.hero{flex-direction:column-reverse;text-align:center;gap:50px;padding-top:110px}.hero-bio{margin:0 auto 2.4rem}.hero-pills{justify-content:center}.hero-cta{justify-content:center}.hero-right{justify-content:center}#contact{grid-template-columns:1fr}.f-row{grid-template-columns:1fr}.av-badge{display:none}}
 @media(max-width:700px){nav{padding:1rem 5%}section{padding:65px 5%}.hero{padding:100px 5% 60px}.av-wrap{width:260px;height:260px}.nav-links{gap:1.4rem}.nav-cta{display:none}.stack-grid{grid-template-columns:repeat(auto-fill,minmax(108px,1fr))}.proj-grid,.collab-grid{grid-template-columns:1fr}}
 </style>
+
+<style>
+@media(max-width:768px){
+  #snake-game{width:140px;bottom:20px;left:12px;font-size:9px}
+  #volume-slider-wrap{bottom:50px;right:12px}
+  #audio-toggle{bottom:12px;right:12px}
+}
+
+@media(max-width:480px){
+  #snake-game{width:130px;bottom:18px;left:8px;font-size:8px;padding:8px}
+  #volume-slider-wrap{bottom:45px;right:8px;width:110px}
+  #audio-toggle{bottom:8px;right:8px;width:36px;height:36px}
+}
+</style>
 </head>
 <body>
 
@@ -303,7 +316,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 <audio id="lo-audio" src="loading.mp3" loop preload="auto"></audio>
 <audio id="main-audio" src="main.mp3" loop preload="auto"></audio>
 
-<!-- ========== ENTRY GATE (forces user gesture for audio) ========== -->
 <div id="gate">
   <div id="gate-stars"></div>
   <div class="gate-planet-wrap">
@@ -336,7 +348,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   </div>
 </div>
 
-<!-- ========== LOADER (shown after gate click) ========== -->
 <div id="loader">
   <div class="lo-planet-wrap">
     <div class="lo-o1"></div><div class="lo-o2"></div>
@@ -364,7 +375,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   <div class="lo-pct" id="lo-pct">0%</div>
 </div>
 
-<!-- ========== TOV ========== -->
 <div id="tov">
   <div id="tov-lbl">
     <div class="tov-box">&#128279;</div>
@@ -372,7 +382,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   </div>
 </div>
 
-<!-- ========== CURSOR ========== -->
 <div id="cur">
   <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
     <path d="M2 2L20 13L12 15.5L8.5 24L2 2Z" fill="#4f8ef7" stroke="#93c5fd" stroke-width="1.2" stroke-linejoin="round"/>
@@ -493,14 +502,15 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   <input id="volume-slider" type="range" min="0" max="100" value="50" title="Adjust volume">
 </div>
 
-<div id="snake-game" style="position:fixed;bottom:120px;right:24px;z-index:700;width:150px;padding:10px;background:rgba(8,15,32,.95);border:1px solid rgba(79,142,247,.2);border-radius:12px;backdrop-filter:blur(10px);font-family:var(--mono);font-size:10px;color:var(--text2);text-align:center">
+<div id="snake-game" style="position:fixed;bottom:24px;left:24px;z-index:700;width:150px;padding:10px;background:rgba(8,15,32,.95);border:1px solid rgba(79,142,247,.2);border-radius:12px;backdrop-filter:blur(10px);font-family:var(--mono);font-size:10px;color:var(--text2);text-align:center">
   <div style="font-size:9px;margin-bottom:6px;color:var(--cyan)">SNAKE</div>
   <canvas id="snake-canvas" width="128" height="128" style="border:1px solid rgba(79,142,247,.3);border-radius:6px;display:block;margin:0 auto 6px;background:rgba(2,5,16,.8);image-rendering:pixelated"></canvas>
   <div style="display:flex;gap:4px;margin-bottom:6px;font-size:8px">
     <div style="flex:1">Score:<br><span id="snake-score" style="color:var(--cyan);font-weight:bold">0</span></div>
     <div style="flex:1">Speed:<br><span id="snake-speed" style="color:var(--cyan);font-weight:bold">1</span></div>
   </div>
-  <button id="snake-btn" style="width:100%;padding:4px;background:var(--blue);border:1px solid rgba(79,142,247,.5);color:#fff;border-radius:4px;font-size:8px;font-family:var(--mono);cursor:pointer;transition:all .24s cubic-bezier(.25,.46,.45,.94)">START</button>
+  <button id="snake-btn" style="width:100%;padding:4px;background:var(--blue);border:1px solid rgba(79,142,247,.5);color:#fff;border-radius:4px;font-size:8px;font-family:var(--mono);cursor:pointer;transition:all .24s cubic-bezier(.25,.46,.45,.94)">START GAME</button>
+  <div style="margin-top:6px;font-size:7px;color:rgba(79,142,247,.6);line-height:1.3">↑↓←→ Move<br>Eat food = points<br>Cyan = power-ups</div>
 </div>
 
 <button id="audio-toggle" title="Toggle music">
@@ -528,7 +538,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   }
 })();
 
-/* ── Audio refs ──────────────────────────────────── */
 var loAudio   = document.getElementById('lo-audio');
 var mainAudio = document.getElementById('main-audio');
 var muted     = false;
@@ -546,7 +555,6 @@ function fadeIn(el,target,ms){
   var t=setInterval(function(){cur+=step;if(cur>=target){try{el.volume=muted?0:target;}catch(e){}clearInterval(t);}else{try{el.volume=muted?0:cur;}catch(e){}}},iv);
 }
 
-/* ── Gate button click — THE user gesture ────────── */
 document.getElementById('gate-btn').addEventListener('click', function(){
   var gate   = document.getElementById('gate');
   var loader = document.getElementById('loader');
@@ -600,7 +608,6 @@ document.getElementById('gate-btn').addEventListener('click', function(){
   }
 });
 
-/* ── Mute toggle button ──────────────────────────── */
 document.getElementById('audio-toggle').addEventListener('click',function(){
   muted=!muted;
   var icon=document.getElementById('audio-icon');
@@ -778,7 +785,8 @@ function startGame(){
   gameSpeed = 7;
   scoreEl.textContent = score;
   speedEl.textContent = speedLevel;
-  snakeBtn.textContent = 'PLAYING';
+  snakeBtn.textContent = '↑↓←→ KEYS';
+  snakeBtn.style.background = '#ff6b6b';
   spawnFood();
   drawGame();
 }
@@ -807,7 +815,10 @@ function gameLoop(timestamp){
 }
 
 snakeBtn.addEventListener('click', function(){
-  if(!gameRunning || gameOver) startGame();
+  if(!gameRunning || gameOver) {
+    gameOver = false;
+    startGame();
+  }
 });
 
 document.addEventListener('keydown', function(e){
@@ -823,7 +834,6 @@ document.addEventListener('keydown', function(e){
 drawGame();
 requestAnimationFrame(gameLoop);
 
-/* ── Easter egg ──────────────────────────────────── */
 var egg=document.getElementById('lo-egg');
 egg.addEventListener('click',function(){egg.classList.toggle('show');});
 var kseq=[38,38,40,40,37,39,37,39,66,65],kpos=0;
