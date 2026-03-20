@@ -573,7 +573,9 @@ function fadeOut(el,ms){
 function fadeIn(el,target,ms){
   if(!el) return;
   el.volume=0;
-  var p=el.play(); if(p&&p.catch) p.catch(function(){});
+  el.currentTime=0;
+  var p=el.play();
+  if(p&&p.catch) p.catch(function(err){console.log('Play error:', err);});
   var steps=40,step=target/steps,cur=0,iv=ms/steps;
   var t=setInterval(function(){cur+=step;if(cur>=target){try{el.volume=muted?0:target;}catch(e){}clearInterval(t);}else{try{el.volume=muted?0:cur;}catch(e){}}},iv);
 }
@@ -620,7 +622,15 @@ document.getElementById('gate-btn').addEventListener('click', function(){
     fadeOut(loAudio,1200);
     setTimeout(function(){
       mainAudio.loop=true;
-      fadeIn(mainAudio,0.5,2500);
+      mainAudio.currentTime=0;
+      mainAudio.volume=0;
+      var p=mainAudio.play();
+      if(p&&p.catch) p.catch(function(err){console.log('Main audio play error:', err);});
+      
+      setTimeout(function(){
+        var steps=40,step=0.5/steps,cur=0,iv=2500/steps;
+        var t=setInterval(function(){cur+=step;if(cur>=0.5){try{mainAudio.volume=muted?0:0.5;}catch(e){}clearInterval(t);}else{try{mainAudio.volume=muted?0:cur;}catch(e){}}},iv);
+      },100);
     },1300);
 
     loader.classList.add('exit');
