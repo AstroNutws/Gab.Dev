@@ -1129,7 +1129,7 @@ async function loadOwn(){
   const grid=document.getElementById('own-grid');
   let text='';
   try{ const r=await fetch('OWN.md'); if(!r.ok) throw 1; text=await r.text(); }
-  catch(){ grid.innerHTML=note('Place OWN.md next to index.html — one GitHub URL per line.'); return; }
+  catch(e){ grid.innerHTML=note('Place OWN.md next to index.html — one GitHub URL per line.'); return; }
   const urls=text.split('\n').map(s=>s.trim()).filter(s=>s.match(/^https?:\/\//));
   if(!urls.length){ grid.innerHTML=note('No URLs found in OWN.md'); return; }
   grid.innerHTML='';
@@ -1160,8 +1160,8 @@ async function loadOwn(){
         </div>
         <div class="proj-foot">
           ${hp
-            ? `<button class="btn-visit" onclick="openLink('${hp}','${(d.name||repo).replace(/'/g,"\\'")}' )">${SVGE}&nbsp;Visit Site</button>`
-            : `<button class="btn-visit" onclick="openLink('${url}','${(d.name||repo).replace(/'/g,"\\'")}' )">${SVGG}&nbsp;Open Repo</button>`}
+            ? `<button class="btn-visit" onclick="openLink(this.dataset.u,this.dataset.l)" data-u="${hp}" data-l="${d.name||repo}">${SVGE}&nbsp;Visit Site</button>`
+            : `<button class="btn-visit" onclick="openLink(this.dataset.u,this.dataset.l)" data-u="${url}" data-l="${d.name||repo}">${SVGG}&nbsp;Open Repo</button>`}
           <a href="${url}" target="_blank" class="btn-gh">${SVGG}&nbsp;GitHub</a>
         </div>`;
     } catch(e){
@@ -1170,7 +1170,7 @@ async function loadOwn(){
         <div class="proj-name">${repo.replace(/-/g,' ')}</div>
         <div class="proj-desc" style="color:var(--muted)">Could not load — check URL or GitHub API rate limit.</div>
         <div class="proj-foot">
-          <button class="btn-visit" onclick="openLink('${url}','${repo}')">${SVGG}&nbsp;Open Repo</button>
+          <button class="btn-visit" onclick="openLink(this.dataset.u,this.dataset.l)" data-u="${url}" data-l="${repo}">${SVGG}&nbsp;Open Repo</button>
         </div>`;
     }
   }
@@ -1228,7 +1228,7 @@ async function loadCollabs(){
       ${tags.length ? `<div class="collab-tags">${tags.map(t=>`<span class="collab-tag">${t}</span>`).join('')}</div>` : ''}
       <div class="collab-foot">
         ${url
-          ? `<button class="btn-collab-visit" onclick="openLink('${url.replace(/'/g,"\\'")}','${title.replace(/'/g,"\\'")}' )">${SVGE}&nbsp;${isGH?'View Repo':'Visit Site'}</button>`
+          ? `<button class="btn-collab-visit" onclick="openLink(this.dataset.u,this.dataset.l)" data-u="${url}" data-l="${title}">${SVGE}&nbsp;${isGH?'View Repo':'Visit Site'}</button>`
           : '<span></span>'}
         ${url
           ? `<a href="${url}" target="_blank" class="btn-collab-gh">${SVGG}&nbsp;Open</a>`
@@ -1263,7 +1263,7 @@ async function loadStack(){
     const r=await fetch('STACKS.md');
     if(!r.ok) throw 1;
     text=await r.text();
-  } catch(){ grid.innerHTML=note('Place STACKS.md next to index.html — one technology per line.'); return; }
+  } catch(e){ grid.innerHTML=note('Place STACKS.md next to index.html — one technology per line.'); return; }
   const techs=text.split('\n').map(s=>s.trim()).filter(s=>s&&!s.startsWith('#'));
   if(!techs.length){ grid.innerHTML=note('No technologies in STACKS.md'); return; }
   grid.innerHTML='';
