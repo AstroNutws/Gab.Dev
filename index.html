@@ -17,196 +17,117 @@ a,button{cursor:none;text-decoration:none;color:inherit;font-family:inherit}
 img{display:block;max-width:100%}
 strong{font-weight:700;color:var(--text)}
 
-/* ====================================================
-   EPIC LOADING SCREEN
-==================================================== */
-#launch{
-  position:fixed;inset:0;z-index:8000;
+/* ===================== CURSOR ===================== */
+#cur{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;will-change:transform;filter:drop-shadow(0 0 7px rgba(79,142,247,.9)) drop-shadow(0 0 16px rgba(79,142,247,.45));transition:filter .2s}
+#trail-cv{position:fixed;inset:0;pointer-events:none;z-index:9996}
+body.on-link #cur{filter:drop-shadow(0 0 9px rgba(38,217,240,1)) drop-shadow(0 0 22px rgba(38,217,240,.6))}
+#bgcv{position:fixed;inset:0;z-index:0;pointer-events:none}
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");background-size:250px;animation:grain 8s steps(10) infinite}
+@keyframes grain{0%{transform:translate(0,0)}10%{transform:translate(-3%,-4%)}20%{transform:translate(-5%,3%)}30%{transform:translate(4%,-1%)}40%{transform:translate(-1%,6%)}50%{transform:translate(-4%,2%)}60%{transform:translate(5%,-3%)}70%{transform:translate(-3%,5%)}80%{transform:translate(2%,-5%)}90%{transform:translate(-4%,-2%)}100%{transform:translate(0,0)}}
+
+/* =================== ENTRY GATE =================== */
+#gate{
+  position:fixed;inset:0;z-index:9000;
   background:var(--bg);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:0;
-  transition:opacity .9s cubic-bezier(.76,0,.24,1),transform .9s cubic-bezier(.76,0,.24,1);
-  overflow:hidden;
+  gap:0;cursor:none;
+  transition:opacity .8s cubic-bezier(.76,0,.24,1);
 }
-#launch.exit{opacity:0;transform:scale(.96);pointer-events:none}
-
-/* star field */
-#launch-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+#gate.exit{opacity:0;pointer-events:none}
+#gate-stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+#gate::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 20% 60%,rgba(79,142,247,.07) 0%,transparent 70%),radial-gradient(ellipse 500px 350px at 80% 30%,rgba(38,217,240,.06) 0%,transparent 70%),radial-gradient(ellipse 400px 300px at 50% 90%,rgba(48,232,200,.05) 0%,transparent 70%);pointer-events:none}
+#gate::after{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);animation:scanmove 8s linear infinite}
+@keyframes scanmove{from{background-position:0 0}to{background-position:0 40px}}
 .lstar{position:absolute;border-radius:50%;background:#fff;animation:lstarFade var(--d,3s) var(--del,0s) ease-in-out infinite alternate}
 @keyframes lstarFade{from{opacity:var(--oa,.1)}to{opacity:var(--ob,.6)}}
 
-/* nebula glow blobs */
-#launch::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 600px 400px at 20% 60%, rgba(79,142,247,.07) 0%, transparent 70%),
-    radial-gradient(ellipse 500px 350px at 80% 30%, rgba(38,217,240,.06) 0%, transparent 70%),
-    radial-gradient(ellipse 400px 300px at 50% 90%, rgba(48,232,200,.05) 0%, transparent 70%);
-}
-/* scan line overlay */
-#launch::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
-  animation:scanmove 8s linear infinite;
-}
-@keyframes scanmove{from{background-position:0 0}to{background-position:0 40px}}
-
-/* central planet/orb */
-.lo-planet-wrap{
-  position:relative;width:200px;height:200px;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:2.6rem;
-  animation:fadeUp .8s .1s ease both;
-}
-/* orbits */
-.lo-orbit-a{position:absolute;inset:-30px;border-radius:50%;border:1px solid rgba(79,142,247,.18);animation:spin 9s linear infinite}
-.lo-orbit-b{position:absolute;inset:-55px;border-radius:50%;border:1px dashed rgba(38,217,240,.1);animation:spin 15s linear infinite reverse}
-.lo-orbit-c{position:absolute;inset:-82px;border-radius:50%;border:1px solid rgba(48,232,200,.07);animation:spin 22s linear infinite}
-.lo-orbit-d{position:absolute;inset:-110px;border-radius:50%;border:1px dashed rgba(79,142,247,.05);animation:spin 30s linear infinite reverse}
-
-/* orbit dots */
-.lo-orbit-a::before{content:'';position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;margin-left:-4px;background:var(--cyan);box-shadow:0 0 10px var(--glowc),0 0 22px var(--glowc)}
-.lo-orbit-b::before{content:'';position:absolute;bottom:-4px;right:22%;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--glowb),0 0 22px var(--glowb)}
-.lo-orbit-c::before{content:'';position:absolute;top:20%;right:-4px;width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px rgba(48,232,200,.7)}
-.lo-orbit-d::before{content:'';position:absolute;bottom:30%;left:-3px;width:6px;height:6px;border-radius:50%;background:#a78bfa;box-shadow:0 0 10px rgba(167,139,250,.7)}
-
 /* planet */
-.lo-planet{
-  width:120px;height:120px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%, #1a3a6e, #020510 75%);
-  border:1px solid rgba(79,142,247,.3);
-  box-shadow:
-    0 0 30px rgba(79,142,247,.25),
-    0 0 60px rgba(79,142,247,.1),
-    inset 0 0 30px rgba(79,142,247,.08);
-  position:relative;z-index:2;
-  display:flex;align-items:center;justify-content:center;
-}
-/* planet surface lines */
-.lo-planet::before{
-  content:'';position:absolute;inset:8px;border-radius:50%;
-  border:1px solid rgba(79,142,247,.12);
-  animation:spin 6s linear infinite reverse;
-}
-/* ring */
-.lo-ring-outer{
-  position:absolute;width:170px;height:40px;top:50%;left:50%;
-  transform:translate(-50%,-50%) rotateX(72deg);
-  border-radius:50%;border:2px solid rgba(79,142,247,.22);
-  box-shadow:0 0 14px rgba(79,142,247,.2),inset 0 0 8px rgba(79,142,247,.1);
-  pointer-events:none;z-index:1;
-  animation:ringPulse 3s ease-in-out infinite;
-}
+.gate-planet-wrap{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:2.6rem;animation:fadeUp .8s .1s ease both}
+.gp-o1{position:absolute;inset:-30px;border-radius:50%;border:1px solid rgba(79,142,247,.18);animation:spin 9s linear infinite}
+.gp-o2{position:absolute;inset:-55px;border-radius:50%;border:1px dashed rgba(38,217,240,.1);animation:spin 15s linear infinite reverse}
+.gp-o3{position:absolute;inset:-82px;border-radius:50%;border:1px solid rgba(48,232,200,.07);animation:spin 22s linear infinite}
+.gp-o4{position:absolute;inset:-110px;border-radius:50%;border:1px dashed rgba(79,142,247,.05);animation:spin 30s linear infinite reverse}
+.gp-o1::before{content:'';position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;margin-left:-4px;background:var(--cyan);box-shadow:0 0 10px var(--glowc),0 0 22px var(--glowc)}
+.gp-o2::before{content:'';position:absolute;bottom:-4px;right:22%;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--glowb),0 0 22px var(--glowb)}
+.gp-o3::before{content:'';position:absolute;top:20%;right:-4px;width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px rgba(48,232,200,.7)}
+.gp-o4::before{content:'';position:absolute;bottom:30%;left:-3px;width:6px;height:6px;border-radius:50%;background:#a78bfa;box-shadow:0 0 10px rgba(167,139,250,.7)}
+.gate-planet{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#1a3a6e,#020510 75%);border:1px solid rgba(79,142,247,.3);box-shadow:0 0 30px rgba(79,142,247,.25),0 0 60px rgba(79,142,247,.1),inset 0 0 30px rgba(79,142,247,.08);position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
+.gate-planet::before{content:'';position:absolute;inset:8px;border-radius:50%;border:1px solid rgba(79,142,247,.12);animation:spin 6s linear infinite reverse}
+.gate-ring{position:absolute;width:170px;height:40px;top:50%;left:50%;transform:translate(-50%,-50%) rotateX(72deg);border-radius:50%;border:2px solid rgba(79,142,247,.22);box-shadow:0 0 14px rgba(79,142,247,.2),inset 0 0 8px rgba(79,142,247,.1);pointer-events:none;z-index:1;animation:ringPulse 3s ease-in-out infinite}
 @keyframes ringPulse{0%,100%{border-color:rgba(79,142,247,.22)}50%{border-color:rgba(38,217,240,.4)}}
+.gate-comet{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan),0 0 14px var(--cyan),-8px 0 6px rgba(38,217,240,.5),-20px 0 8px rgba(38,217,240,.3);animation:cometOrbit 5s linear infinite;transform-origin:0 0;top:50%;left:50%}
+@keyframes cometOrbit{from{transform:rotate(0deg) translate(90px,0)}to{transform:rotate(360deg) translate(90px,0)}}
 
-/* comet */
-.lo-comet{
-  position:absolute;width:3px;height:3px;border-radius:50%;
-  background:var(--cyan);
-  box-shadow:0 0 6px var(--cyan),0 0 14px var(--cyan),
-    -8px 0 6px rgba(38,217,240,.5),-20px 0 8px rgba(38,217,240,.3),-40px 0 0 transparent;
-  animation:cometOrbit 5s linear infinite;
-  transform-origin:0 0;
-  top:50%;left:50%;
-}
-@keyframes cometOrbit{
-  from{transform:rotate(0deg) translate(90px,0)}
-  to{transform:rotate(360deg) translate(90px,0)}
-}
+/* gate text */
+.gate-logo{font-family:var(--mono);font-size:2.8rem;font-weight:700;letter-spacing:-2px;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:.4rem;animation:fadeUp .8s .2s ease both;text-shadow:0 0 40px rgba(79,142,247,.3)}
+.gate-dot{color:var(--blue)}
+.gate-sub{font-family:var(--mono);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-bottom:2.2rem;animation:fadeUp .8s .3s ease both}
 
-/* logo text */
-.lo-logo{
-  font-family:var(--mono);font-size:2.8rem;font-weight:700;
-  letter-spacing:-2px;color:var(--text);
-  display:flex;align-items:center;gap:10px;
-  margin-bottom:.4rem;
-  animation:fadeUp .8s .2s ease both;
-  text-shadow:0 0 40px rgba(79,142,247,.3);
+/* THE CLICK BUTTON */
+.gate-btn-wrap{animation:fadeUp .8s .4s ease both;display:flex;flex-direction:column;align-items:center;gap:1rem}
+.gate-btn{
+  width:70px;height:70px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),#2563eb);
+  border:none;color:#fff;font-size:1.4rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:none;position:relative;
+  box-shadow:0 0 30px var(--glowb);
+  transition:transform .2s,box-shadow .2s;
 }
-.lo-dot{color:var(--blue)}
-.lo-sub{
-  font-family:var(--mono);font-size:.72rem;letter-spacing:3px;
-  text-transform:uppercase;color:var(--text2);
-  margin-bottom:2.4rem;
-  animation:fadeUp .8s .3s ease both;
-}
+.gate-btn:hover{transform:scale(1.1);box-shadow:0 0 50px var(--glowb)}
+.gate-btn::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(79,142,247,.3);animation:pring 2s ease-out infinite}
+.gate-btn::after{content:'';position:absolute;inset:-18px;border-radius:50%;border:2px solid rgba(79,142,247,.15);animation:pring 2s .4s ease-out infinite}
+@keyframes pring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+.gate-hint{font-family:var(--mono);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);animation:blinkHint 2s step-end infinite}
+@keyframes blinkHint{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* boot log */
-.lo-log{
-  font-family:var(--mono);font-size:.62rem;color:var(--muted);
-  letter-spacing:.5px;height:1.1rem;overflow:hidden;
-  margin-bottom:1.1rem;
-  animation:fadeUp .8s .35s ease both;
-  min-width:340px;text-align:center;
-}
-.lo-log-line{transition:opacity .3s}
-
-/* progress bar */
-.lo-bar-wrap{
-  width:340px;height:3px;
-  background:rgba(79,142,247,.1);border-radius:3px;overflow:visible;
-  position:relative;margin-bottom:1.2rem;
-  animation:fadeUp .8s .4s ease both;
-}
-.lo-bar{
-  height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--teal));
-  border-radius:3px;
-  transition:width .18s linear;
-  position:relative;
-}
-.lo-bar::after{
-  content:'';position:absolute;right:-1px;top:50%;
-  width:8px;height:8px;border-radius:50%;
-  background:var(--cyan);
-  box-shadow:0 0 10px var(--glowc),0 0 20px var(--glowc);
-  transform:translateY(-50%);
-}
-/* shimmer on bar */
-.lo-bar::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);
-  background-size:200% 100%;
-  animation:barShimmer 1.4s ease-in-out infinite;
-  border-radius:3px;
-}
-@keyframes barShimmer{from{background-position:200% 0}to{background-position:-200% 0}}
-
-.lo-pct{
-  font-family:var(--mono);font-size:.6rem;letter-spacing:2px;
-  color:var(--cyan);text-align:center;
-  animation:fadeUp .8s .45s ease both;
-}
-
-/* audio hidden */
-#lo-audio,#main-audio{display:none}
-
-/* easter egg dot */
-.lo-egg{
-  position:absolute;bottom:28px;left:28px;
-  width:6px;height:6px;border-radius:50%;
-  background:rgba(79,142,247,.2);
-  cursor:none;
-  animation:eggPulse 2.8s ease-in-out infinite;
-  transition:background .3s;
-}
-.lo-egg:hover{background:rgba(79,142,247,.6)}
-@keyframes eggPulse{0%,100%{transform:scale(1);opacity:.3}50%{transform:scale(1.5);opacity:.7}}
-.lo-egg-msg{
-  position:absolute;bottom:38px;left:0;
-  font-family:var(--mono);font-size:.55rem;letter-spacing:1.5px;
-  color:var(--cyan);background:rgba(6,13,28,.92);
-  border:1px solid var(--border2);border-radius:6px;
-  padding:.3rem .6rem;white-space:nowrap;
-  opacity:0;pointer-events:none;transition:opacity .3s;
-}
+/* easter egg */
+.lo-egg{position:absolute;bottom:28px;left:28px;width:6px;height:6px;border-radius:50%;background:rgba(79,142,247,.2);cursor:none;animation:eggPulse 2.8s ease-in-out infinite;transition:background .3s}
+@keyframes eggPulse{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.7;transform:scale(1.5)}}
+.lo-egg-msg{position:absolute;bottom:18px;left:14px;font-family:var(--mono);font-size:.55rem;letter-spacing:1.5px;color:var(--cyan);background:rgba(6,13,28,.92);border:1px solid var(--border2);border-radius:6px;padding:.3rem .6rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .3s}
 .lo-egg.show .lo-egg-msg{opacity:1}
 
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* ====================================================
-   TRANSITION OVERLAY
-==================================================== */
+/* =================== LOADER ==================== */
+#loader{
+  position:fixed;inset:0;z-index:8500;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s ease, transform .9s cubic-bezier(.76,0,.24,1);
+}
+#loader.active{opacity:1;pointer-events:all}
+#loader.exit{opacity:0;transform:scale(.96);pointer-events:none}
+#loader::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 20% 60%,rgba(79,142,247,.07) 0%,transparent 70%),radial-gradient(ellipse 500px 350px at 80% 30%,rgba(38,217,240,.06) 0%,transparent 70%);pointer-events:none}
+
+/* loader planet (reuses gate planet classes) */
+.lo-planet-wrap{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:2.6rem}
+.lo-o1{position:absolute;inset:-30px;border-radius:50%;border:1px solid rgba(79,142,247,.18);animation:spin 9s linear infinite}
+.lo-o2{position:absolute;inset:-55px;border-radius:50%;border:1px dashed rgba(38,217,240,.1);animation:spin 15s linear infinite reverse}
+.lo-o3{position:absolute;inset:-82px;border-radius:50%;border:1px solid rgba(48,232,200,.07);animation:spin 22s linear infinite}
+.lo-o4{position:absolute;inset:-110px;border-radius:50%;border:1px dashed rgba(79,142,247,.05);animation:spin 30s linear infinite reverse}
+.lo-o1::before{content:'';position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;margin-left:-4px;background:var(--cyan);box-shadow:0 0 10px var(--glowc),0 0 22px var(--glowc)}
+.lo-o2::before{content:'';position:absolute;bottom:-4px;right:22%;width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--glowb),0 0 22px var(--glowb)}
+.lo-o3::before{content:'';position:absolute;top:20%;right:-4px;width:5px;height:5px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px rgba(48,232,200,.7)}
+.lo-o4::before{content:'';position:absolute;bottom:30%;left:-3px;width:6px;height:6px;border-radius:50%;background:#a78bfa;box-shadow:0 0 10px rgba(167,139,250,.7)}
+.lo-planet{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#1a3a6e,#020510 75%);border:1px solid rgba(79,142,247,.3);box-shadow:0 0 30px rgba(79,142,247,.25),0 0 60px rgba(79,142,247,.1),inset 0 0 30px rgba(79,142,247,.08);position:relative;z-index:2;display:flex;align-items:center;justify-content:center}
+.lo-planet::before{content:'';position:absolute;inset:8px;border-radius:50%;border:1px solid rgba(79,142,247,.12);animation:spin 6s linear infinite reverse}
+.lo-ring{position:absolute;width:170px;height:40px;top:50%;left:50%;transform:translate(-50%,-50%) rotateX(72deg);border-radius:50%;border:2px solid rgba(79,142,247,.22);pointer-events:none;z-index:1;animation:ringPulse 3s ease-in-out infinite}
+.lo-comet{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan),0 0 14px var(--cyan),-8px 0 6px rgba(38,217,240,.5),-20px 0 8px rgba(38,217,240,.3);animation:cometOrbit 5s linear infinite;transform-origin:0 0;top:50%;left:50%}
+.lo-logo{font-family:var(--mono);font-size:2.8rem;font-weight:700;letter-spacing:-2px;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:.4rem;text-shadow:0 0 40px rgba(79,142,247,.3)}
+.lo-dot{color:var(--blue)}
+.lo-sub{font-family:var(--mono);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-bottom:1.6rem}
+.lo-log{font-family:var(--mono);font-size:.62rem;color:var(--muted);letter-spacing:.5px;height:1.2rem;overflow:hidden;margin-bottom:1rem;min-width:340px;text-align:center;transition:opacity .3s}
+.lo-bar-wrap{width:340px;height:3px;background:rgba(79,142,247,.1);border-radius:3px;overflow:visible;position:relative;margin-bottom:1.2rem}
+.lo-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--teal));border-radius:3px;position:relative;transition:none}
+.lo-bar::after{content:'';position:absolute;right:-1px;top:50%;width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--glowc),0 0 20px var(--glowc);transform:translateY(-50%)}
+.lo-bar::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.35) 50%,transparent 100%);background-size:200% 100%;animation:barShimmer 1.4s ease-in-out infinite;border-radius:3px}
+@keyframes barShimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+.lo-pct{font-family:var(--mono);font-size:.6rem;letter-spacing:2px;color:var(--cyan);text-align:center}
+
+/* ==================== TOV ===================== */
 #tov{position:fixed;inset:0;z-index:7500;background:var(--bg);clip-path:inset(0 0 100% 0);pointer-events:none;display:flex;align-items:center;justify-content:center}
 #tov.go{clip-path:inset(0 0 0% 0);transition:clip-path .5s cubic-bezier(.76,0,.24,1);pointer-events:all}
 #tov.bye{clip-path:inset(100% 0 0 0);transition:clip-path .5s cubic-bezier(.76,0,.24,1) .05s;pointer-events:none}
@@ -216,19 +137,7 @@ strong{font-weight:700;color:var(--text)}
 @keyframes tglow{from{box-shadow:0 0 10px var(--glowc)}to{box-shadow:0 0 28px var(--glowc)}}
 .tov-txt{font-family:var(--mono);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan)}
 
-/* ====================================================
-   CURSOR & GLOBAL
-==================================================== */
-#cur{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;will-change:transform;filter:drop-shadow(0 0 7px rgba(79,142,247,.9)) drop-shadow(0 0 16px rgba(79,142,247,.45));transition:filter .2s}
-#trail-cv{position:fixed;inset:0;pointer-events:none;z-index:9996}
-body.on-link #cur{filter:drop-shadow(0 0 9px rgba(38,217,240,1)) drop-shadow(0 0 22px rgba(38,217,240,.6))}
-#bgcv{position:fixed;inset:0;z-index:0;pointer-events:none}
-body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");background-size:250px;animation:grain 8s steps(10) infinite}
-@keyframes grain{0%{transform:translate(0,0)}10%{transform:translate(-3%,-4%)}20%{transform:translate(-5%,3%)}30%{transform:translate(4%,-1%)}40%{transform:translate(-1%,6%)}50%{transform:translate(-4%,2%)}60%{transform:translate(5%,-3%)}70%{transform:translate(-3%,5%)}80%{transform:translate(2%,-5%)}90%{transform:translate(-4%,-2%)}100%{transform:translate(0,0)}}
-
-/* ====================================================
-   NAV
-==================================================== */
+/* ==================== PAGE ==================== */
 #page{position:relative;z-index:2}
 nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 7%;background:rgba(2,5,16,.78);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
 .nav-brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:1rem;color:var(--text);letter-spacing:-.5px}
@@ -242,10 +151,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:cen
 .nav-cta{font-family:var(--mono)!important;font-size:.65rem!important;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--bg)!important;background:var(--cyan);padding:.5rem 1.3rem;border-radius:7px;transition:box-shadow .25s,transform .2s!important}
 .nav-cta:hover{box-shadow:0 0 22px var(--glowc);transform:translateY(-2px)!important}
 .nav-cta::after{display:none!important}
-
-/* ====================================================
-   HERO
-==================================================== */
 .hero{min-height:100vh;display:flex;align-items:center;padding:130px 7% 90px;gap:70px;position:relative}
 .hero-left{flex:1.3;max-width:640px}
 .hero-right{flex:1;display:flex;justify-content:flex-end;align-items:center}
@@ -253,7 +158,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:cen
 .t-pfx{color:var(--text2)}
 .t-blink{display:inline-block;width:6px;height:13px;background:var(--teal);margin-left:1px;animation:blink 1.1s step-end infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.hero h1{font-family:var(--body);font-size:clamp(3.2rem,5.8vw,5.6rem);font-weight:900;line-height:1;letter-spacing:-3px;margin-bottom:1.4rem}
+.hero h1{font-family:var(--body);font-size:clamp(3.2rem,5.8vw,5.6rem);font-weight:900;line-height:1;letter-spacing:-3px;margin-bottom:.6rem}
 .h1a{display:block;color:var(--text)}
 .h1b{display:block;background:linear-gradient(95deg,var(--blue),var(--cyan) 55%,var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:220%;animation:sh 5s linear infinite}
 @keyframes sh{0%{background-position:0%}100%{background-position:220%}}
@@ -273,8 +178,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:cen
 .btn-sec{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;border:1.5px solid var(--border2);color:var(--text2);padding:.88rem 2.2rem;border-radius:10px;display:inline-flex;align-items:center;gap:10px;transition:color .25s,border-color .25s,transform .25s}
 .btn-sec:hover{color:var(--cyan);border-color:var(--cyan);transform:translateY(-4px)}
 .ic{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-
-/* avatar */
 .av-wrap{position:relative;width:320px;height:320px}
 .av-r1{position:absolute;inset:-14px;border-radius:32px;border:1px solid var(--border2);animation:spin 14s linear infinite}
 .av-r2{position:absolute;inset:-26px;border-radius:44px;border:1px solid rgba(79,142,247,.05);animation:spin 20s linear infinite reverse}
@@ -291,21 +194,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:cen
 .av-badge{position:absolute;z-index:4;background:rgba(6,13,28,.92);border:1px solid var(--border);border-radius:10px;padding:.5rem .8rem;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.6rem;color:var(--text2);backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(0,0,0,.4);animation:float 3s ease-in-out infinite}
 .av-badge.left{bottom:30px;left:-60px;animation-delay:.5s}
 .av-badge.top{top:20px;right:-50px}
-.av-badge.loc{top:50%;right:-80px;transform:translateY(-50%);animation-delay:1s}
+.av-badge.loc{top:50%;right:-90px;animation:floatLoc 3s 1s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes floatLoc{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 7px))}}
 .av-badge .bdot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--glowc)}
 .av-badge .bdot-red{width:7px;height:7px;border-radius:50%;background:#f87171;box-shadow:0 0 8px rgba(248,113,113,.6)}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.av-badge.loc{animation:floatLoc 3s 1s ease-in-out infinite}
-@keyframes floatLoc{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 7px))}}
-
 .scroll-cue{position:absolute;bottom:30px;left:7%;display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
 .sc-line{width:36px;height:1px;background:var(--muted);position:relative;overflow:hidden}
 .sc-line::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--cyan);animation:slide 2.4s ease-in-out infinite}
 @keyframes slide{0%{left:-100%}50%{left:100%}100%{left:100%}}
-
-/* ====================================================
-   SECTIONS
-==================================================== */
 section{padding:100px 7%;position:relative}
 .sec-ey{display:flex;align-items:center;gap:12px;margin-bottom:.7rem}
 .sec-ey-line{width:26px;height:1.5px;background:var(--blue);border-radius:2px}
@@ -315,8 +212,6 @@ section{padding:100px 7%;position:relative}
 .rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .rv.on{opacity:1;transform:none}
 .divl{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-
-/* projects */
 #projects{background:var(--bg)}
 .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
 .proj-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.8rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:border-color .3s,transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s;position:relative;overflow:hidden}
@@ -340,8 +235,6 @@ section{padding:100px 7%;position:relative}
 .btn-gh svg,.btn-visit svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .skel{background:linear-gradient(90deg,var(--card) 25%,var(--card2) 50%,var(--card) 75%);background-size:200% 100%;animation:skelsh 1.5s infinite;border-radius:20px}
 @keyframes skelsh{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-/* collabs */
 #collabs{background:var(--bg2)}
 #collabs::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 100% 50%,rgba(48,232,200,.04) 0%,transparent 55%)}
 .collab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
@@ -364,8 +257,6 @@ section{padding:100px 7%;position:relative}
 .btn-co{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);transition:color .2s}
 .btn-co:hover{color:var(--text)}
 .btn-cv svg,.btn-co svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-
-/* stack */
 #stack{background:var(--bg)}
 .stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}
 .stack-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.6rem 1rem;display:flex;flex-direction:column;align-items:center;gap:.75rem;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s;cursor:default;position:relative;overflow:hidden}
@@ -376,8 +267,6 @@ section{padding:100px 7%;position:relative}
 .stack-card:hover .stack-ico{transform:scale(1.18) rotate(-3deg)}
 .stack-ico svg{width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .stack-lbl{font-size:.82rem;font-weight:700;color:var(--text);text-align:center;letter-spacing:-.1px}
-
-/* contact */
 #contact{background:var(--bg2);display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
 #contact::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 0% 50%,rgba(79,142,247,.04) 0%,transparent 55%)}
 .contact-copy{font-size:.97rem;color:var(--text2);line-height:1.85;max-width:380px;margin-bottom:2rem}
@@ -397,8 +286,6 @@ section{padding:100px 7%;position:relative}
 .f-submit{font-family:var(--mono);font-size:.73rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,var(--blue),#2563eb);color:#fff;border-radius:10px;padding:.9rem 2rem;border:none;display:inline-flex;align-items:center;gap:9px;align-self:flex-start;transition:transform .25s,box-shadow .3s;box-shadow:0 4px 18px rgba(79,142,247,.3)}
 .f-submit:hover{transform:translateY(-3px);box-shadow:0 14px 32px var(--glowb)}
 .f-submit svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-
-/* footer */
 footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;position:relative;z-index:2;background:var(--bg)}
 .ft-brand{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.85rem;font-weight:700;color:var(--text2)}
 .ft-brand svg{width:22px;height:22px}
@@ -407,39 +294,66 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 .ft-links{display:flex;gap:1.4rem}
 .ft-links a{font-family:var(--mono);font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .ft-links a:hover{color:var(--text)}
-
+#audio-toggle{position:fixed;bottom:24px;right:24px;z-index:700;width:38px;height:38px;border-radius:50%;background:rgba(8,15,32,.85);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:none;transition:border-color .2s,box-shadow .2s;backdrop-filter:blur(10px)}
+#audio-toggle:hover{border-color:var(--cyan);box-shadow:0 0 14px var(--glowc)}
+#audio-toggle svg{width:16px;height:16px;stroke:var(--text2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+#audio-toggle:hover svg{stroke:var(--cyan)}
 @media(max-width:1024px){.hero{flex-direction:column-reverse;text-align:center;gap:50px;padding-top:110px}.hero-bio{margin:0 auto 2.4rem}.hero-pills{justify-content:center}.hero-cta{justify-content:center}.hero-right{justify-content:center}#contact{grid-template-columns:1fr}.f-row{grid-template-columns:1fr}.av-badge{display:none}}
 @media(max-width:700px){nav{padding:1rem 5%}section{padding:65px 5%}.hero{padding:100px 5% 60px}.av-wrap{width:260px;height:260px}.nav-links{gap:1.4rem}.nav-cta{display:none}.stack-grid{grid-template-columns:repeat(auto-fill,minmax(108px,1fr))}.proj-grid,.collab-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- ====================================================
-     EPIC LOADING SCREEN
-==================================================== -->
-<div id="launch">
-  <!-- star field (JS-generated) -->
-  <div id="launch-stars"></div>
+<!-- ========== AUDIO ========== -->
+<audio id="lo-audio" src="loading.mp3" loop preload="auto"></audio>
+<audio id="main-audio" src="main.mp3" loop preload="auto"></audio>
 
-  <!-- planet system -->
+<!-- ========== ENTRY GATE (forces user gesture for audio) ========== -->
+<div id="gate">
+  <div id="gate-stars"></div>
+  <div class="gate-planet-wrap">
+    <div class="gp-o1"></div><div class="gp-o2"></div>
+    <div class="gp-o3"></div><div class="gp-o4"></div>
+    <div class="gate-ring"></div>
+    <div class="gate-planet">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="rgba(79,142,247,0.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+      </svg>
+    </div>
+    <div class="gate-comet"></div>
+  </div>
+  <div class="gate-logo">
+    <svg width="38" height="38" viewBox="0 0 36 36" fill="none">
+      <rect width="36" height="36" rx="9" fill="#4f8ef7" fill-opacity=".13"/>
+      <rect width="36" height="36" rx="9" stroke="#4f8ef7" stroke-width="1.5" fill="none"/>
+      <path d="M10 13L6 18L10 23M26 13L30 18L26 23M16 26L20 10" stroke="#4f8ef7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10 13L6 18L10 23M26 13L30 18L26 23M16 26L20 10" stroke="#26d9f0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 28" stroke-dashoffset="-10"/>
+    </svg>
+    GAB<span class="gate-dot">.</span>DEV
+  </div>
+  <div class="gate-sub">Joshua Gabriel De Leon</div>
+  <div class="gate-btn-wrap">
+    <button class="gate-btn" id="gate-btn">&#9654;</button>
+    <div class="gate-hint">Click to Enter</div>
+  </div>
+  <div class="lo-egg" id="lo-egg">
+    <div class="lo-egg-msg">&#x2191;&#x2191;&#x2193;&#x2193;&#x2190;&#x2192;&#x2190;&#x2192;BA &#x1F95A;</div>
+  </div>
+</div>
+
+<!-- ========== LOADER (shown after gate click) ========== -->
+<div id="loader">
   <div class="lo-planet-wrap">
-    <div class="lo-orbit-a"></div>
-    <div class="lo-orbit-b"></div>
-    <div class="lo-orbit-c"></div>
-    <div class="lo-orbit-d"></div>
-    <div class="lo-ring-outer"></div>
+    <div class="lo-o1"></div><div class="lo-o2"></div>
+    <div class="lo-o3"></div><div class="lo-o4"></div>
+    <div class="lo-ring"></div>
     <div class="lo-planet">
-      <!-- SVG code icon inside planet -->
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(79,142,247,0.6)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M10 13L6 18L10 23M26 13L30 18L26 23M16 26L20 10" transform="scale(0.7) translate(3,1)"/>
-        <polyline points="16 18 22 12 16 6" opacity="0.7"/>
-        <polyline points="8 6 2 12 8 18" opacity="0.7"/>
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="rgba(79,142,247,0.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
       </svg>
     </div>
     <div class="lo-comet"></div>
   </div>
-
-  <!-- text -->
   <div class="lo-logo">
     <svg width="38" height="38" viewBox="0 0 36 36" fill="none">
       <rect width="36" height="36" rx="9" fill="#4f8ef7" fill-opacity=".13"/>
@@ -450,27 +364,12 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
     GAB<span class="lo-dot">.</span>DEV
   </div>
   <div class="lo-sub">Joshua Gabriel De Leon</div>
-
-  <!-- boot log -->
-  <div class="lo-log"><span id="lo-log-txt" class="lo-log-line">Initializing environment...</span></div>
-
-  <!-- progress bar -->
-  <div class="lo-bar-wrap">
-    <div class="lo-bar" id="lo-bar"></div>
-  </div>
+  <div class="lo-log"><span id="lo-log-txt">Initializing environment...</span></div>
+  <div class="lo-bar-wrap"><div class="lo-bar" id="lo-bar"></div></div>
   <div class="lo-pct" id="lo-pct">0%</div>
-
-  <!-- audio -->
-  <audio id="lo-audio" src="loading.mp3" loop></audio>
-  <audio id="main-audio" src="main.mp3" loop></audio>
-
-  <!-- easter egg -->
-  <div class="lo-egg" id="lo-egg">
-    <div class="lo-egg-msg">↑↑↓↓←→←→BA — try it 🥚</div>
-  </div>
 </div>
 
-<!-- transition overlay -->
+<!-- ========== TOV ========== -->
 <div id="tov">
   <div id="tov-lbl">
     <div class="tov-box">&#128279;</div>
@@ -478,7 +377,7 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   </div>
 </div>
 
-<!-- cursor -->
+<!-- ========== CURSOR ========== -->
 <div id="cur">
   <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
     <path d="M2 2L20 13L12 15.5L8.5 24L2 2Z" fill="#4f8ef7" stroke="#93c5fd" stroke-width="1.2" stroke-linejoin="round"/>
@@ -487,7 +386,7 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 <canvas id="trail-cv"></canvas>
 <canvas id="bgcv"></canvas>
 
-<!-- main page -->
+<!-- ========== MAIN PAGE ========== -->
 <div id="page">
 <nav>
   <a href="#" class="nav-brand">
@@ -514,11 +413,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
       <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       <span>Caloocan City, Philippines</span>
     </div>
-    <div class="hero-location">
-      <span class="loc-dot"></span>
-      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      <span>Caloocan City, Philippines</span>
-    </div>
     <div class="hero-pills"><span class="pill">Dev</span><span class="pill">ICT</span><span class="pill">Backend</span><span class="pill">Cross-Platform</span><span class="pill">Systems</span></div>
     <div class="hero-bio">Proficient in <strong>Java</strong>, <strong>VB</strong>, and <strong>.NET MAUI</strong> for building modern cross-platform apps. Expert in high-performance database management with <strong>PostgreSQL</strong> and <strong>SQL Server</strong>. Background in <strong>PAWN</strong> scripting and server-side architecture — bridging clean logic with polished UI design.</div>
     <div class="hero-cta">
@@ -537,7 +431,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
       <div class="ck ck-tl"></div><div class="ck ck-tr"></div><div class="ck ck-bl"></div><div class="ck ck-br"></div>
       <div class="av-badge top"><span class="bdot"></span><span>Available for work</span></div>
       <div class="av-badge left"><span class="bdot" style="background:var(--blue);box-shadow:0 0 8px var(--glowb)"></span><span>Backend Dev</span></div>
-      <!-- LOCATION BADGE -->
       <div class="av-badge loc">
         <span class="bdot-red"></span>
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -576,12 +469,9 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
     <h2 class="sec-title" style="margin-bottom:1.1rem">Let's <em>Build</em><br>Something.</h2>
     <p class="contact-copy">Open for team projects, collaborations, and new opportunities. Got an idea? Let's make it real.</p>
     <div class="contact-items">
-      <div class="c-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="/cdn-cgi/l/email-protection#9ae9fbf7f5f4fdeffedafdf7fbf3f6b4f9f5f7"><span class="__cf_email__" data-cfemail="82f1e3efedece5f7e6c2e5efe3ebeeace1edef">[email&#160;protected]</span></a></div>
+      <div class="c-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:samongud@gmail.com">samongud@gmail.com</a></div>
       <div class="c-item"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><a href="https://github.com/AstroNutws" target="_blank">github.com/AstroNutws</a></div>
-      <div class="c-item">
-        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span>Caloocan City, Philippines</span>
-      </div>
+      <div class="c-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Caloocan City, Philippines</span></div>
     </div>
   </div>
   <div class="rv">
@@ -600,193 +490,154 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 <footer>
   <div class="ft-brand"><svg viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="9" fill="#4f8ef7" fill-opacity=".1"/><path d="M10 13L6 18L10 23M26 13L30 18L26 23M16 26L20 10" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>GAB<span class="ft-dot">.</span>DEV</div>
   <span class="ft-copy">Handcrafted by VSOURCE Group 2026</span>
-  <div class="ft-links"><a href="https://github.com/AstroNutws" target="_blank">GitHub</a><a href="/cdn-cgi/l/email-protection#87f4e6eae8e9e0f2e3c7e0eae6eeeba9e4e8ea">Email</a></div>
+  <div class="ft-links"><a href="https://github.com/AstroNutws" target="_blank">GitHub</a><a href="mailto:samongud@gmail.com">Email</a></div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ====================================================
-   LOADING SCREEN — FULLY AUTO, NO GATE, NO CLICK
-   Bar starts immediately on page load (visual).
-   Audio starts the instant the mouse enters the page
-   (mousemove = valid user gesture for browsers).
-   On mobile, the first touchstart unlocks audio.
-==================================================== */
-(function(){
+<!-- mute/unmute button -->
+<button id="audio-toggle" title="Toggle music">
+  <svg id="audio-icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+</button>
 
-  /* ── Star field ───────────────────────────────── */
-  var stars=document.getElementById('launch-stars');
+<script>
+/* =======================================================
+   GATE → LOADER → PAGE
+   The gate shows first. Clicking the button IS a real
+   user gesture so the browser allows audio.play().
+   After click: loading.mp3 starts, 4-sec bar runs,
+   then main.mp3 fades in and loops forever.
+======================================================= */
+
+/* ── Star field on gate ─────────────────────────── */
+(function(){
+  var c=document.getElementById('gate-stars');
   for(var i=0;i<120;i++){
     var s=document.createElement('div');
     s.className='lstar';
     var sz=Math.random()<.85?1:Math.random()<.7?2:3;
-    s.style.cssText=[
-      'width:'+sz+'px','height:'+sz+'px',
-      'left:'+(Math.random()*100)+'%',
-      'top:'+(Math.random()*100)+'%',
-      '--d:'+(2+Math.random()*4)+'s',
-      '--del:'+(Math.random()*4)+'s',
-      '--oa:'+(0.05+Math.random()*.2),
-      '--ob:'+(0.3+Math.random()*.7)
-    ].join(';');
-    stars.appendChild(s);
+    s.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(Math.random()*100)+'%;top:'+(Math.random()*100)+'%;--d:'+(2+Math.random()*4)+'s;--del:'+(Math.random()*4)+'s;--oa:'+(0.05+Math.random()*.2)+';--ob:'+(0.3+Math.random()*.7);
+    c.appendChild(s);
   }
+})();
 
-  /* ── Refs ─────────────────────────────────────── */
-  var bar       = document.getElementById('lo-bar');
-  var pct       = document.getElementById('lo-pct');
-  var logEl     = document.getElementById('lo-log-txt');
-  var launch    = document.getElementById('launch');
-  var egg       = document.getElementById('lo-egg');
-  var loAudio   = document.getElementById('lo-audio');
-  var mainAudio = document.getElementById('main-audio');
+/* ── Audio refs ──────────────────────────────────── */
+var loAudio   = document.getElementById('lo-audio');
+var mainAudio = document.getElementById('main-audio');
+var muted     = false;
 
-  var logs=[
-    'Initializing environment...',
-    'Loading project registry...',
-    'Connecting to GitHub API...',
-    'Mounting portfolio assets...',
-    'Compiling skill modules...',
-    'Resolving dependencies...',
-    'Building component tree...',
-    'Warming up the engines...',
-    'Almost there — hold tight...',
-    'Launch sequence complete ✓'
-  ];
+function fadeOut(el,ms){
+  if(!el||el.paused) return;
+  var steps=20,vol=el.volume,step=vol/steps,iv=ms/steps;
+  var t=setInterval(function(){vol-=step;if(vol<=0){el.volume=0;el.pause();clearInterval(t);}else{try{el.volume=vol;}catch(e){}}},iv);
+}
+function fadeIn(el,target,ms){
+  if(!el) return;
+  el.volume=0;
+  var p=el.play(); if(p&&p.catch) p.catch(function(){});
+  var steps=40,step=target/steps,cur=0,iv=ms/steps;
+  var t=setInterval(function(){cur+=step;if(cur>=target){try{el.volume=muted?0:target;}catch(e){}clearInterval(t);}else{try{el.volume=muted?0:cur;}catch(e){}}},iv);
+}
 
-  /* ── Audio ─────────────────────────────────────── */
-  function tryPlay(el,vol){
-    if(!el) return;
-    el.volume=typeof vol==='number'?vol:0.5;
-    var p=el.play(); if(p&&p.catch) p.catch(function(){});
-  }
-  function tryStop(el){
-    if(!el) return; el.pause(); el.currentTime=0;
-  }
-  function fadeOut(el,ms){
-    if(!el||el.paused) return;
-    var steps=20,vol=el.volume,step=vol/steps,iv=ms/steps;
-    var t=setInterval(function(){
-      vol-=step;
-      if(vol<=0){el.volume=0;tryStop(el);clearInterval(t);}
-      else{try{el.volume=vol;}catch(e){}}
-    },iv);
-  }
-  function fadeIn(el,target,ms){
-    if(!el) return;
-    el.volume=0; tryPlay(el,0);
-    var steps=40,step=target/steps,cur=0,iv=ms/steps;
-    var t=setInterval(function(){
-      cur+=step;
-      if(cur>=target){try{el.volume=target;}catch(e){}clearInterval(t);}
-      else{try{el.volume=cur;}catch(e){}}
-    },iv);
-  }
+/* ── Gate button click — THE user gesture ────────── */
+document.getElementById('gate-btn').addEventListener('click', function(){
+  var gate   = document.getElementById('gate');
+  var loader = document.getElementById('loader');
 
-  var audioUnlocked=false;
-  function unlockAudio(){
-    if(audioUnlocked) return;
-    audioUnlocked=true;
-    tryPlay(loAudio,0.6);
-  }
+  /* 1. Play loading.mp3 RIGHT NOW inside click handler */
+  loAudio.volume = 0.6;
+  var p = loAudio.play();
+  if(p && p.catch) p.catch(function(){});
 
-  /* ── Progress bar: exactly 4000ms ─────────────── */
+  /* 2. Swap gate → loader */
+  gate.classList.add('exit');
+  setTimeout(function(){ gate.style.display='none'; },850);
+  loader.classList.add('active');
+
+  /* 3. Run 4-second progress bar */
+  var bar=document.getElementById('lo-bar');
+  var pct=document.getElementById('lo-pct');
+  var logEl=document.getElementById('lo-log-txt');
+  var logs=['Initializing environment...','Loading project registry...','Connecting to GitHub API...','Mounting portfolio assets...','Compiling skill modules...','Resolving dependencies...','Building component tree...','Warming up the engines...','Almost there — hold tight...','Launch sequence complete ✓'];
   var TOTAL=4000,t0=null,logIdx=0;
 
-  function updateLog(p){
-    var idx=Math.min(Math.floor(p/10),logs.length-1);
-    if(idx!==logIdx){
-      logIdx=idx;
-      logEl.style.opacity='0';
-      setTimeout(function(){logEl.textContent=logs[logIdx];logEl.style.opacity='1';},120);
-    }
+  function updateLog(progress){
+    var idx=Math.min(Math.floor(progress/10),logs.length-1);
+    if(idx!==logIdx){logIdx=idx;logEl.style.opacity='0';setTimeout(function(){logEl.textContent=logs[logIdx];logEl.style.opacity='1';},120);}
   }
 
   function tick(now){
     if(!t0) t0=now;
-    var p=Math.min(((now-t0)/TOTAL)*100,100);
-    bar.style.width=p.toFixed(1)+'%';
-    pct.textContent=Math.floor(p)+'%';
-    updateLog(p);
-    p<100 ? requestAnimationFrame(tick) : setTimeout(doLaunch,300);
+    var progress=Math.min(((now-t0)/TOTAL)*100,100);
+    bar.style.width=progress.toFixed(1)+'%';
+    pct.textContent=Math.floor(progress)+'%';
+    updateLog(progress);
+    if(progress<100){requestAnimationFrame(tick);}
+    else{setTimeout(doLaunch,300);}
   }
-
-  function doLaunch(){
-    fadeOut(loAudio,800);
-    setTimeout(function(){ fadeIn(mainAudio,0.5,2500); },400);
-    setTimeout(function(){
-      launch.classList.add('exit');
-      setTimeout(function(){ launch.style.display='none'; startPage(); },900);
-    },200);
-  }
-
-  /* Bar starts immediately — no waiting */
   requestAnimationFrame(tick);
 
-  /* Audio unlocks on first ANY gesture — mousemove is
-     enough on desktop (no click required).
-     On mobile touchstart fires before any tap delay.   */
-  ['mousemove','pointerover','touchstart','touchend','click','keydown'].forEach(function(ev){
-    document.addEventListener(ev, unlockAudio, {once:true, passive:true});
-  });
+  function doLaunch(){
+    /* Crossfade: loading out, main in */
+    fadeOut(loAudio,800);
+    setTimeout(function(){
+      mainAudio.loop=true;
+      fadeIn(mainAudio,0.5,2500);
+    },400);
+    /* Hide loader, show page */
+    loader.classList.add('exit');
+    setTimeout(function(){
+      loader.style.display='none';
+      startPage();
+    },900);
+  }
+});
 
-  /* ── Easter egg ──────────────────────────────── */
-  egg.addEventListener('click',function(){egg.classList.toggle('show');});
-  var kseq=[38,38,40,40,37,39,37,39,66,65],kpos=0;
-  document.addEventListener('keydown',function(e){
-    unlockAudio();
-    if(e.keyCode===kseq[kpos]){kpos++;if(kpos===kseq.length){kpos=0;egg.classList.add('show');}}
-    else{kpos=0;}
-  });
+/* ── Mute toggle button ──────────────────────────── */
+document.getElementById('audio-toggle').addEventListener('click',function(){
+  muted=!muted;
+  var icon=document.getElementById('audio-icon');
+  if(muted){
+    loAudio.volume=0; mainAudio.volume=0;
+    icon.innerHTML='<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+  } else {
+    if(!loAudio.paused) loAudio.volume=0.6;
+    if(!mainAudio.paused) mainAudio.volume=0.5;
+    icon.innerHTML='<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>';
+  }
+});
 
-})();
+/* ── Easter egg ──────────────────────────────────── */
+var egg=document.getElementById('lo-egg');
+egg.addEventListener('click',function(){egg.classList.toggle('show');});
+var kseq=[38,38,40,40,37,39,37,39,66,65],kpos=0;
+document.addEventListener('keydown',function(e){
+  if(e.keyCode===kseq[kpos]){kpos++;if(kpos===kseq.length){kpos=0;egg.classList.add('show');}}else{kpos=0;}
+});
 
-/* ====================================================
-   REPO CONFIG
-==================================================== */
-var GH_USER   = 'AstroNutws';
-var GH_REPO   = 'Gab.Dev';
-var GH_BRANCH = 'main';
-
-function rawUrl(file){
-  return 'https://raw.githubusercontent.com/'+GH_USER+'/'+GH_REPO+'/'+GH_BRANCH+'/'+file+'?t='+Date.now();
-}
-function fetchMd(file){
-  return fetch(rawUrl(file)).then(function(r){
-    if(!r.ok) throw new Error(file+' not found');
-    return r.text();
-  });
-}
-function parseLines(text){
-  return text.split('\n').map(function(l){return l.trim();}).filter(function(l){
-    return l.length>0 && !l.startsWith('#') && !l.startsWith('<!--') && !l.startsWith('```') && !l.startsWith('---') && l!=='*' && l!=='-';
-  });
-}
-
-/* ====================================================
+/* =====================================================
    CURSOR & TRAIL
-==================================================== */
-var mx=innerWidth/2, my=innerHeight/2;
+===================================================== */
+var mx=innerWidth/2,my=innerHeight/2;
 var curEl=document.getElementById('cur'),trailCv=document.getElementById('trail-cv'),tc=trailCv.getContext('2d');
 var trail=[],TN=14;
 function rsT(){trailCv.width=innerWidth;trailCv.height=innerHeight;}
 rsT(); window.addEventListener('resize',rsT);
 document.addEventListener('mousemove',function(e){
-  mx=e.clientX; my=e.clientY;
+  mx=e.clientX;my=e.clientY;
   curEl.style.transform='translate('+mx+'px,'+my+'px)';
   trail.unshift({x:mx,y:my,age:0});
-  if(trail.length>TN) trail.length=TN;
+  if(trail.length>TN)trail.length=TN;
 });
 function hookLinks(){
-  document.querySelectorAll('a,button,.lo-egg').forEach(function(el){
+  document.querySelectorAll('a,button').forEach(function(el){
     el.addEventListener('mouseenter',function(){document.body.classList.add('on-link');});
     el.addEventListener('mouseleave',function(){document.body.classList.remove('on-link');});
   });
 }
 hookLinks();
 
-/* ====================================================
+/* =====================================================
    BG CANVAS
-==================================================== */
+===================================================== */
 var bgcv=document.getElementById('bgcv'),bx=bgcv.getContext('2d');
 var W=0,H=0,PN=55,CD=110,CD2=CD*CD,MR=90,MR2=MR*MR;
 var ptx=new Float32Array(PN),pty=new Float32Array(PN),pvx=new Float32Array(PN),pvy=new Float32Array(PN),prad=new Float32Array(PN),pcol=new Uint8Array(PN);
@@ -794,14 +645,14 @@ var gridCv=null;
 function bldG(){gridCv=document.createElement('canvas');gridCv.width=W;gridCv.height=H;var gc=gridCv.getContext('2d');gc.strokeStyle='rgba(79,142,247,.022)';gc.lineWidth=1;gc.beginPath();for(var x=0;x<=W;x+=90){gc.moveTo(x,0);gc.lineTo(x,H);}for(var y=0;y<=H;y+=90){gc.moveTo(0,y);gc.lineTo(W,y);}gc.stroke();}
 function iPt(i,rY){ptx[i]=Math.random()*W;pty[i]=rY?Math.random()*H:(Math.random()<.5?-4:H+4);pvx[i]=(Math.random()-.5)*.24;pvy[i]=(Math.random()-.5)*.24;prad[i]=Math.random()*1.2+.4;pcol[i]=Math.random()<.6?0:1;}
 function rsB(){W=bgcv.width=innerWidth;H=bgcv.height=innerHeight;bldG();}
-rsB(); window.addEventListener('resize',rsB);
+rsB();window.addEventListener('resize',rsB);
 for(var ii=0;ii<PN;ii++) iPt(ii,true);
 var lastT=0,FPS=1000/38;
 function loop(now){
   requestAnimationFrame(loop);
-  if(now-lastT<FPS) return; lastT=now;
+  if(now-lastT<FPS)return;lastT=now;
   bx.clearRect(0,0,W,H);
-  if(gridCv && gridCv.width>0 && gridCv.height>0) bx.drawImage(gridCv,0,0);
+  if(gridCv&&gridCv.width>0&&gridCv.height>0)bx.drawImage(gridCv,0,0);
   for(var i=0;i<PN;i++){var ddx=ptx[i]-mx,ddy=pty[i]-my,d2=ddx*ddx+ddy*ddy;if(d2<MR2&&d2>.01){var d=Math.sqrt(d2),f=(MR-d)/MR;pvx[i]+=ddx/d*f*.28;pvy[i]+=ddy/d*f*.28;}pvx[i]*=.982;pvy[i]*=.982;ptx[i]+=pvx[i];pty[i]+=pvy[i];if(ptx[i]<-10||ptx[i]>W+10||pty[i]<-10||pty[i]>H+10)iPt(i,false);}
   bx.lineWidth=.7;
   for(var i=0;i<PN;i++){for(var j=i+1;j<PN;j++){var ddx=ptx[i]-ptx[j],ddy=pty[i]-pty[j],d2=ddx*ddx+ddy*ddy;if(d2<CD2){var a=((1-Math.sqrt(d2)/CD)*.13).toFixed(2);bx.beginPath();bx.strokeStyle='rgba(79,142,247,'+a+')';bx.moveTo(ptx[i],pty[i]);bx.lineTo(ptx[j],pty[j]);bx.stroke();}}}
@@ -813,26 +664,26 @@ function loop(now){
 }
 requestAnimationFrame(loop);
 
-/* ====================================================
+/* =====================================================
    TYPED
-==================================================== */
+===================================================== */
 var phrases=['whoami','cat portfolio.md','./run projects','ls -la stack/','git log --oneline'];
 var pi=0,ci=0,dM=false,wt=0;
 var tEl=document.getElementById('typed');
 (function ty(){if(wt-->0){setTimeout(ty,80);return;}var ph=phrases[pi];if(!dM){tEl.textContent=ph.slice(0,++ci);if(ci===ph.length){dM=true;wt=30;}setTimeout(ty,105);}else{tEl.textContent=ph.slice(0,--ci);if(ci===0){dM=false;pi=(pi+1)%phrases.length;wt=10;}setTimeout(ty,50);}})();
 
-/* ====================================================
-   TRANSITION
-==================================================== */
+/* =====================================================
+   TRANSITION OVERLAY
+===================================================== */
 var tov=document.getElementById('tov'),tovT=document.getElementById('tov-txt');
 function openLink(url,label){
   tovT.textContent=label||'Opening';tov.className='go';
   setTimeout(function(){window.open(url,'_blank');tov.className='bye';setTimeout(function(){tov.className='';},700);},660);
 }
 
-/* ====================================================
+/* =====================================================
    ICONS
-==================================================== */
+===================================================== */
 var IGH='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
 var IEX='<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
 var IST='<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
@@ -840,34 +691,30 @@ var IFO='<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentCo
 var IGS='<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
 var ITE='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
 
-/* ====================================================
-   HELPERS
-==================================================== */
-function parseLine(line){
-  var parts=line.split('|');
-  var url=(parts[0]||'').trim();
-  var tags=parts[1]?parts[1].split(',').map(function(t){return t.trim();}).filter(Boolean):[];
-  return {url:url,tags:tags};
-}
-function mkTags(tags,cls){
-  if(!tags.length) return '';
-  return '<div class="'+cls+'-tags">'+tags.map(function(t){return '<span class="'+cls+'-tag">'+t+'</span>';}).join('')+'</div>';
-}
-function note(m){return '<div style="grid-column:1/-1;font-family:var(--mono);font-size:.78rem;color:var(--text2);padding:1.2rem 0">'+m+'</div>';}
+/* =====================================================
+   REPO CONFIG
+===================================================== */
+var GH_USER='AstroNutws',GH_REPO='Gab.Dev',GH_BRANCH='main';
+function rawUrl(f){return 'https://raw.githubusercontent.com/'+GH_USER+'/'+GH_REPO+'/'+GH_BRANCH+'/'+f+'?t='+Date.now();}
+function fetchMd(f){return fetch(rawUrl(f)).then(function(r){if(!r.ok)throw new Error(f+' not found');return r.text();});}
+function parseLines(t){return t.split('\n').map(function(l){return l.trim();}).filter(function(l){return l.length>0&&!l.startsWith('#')&&!l.startsWith('<!--')&&!l.startsWith('```')&&!l.startsWith('---')&&l!=='*'&&l!=='-';});}
+function parseLine(line){var parts=line.split('|');var url=(parts[0]||'').trim();var tags=parts[1]?parts[1].split(',').map(function(t){return t.trim();}).filter(Boolean):[];return{url:url,tags:tags};}
+function mkTags(tags,cls){if(!tags.length)return'';return'<div class="'+cls+'-tags">'+tags.map(function(t){return'<span class="'+cls+'-tag">'+t+'</span>';}).join('')+'</div>';}
+function note(m){return'<div style="grid-column:1/-1;font-family:var(--mono);font-size:.78rem;color:var(--text2);padding:1.2rem 0">'+m+'</div>';}
 
-/* ====================================================
-   LOAD OWN PROJECTS — OWN.md
-==================================================== */
+/* =====================================================
+   LOAD OWN PROJECTS
+===================================================== */
 function loadOwn(){
   var grid=document.getElementById('own-grid');
   fetchMd('OWN.md').then(function(text){
     var lines=parseLines(text).filter(function(l){return l.match(/^https?:\/\//);});
-    if(!lines.length){grid.innerHTML=note('No entries in OWN.md yet. Add a GitHub URL per line.');return;}
+    if(!lines.length){grid.innerHTML=note('No entries in OWN.md yet.');return;}
     grid.innerHTML='';
     lines.forEach(function(line){
       var p=parseLine(line);
       var m=p.url.match(/github\.com\/([^/]+)\/([^/\s#?]+)/);
-      if(!m) return;
+      if(!m)return;
       var owner=m[1],repo=m[2],tags=p.tags;
       var card=document.createElement('div');
       card.className='proj-card rv';
@@ -876,54 +723,38 @@ function loadOwn(){
       fetch('https://api.github.com/repos/'+owner+'/'+repo)
         .then(function(r){return r.json();})
         .then(function(d){
-          if(d.message) throw 0;
+          if(d.message)throw 0;
           var hp=d.homepage&&d.homepage.trim()&&d.homepage!=='null'?d.homepage:null;
           var nm=(d.name||repo).replace(/-/g,' ');
           var bid='bv'+repo.replace(/[^a-z0-9]/gi,'');
-          card.innerHTML=
-            '<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div>'+
-            '<div class="proj-name">'+nm+'</div>'+
-            '<div class="proj-desc">'+(d.description||'A personal project by GAB.DEV.')+'</div>'+
-            mkTags(tags,'proj')+
-            '<div class="proj-meta"><span>'+IST+'&nbsp;'+(d.stargazers_count||0)+'</span><span>'+IFO+'&nbsp;'+(d.forks_count||0)+'</span></div>'+
-            '<div class="proj-foot">'+
-              '<button class="btn-visit" id="'+bid+'">'+(hp?IEX+'&nbsp;Visit Site':IGS+'&nbsp;Open Repo')+'</button>'+
-              '<a href="'+p.url+'" target="_blank" class="btn-gh">'+IGS+'&nbsp;GitHub</a>'+
-            '</div>';
-          var btn=document.getElementById(bid);
-          if(btn) btn.addEventListener('click',function(){openLink(hp||p.url,nm);});
-          hookLinks(); rvAll();
+          card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+nm+'</div><div class="proj-desc">'+(d.description||'A personal project by GAB.DEV.')+'</div>'+mkTags(tags,'proj')+'<div class="proj-meta"><span>'+IST+'&nbsp;'+(d.stargazers_count||0)+'</span><span>'+IFO+'&nbsp;'+(d.forks_count||0)+'</span></div><div class="proj-foot"><button class="btn-visit" id="'+bid+'">'+(hp?IEX+'&nbsp;Visit Site':IGS+'&nbsp;Open Repo')+'</button><a href="'+p.url+'" target="_blank" class="btn-gh">'+IGS+'&nbsp;GitHub</a></div>';
+          var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(hp||p.url,nm);});
+          hookLinks();rvAll();
         })
         .catch(function(){
           var nm=repo.replace(/-/g,' ');
           var bid='be'+repo.replace(/[^a-z0-9]/gi,'');
-          card.innerHTML=
-            '<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div>'+
-            '<div class="proj-name">'+nm+'</div>'+
-            mkTags(tags,'proj')+
-            '<div class="proj-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div>'+
-            '<div class="proj-foot"><button class="btn-visit" id="'+bid+'">'+IGS+'&nbsp;Open Repo</button></div>';
-          var btn=document.getElementById(bid);
-          if(btn) btn.addEventListener('click',function(){openLink(p.url,nm);});
-          hookLinks(); rvAll();
+          card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+nm+'</div>'+mkTags(tags,'proj')+'<div class="proj-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div><div class="proj-foot"><button class="btn-visit" id="'+bid+'">'+IGS+'&nbsp;Open Repo</button></div>';
+          var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(p.url,nm);});
+          hookLinks();rvAll();
         });
     });
-  }).catch(function(){grid.innerHTML=note('OWN.md not found in AstroNutws/Gab.Dev.');});
+  }).catch(function(){grid.innerHTML=note('OWN.md not found.');});
 }
 
-/* ====================================================
-   LOAD COLLABS — COLLAB.md
-==================================================== */
+/* =====================================================
+   LOAD COLLABS
+===================================================== */
 function loadCollabs(){
   var grid=document.getElementById('collab-grid');
   fetchMd('COLLAB.md').then(function(text){
     var lines=parseLines(text).filter(function(l){return l.match(/^https?:\/\//);});
-    if(!lines.length){grid.innerHTML=note('No entries in COLLAB.md yet. Add a GitHub URL per line.');return;}
+    if(!lines.length){grid.innerHTML=note('No entries in COLLAB.md yet.');return;}
     grid.innerHTML='';
     lines.forEach(function(line,idx){
       var p=parseLine(line);
       var m=p.url.match(/github\.com\/([^/]+)\/([^/\s#?]+)/);
-      if(!m) return;
+      if(!m)return;
       var owner=m[1],repo=m[2],tags=p.tags;
       var card=document.createElement('div');
       card.className='collab-card rv';
@@ -933,67 +764,34 @@ function loadCollabs(){
       fetch('https://api.github.com/repos/'+owner+'/'+repo)
         .then(function(r){return r.json();})
         .then(function(d){
-          if(d.message) throw 0;
+          if(d.message)throw 0;
           var hp=d.homepage&&d.homepage.trim()&&d.homepage!=='null'?d.homepage:null;
           var nm=(d.name||repo).replace(/-/g,' ');
           var bid='cbv'+idx;
-          card.innerHTML=
-            '<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div>'+
-            '<div class="collab-name">'+nm+'</div>'+
-            '<div class="collab-desc">'+(d.description||'A collaboration project.')+'</div>'+
-            mkTags(tags,'collab')+
-            '<div class="collab-foot">'+
-              '<button class="btn-cv" id="'+bid+'">'+(hp?IEX+'&nbsp;Visit Site':IGS+'&nbsp;View Repo')+'</button>'+
-              '<a href="'+p.url+'" target="_blank" class="btn-co">'+IGS+'&nbsp;Open</a>'+
-            '</div>';
-          var btn=document.getElementById(bid);
-          if(btn) btn.addEventListener('click',function(){openLink(hp||p.url,nm);});
-          hookLinks(); rvAll();
+          card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div><div class="collab-desc">'+(d.description||'A collaboration project.')+'</div>'+mkTags(tags,'collab')+'<div class="collab-foot"><button class="btn-cv" id="'+bid+'">'+(hp?IEX+'&nbsp;Visit Site':IGS+'&nbsp;View Repo')+'</button><a href="'+p.url+'" target="_blank" class="btn-co">'+IGS+'&nbsp;Open</a></div>';
+          var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(hp||p.url,nm);});
+          hookLinks();rvAll();
         })
         .catch(function(){
           var nm=repo.replace(/-/g,' ');
           var bid='cbe'+idx;
-          card.innerHTML=
-            '<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div>'+
-            '<div class="collab-name">'+nm+'</div>'+
-            mkTags(tags,'collab')+
-            '<div class="collab-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div>'+
-            '<div class="collab-foot"><button class="btn-cv" id="'+bid+'">'+IGS+'&nbsp;View Repo</button></div>';
-          var btn=document.getElementById(bid);
-          if(btn) btn.addEventListener('click',function(){openLink(p.url,nm);});
-          hookLinks(); rvAll();
+          card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div>'+mkTags(tags,'collab')+'<div class="collab-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div><div class="collab-foot"><button class="btn-cv" id="'+bid+'">'+IGS+'&nbsp;View Repo</button></div>';
+          var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(p.url,nm);});
+          hookLinks();rvAll();
         });
     });
-  }).catch(function(){grid.innerHTML=note('COLLAB.md not found in AstroNutws/Gab.Dev.');});
+  }).catch(function(){grid.innerHTML=note('COLLAB.md not found.');});
 }
 
-/* ====================================================
-   LOAD STACK — STACKS.md
-==================================================== */
-var SICO={
-  'postgresql':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
-  'vb.net':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>',
-  'vb':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>',
-  '.net maui':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
-  'java':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-  'pawn':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>',
-  'sql server':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
-  'supabase':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
-  'mysql':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
-  'html':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
-  'css':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
-  'javascript':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>',
-  'python':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v5a1 1 0 0 0 1 1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H9a1 1 0 0 0-1 1v2"/></svg>',
-  'git':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>',
-  'c#':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="8" x2="9" y2="16"/><line x1="15" y1="8" x2="15" y2="16"/><line x1="6" y1="11" x2="18" y2="11"/><line x1="6" y1="13" x2="18" y2="13"/></svg>',
-  'default':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>'
-};
-
+/* =====================================================
+   LOAD STACK
+===================================================== */
+var SICO={'postgresql':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>','vb.net':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>','vb':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>','.net maui':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>','java':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>','pawn':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>','sql server':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>','supabase':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','mysql':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>','html':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>','css':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>','javascript':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>','python':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v5a1 1 0 0 0 1 1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H9a1 1 0 0 0-1 1v2"/></svg>','git':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>','c#':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="8" x2="9" y2="16"/><line x1="15" y1="8" x2="15" y2="16"/><line x1="6" y1="11" x2="18" y2="11"/><line x1="6" y1="13" x2="18" y2="13"/></svg>','default':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>'};
 function loadStack(){
   var grid=document.getElementById('stack-grid');
   fetchMd('STACKS.md').then(function(text){
     var techs=parseLines(text);
-    if(!techs.length){grid.innerHTML=note('No entries in STACKS.md yet. Add one technology per line.');return;}
+    if(!techs.length){grid.innerHTML=note('No entries in STACKS.md yet.');return;}
     grid.innerHTML='';
     techs.forEach(function(tech,i){
       var icon=SICO[tech.toLowerCase()]||SICO['default'];
@@ -1004,24 +802,23 @@ function loadStack(){
       grid.appendChild(card);
     });
     rvAll();
-  }).catch(function(){grid.innerHTML=note('STACKS.md not found in AstroNutws/Gab.Dev.');});
+  }).catch(function(){grid.innerHTML=note('STACKS.md not found.');});
 }
 
-/* ====================================================
+/* =====================================================
    CONTACT
-==================================================== */
+===================================================== */
 function sendContact(e){
   e.preventDefault();
   var n=document.getElementById('fn').value.trim(),em=document.getElementById('fe').value.trim(),ms=document.getElementById('fm').value.trim();
   window.location.href='mailto:samongud@gmail.com?subject='+encodeURIComponent('[GAB.DEV] Message from '+n)+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+ms);
 }
 
-/* ====================================================
+/* =====================================================
    SCROLL REVEAL
-==================================================== */
+===================================================== */
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on');});},{threshold:.1});
 function rvAll(){document.querySelectorAll('.rv:not(.on)').forEach(function(el){io.observe(el);});}
-
 function startPage(){rvAll();loadOwn();loadCollabs();loadStack();}
 rvAll();
 </script>
