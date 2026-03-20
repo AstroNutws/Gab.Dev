@@ -535,26 +535,27 @@ document.getElementById('gate-btn').addEventListener('click', function(){
   requestAnimationFrame(tick);
 
   function doLaunch(){
-    var steps = 30, iv = 1000/steps, count = 0;
-    var startVol = loAudio.paused ? 0 : loAudio.volume;
-    var step = startVol / steps;
-    var t = setInterval(function(){
-      count++;
-      startVol -= step;
-      if(!loAudio.paused){ try{ loAudio.volume = Math.max(0, startVol); }catch(e){} }
-      if(count >= steps){
-        clearInterval(t);
+    var loSteps = 30, loIv = 1000/loSteps, loCount = 0;
+    var loVol = loAudio.paused ? 0 : loAudio.volume;
+    var loStep = loVol / loSteps;
+
+    var loTimer = setInterval(function(){
+      loCount++;
+      loVol -= loStep;
+      if(!loAudio.paused){ try{ loAudio.volume = Math.max(0, loVol); }catch(e){} }
+      if(loCount >= loSteps){
+        clearInterval(loTimer);
         try{ loAudio.volume=0; loAudio.pause(); }catch(e){}
-        if(!muted){
-          var fi=0;
-          var fit = setInterval(function(){
-            fi++;
-            try{ mainAudio.volume = Math.min(fi/40,1)*0.5; }catch(e){}
-            if(fi>=40) clearInterval(fit);
-          }, 2500/40);
-        }
       }
-    }, iv);
+    }, loIv);
+
+    var mainSteps = 50, mainIv = 2000/mainSteps, mainCount = 0;
+    var mainTimer = setInterval(function(){
+      mainCount++;
+      var v = Math.min(mainCount/mainSteps, 1) * 0.5;
+      try{ mainAudio.volume = muted ? 0 : v; }catch(e){}
+      if(mainCount >= mainSteps) clearInterval(mainTimer);
+    }, mainIv);
 
     loader.classList.add('exit');
     setTimeout(function(){ loader.style.display='none'; startPage(); }, 2200);
