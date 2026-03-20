@@ -23,7 +23,7 @@ body.on-link #cur{filter:drop-shadow(0 0 9px rgba(38,217,240,1)) drop-shadow(0 0
 body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");background-size:250px;animation:grain 8s steps(10) infinite}
 @keyframes grain{0%{transform:translate(0,0)}10%{transform:translate(-3%,-4%)}20%{transform:translate(-5%,3%)}30%{transform:translate(4%,-1%)}40%{transform:translate(-1%,6%)}50%{transform:translate(-4%,2%)}60%{transform:translate(5%,-3%)}70%{transform:translate(-3%,5%)}80%{transform:translate(2%,-5%)}90%{transform:translate(-4%,-2%)}100%{transform:translate(0,0)}}
 
-/* =================== ENTRY GATE =================== */#gate{
+#gate{
   position:fixed;inset:0;z-index:9000;
   background:var(--bg);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -56,7 +56,6 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;bac
 .gate-dot{color:var(--blue)}
 .gate-sub{font-family:var(--mono);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-bottom:2.2rem;animation:fadeUp .8s .3s ease both}
 
-/* THE CLICK BUTTON */
 .gate-btn-wrap{animation:fadeUp .8s .4s ease both;display:flex;flex-direction:column;align-items:center;gap:1rem}
 .gate-btn{
   width:70px;height:70px;border-radius:50%;
@@ -90,7 +89,6 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;bac
 #loader.exit{opacity:0;transform:scale(.96);pointer-events:none}
 #loader::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 20% 60%,rgba(79,142,247,.07) 0%,transparent 70%),radial-gradient(ellipse 500px 350px at 80% 30%,rgba(38,217,240,.06) 0%,transparent 70%);pointer-events:none}
 
-/* loader planet (reuses gate planet classes) */
 .lo-planet-wrap{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:2.6rem}
 .lo-o1{position:absolute;inset:-30px;border-radius:50%;border:1px solid rgba(79,142,247,.18);animation:spin 9s linear infinite}
 .lo-o2{position:absolute;inset:-55px;border-radius:50%;border:1px dashed rgba(38,217,240,.1);animation:spin 15s linear infinite reverse}
@@ -115,7 +113,6 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;bac
 @keyframes barShimmer{from{background-position:200% 0}to{background-position:-200% 0}}
 .lo-pct{font-family:var(--mono);font-size:.6rem;letter-spacing:2px;color:var(--cyan);text-align:center}
 
-/* ==================== TOV ===================== */
 #tov{position:fixed;inset:0;z-index:7500;background:var(--bg);clip-path:inset(0 0 100% 0);pointer-events:none;display:flex;align-items:center;justify-content:center}
 #tov.go{clip-path:inset(0 0 0% 0);transition:clip-path .5s cubic-bezier(.76,0,.24,1);pointer-events:all}
 #tov.bye{clip-path:inset(100% 0 0 0);transition:clip-path .5s cubic-bezier(.76,0,.24,1) .05s;pointer-events:none}
@@ -125,7 +122,6 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;bac
 @keyframes tglow{from{box-shadow:0 0 10px var(--glowc)}to{box-shadow:0 0 28px var(--glowc)}}
 .tov-txt{font-family:var(--mono);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan)}
 
-/* ==================== PAGE ==================== */
 #page{position:relative;z-index:2}
 nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 7%;background:rgba(2,5,16,.78);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
 .nav-brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:1rem;color:var(--text);letter-spacing:-.5px}
@@ -518,15 +514,7 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 </button>
 
 <script>
-/* =======================================================
-   GATE → LOADER → PAGE
-   The gate shows first. Clicking the button IS a real
-   user gesture so the browser allows audio.play().
-   After click: loading.mp3 starts, 4-sec bar runs,
-   then main.mp3 fades in and loops forever.
-======================================================= */
 
-/* ── Star field on gate ─────────────────────────── */
 (function(){
   var c=document.getElementById('gate-stars');
   for(var i=0;i<120;i++){
@@ -559,17 +547,17 @@ document.getElementById('gate-btn').addEventListener('click', function(){
   var gate   = document.getElementById('gate');
   var loader = document.getElementById('loader');
 
-  /* 1. Play loading.mp3 RIGHT NOW inside click handler */
+
   loAudio.volume = 0.6;
   var p = loAudio.play();
   if(p && p.catch) p.catch(function(){});
 
-  /* 2. Swap gate → loader */
+
   gate.classList.add('exit');
   setTimeout(function(){ gate.style.display='none'; },850);
   loader.classList.add('active');
 
-  /* 3. Run 4-second progress bar */
+
   var bar=document.getElementById('lo-bar');
   var pct=document.getElementById('lo-pct');
   var logEl=document.getElementById('lo-log-txt');
@@ -593,13 +581,13 @@ document.getElementById('gate-btn').addEventListener('click', function(){
   requestAnimationFrame(tick);
 
   function doLaunch(){
-    /* Crossfade: loading out, main in */
+
     fadeOut(loAudio,800);
     setTimeout(function(){
       mainAudio.loop=true;
       fadeIn(mainAudio,0.5,2500);
     },400);
-    /* Hide loader, show page */
+
     loader.classList.add('exit');
     setTimeout(function(){
       loader.style.display='none';
@@ -785,7 +773,7 @@ function startGame(){
   gameSpeed = 7;
   scoreEl.textContent = score;
   speedEl.textContent = speedLevel;
-  snakeBtn.textContent = '↑↓←→ KEYS';
+  snakeBtn.textContent = '↑↓←→';
   snakeBtn.style.background = '#ff6b6b';
   spawnFood();
   drawGame();
@@ -815,8 +803,13 @@ function gameLoop(timestamp){
 }
 
 snakeBtn.addEventListener('click', function(){
-  if(!gameRunning || gameOver) {
-    gameOver = false;
+  if(!gameRunning && gameOver){
+    if(confirm('Do you wanna restart the snake game?')){
+      gameOver = false;
+      startGame();
+    }
+  } else if(!gameRunning){
+    alert('HOW TO PLAY:\n\n⬆ Move Up\n⬇ Move Down\n⬅ Move Left\n➡ Move Right\n\n🔴 Red = Food (eat for points)\n🔵 Cyan = Power-ups\n\n💥 Power-ups:\n  Speed Up (faster)\n  Slow Down (slower)\n\nEat food to grow and earn points!\nDont hit walls or yourself!');
     startGame();
   }
 });
@@ -841,9 +834,6 @@ document.addEventListener('keydown',function(e){
   if(e.keyCode===kseq[kpos]){kpos++;if(kpos===kseq.length){kpos=0;egg.classList.add('show');}}else{kpos=0;}
 });
 
-/* =====================================================
-   CURSOR & TRAIL
-===================================================== */
 var mx=innerWidth/2,my=innerHeight/2;
 var curEl=document.getElementById('cur'),trailCv=document.getElementById('trail-cv'),tc=trailCv.getContext('2d');
 var trail=[],TN=14;
@@ -863,9 +853,6 @@ function hookLinks(){
 }
 hookLinks();
 
-/* =====================================================
-   BG CANVAS
-===================================================== */
 var bgcv=document.getElementById('bgcv'),bx=bgcv.getContext('2d');
 var W=0,H=0,PN=55,CD=110,CD2=CD*CD,MR=90,MR2=MR*MR;
 var ptx=new Float32Array(PN),pty=new Float32Array(PN),pvx=new Float32Array(PN),pvy=new Float32Array(PN),prad=new Float32Array(PN),pcol=new Uint8Array(PN);
@@ -892,26 +879,17 @@ function loop(now){
 }
 requestAnimationFrame(loop);
 
-/* =====================================================
-   TYPED
-===================================================== */
 var phrases=['whoami','cat portfolio.md','./run projects','ls -la stack/','git log --oneline'];
 var pi=0,ci=0,dM=false,wt=0;
 var tEl=document.getElementById('typed');
 (function ty(){if(wt-->0){setTimeout(ty,80);return;}var ph=phrases[pi];if(!dM){tEl.textContent=ph.slice(0,++ci);if(ci===ph.length){dM=true;wt=30;}setTimeout(ty,105);}else{tEl.textContent=ph.slice(0,--ci);if(ci===0){dM=false;pi=(pi+1)%phrases.length;wt=10;}setTimeout(ty,50);}})();
 
-/* =====================================================
-   TRANSITION OVERLAY
-===================================================== */
 var tov=document.getElementById('tov'),tovT=document.getElementById('tov-txt');
 function openLink(url,label){
   tovT.textContent=label||'Opening';tov.className='go';
   setTimeout(function(){window.open(url,'_blank');tov.className='bye';setTimeout(function(){tov.className='';},700);},660);
 }
 
-/* =====================================================
-   ICONS
-===================================================== */
 var IGH='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
 var IEX='<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
 var IST='<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
@@ -919,9 +897,6 @@ var IFO='<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentCo
 var IGS='<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
 var ITE='<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
 
-/* =====================================================
-   REPO CONFIG
-===================================================== */
 var GH_USER='AstroNutws',GH_REPO='Gab.Dev',GH_BRANCH='main';
 function rawUrl(f){return 'https://raw.githubusercontent.com/'+GH_USER+'/'+GH_REPO+'/'+GH_BRANCH+'/'+f+'?t='+Date.now();}
 function fetchMd(f){return fetch(rawUrl(f)).then(function(r){if(!r.ok)throw new Error(f+' not found');return r.text();});}
@@ -930,9 +905,6 @@ function parseLine(line){var parts=line.split('|');var url=(parts[0]||'').trim()
 function mkTags(tags,cls){if(!tags.length)return'';return'<div class="'+cls+'-tags">'+tags.map(function(t){return'<span class="'+cls+'-tag">'+t+'</span>';}).join('')+'</div>';}
 function note(m){return'<div style="grid-column:1/-1;font-family:var(--mono);font-size:.78rem;color:var(--text2);padding:1.2rem 0">'+m+'</div>';}
 
-/* =====================================================
-   LOAD OWN PROJECTS
-===================================================== */
 function loadOwn(){
   var grid=document.getElementById('own-grid');
   fetchMd('OWN.md').then(function(text){
@@ -970,9 +942,6 @@ function loadOwn(){
   }).catch(function(){grid.innerHTML=note('OWN.md not found.');});
 }
 
-/* =====================================================
-   LOAD COLLABS
-===================================================== */
 function loadCollabs(){
   var grid=document.getElementById('collab-grid');
   fetchMd('COLLAB.md').then(function(text){
@@ -1011,9 +980,6 @@ function loadCollabs(){
   }).catch(function(){grid.innerHTML=note('COLLAB.md not found.');});
 }
 
-/* =====================================================
-   LOAD STACK
-===================================================== */
 var SICO={'postgresql':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>','vb.net':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>','vb':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>','.net maui':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>','java':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>','pawn':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>','sql server':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>','supabase':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>','mysql':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>','html':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>','css':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>','javascript':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>','python':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 3v5a1 1 0 0 0 1 1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H9a1 1 0 0 0-1 1v2"/></svg>','git':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>','c#':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="8" x2="9" y2="16"/><line x1="15" y1="8" x2="15" y2="16"/><line x1="6" y1="11" x2="18" y2="11"/><line x1="6" y1="13" x2="18" y2="13"/></svg>','default':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>'};
 function loadStack(){
   var grid=document.getElementById('stack-grid');
@@ -1033,18 +999,12 @@ function loadStack(){
   }).catch(function(){grid.innerHTML=note('STACKS.md not found.');});
 }
 
-/* =====================================================
-   CONTACT
-===================================================== */
 function sendContact(e){
   e.preventDefault();
   var n=document.getElementById('fn').value.trim(),em=document.getElementById('fe').value.trim(),ms=document.getElementById('fm').value.trim();
   window.location.href='mailto:samongud@gmail.com?subject='+encodeURIComponent('[GAB.DEV] Message from '+n)+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+ms);
 }
 
-/* =====================================================
-   SCROLL REVEAL
-===================================================== */
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on');});},{threshold:.1});
 function rvAll(){document.querySelectorAll('.rv:not(.on)').forEach(function(el){io.observe(el);});}
 function startPage(){rvAll();loadOwn();loadCollabs();loadStack();}
