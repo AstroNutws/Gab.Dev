@@ -610,6 +610,7 @@ document.getElementById('gate-btn').addEventListener('click', function(){
 var volumeSlider = document.getElementById('volume-slider');
 var volumeValue = document.getElementById('volume-value');
 var volumeWrap = document.getElementById('volume-slider-wrap');
+var audioToggle = document.getElementById('audio-toggle');
 var currentVolume = 50;
 
 function updateVolume(val) {
@@ -626,9 +627,25 @@ volumeSlider.addEventListener('input', function() {
   updateVolume(parseInt(this.value));
 });
 
+/* Show slider on hover */
+audioToggle.addEventListener('mouseenter', function() {
+  volumeWrap.classList.add('show');
+});
+
+audioToggle.addEventListener('mouseleave', function() {
+  setTimeout(function() {
+    if (!volumeWrap.matches(':hover')) {
+      volumeWrap.classList.remove('show');
+    }
+  }, 100);
+});
+
+volumeWrap.addEventListener('mouseleave', function() {
+  volumeWrap.classList.remove('show');
+});
+
 /* ── Mute toggle button ──────────────────────────── */
 document.getElementById('audio-toggle').addEventListener('click',function(){
-  volumeWrap.classList.toggle('show');
   muted=!muted;
   var icon=document.getElementById('audio-icon');
   if(muted){
