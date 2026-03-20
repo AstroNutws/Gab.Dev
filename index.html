@@ -16,9 +16,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:h
 a,button{cursor:none;text-decoration:none;color:inherit;font-family:inherit}
 img{display:block;max-width:100%}
 strong{font-weight:700;color:var(--text)}
-
-/* ===================== CURSOR ===================== */
-#cur{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;will-change:transform;filter:drop-shadow(0 0 7px rgba(79,142,247,.9)) drop-shadow(0 0 16px rgba(79,142,247,.45));transition:filter .2s}
+#cur{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;will-change:transform;filter:drop-shadow(0 0 7px rgba(79,142,247,.9)) drop-shadow(0 0 16px rgba(79,142,247,.45));transition:filter .24s cubic-bezier(.25,.46,.45,.94)}
 #trail-cv{position:fixed;inset:0;pointer-events:none;z-index:9996}
 body.on-link #cur{filter:drop-shadow(0 0 9px rgba(38,217,240,1)) drop-shadow(0 0 22px rgba(38,217,240,.6))}
 #bgcv{position:fixed;inset:0;z-index:0;pointer-events:none}
@@ -40,8 +38,6 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;bac
 @keyframes scanmove{from{background-position:0 0}to{background-position:0 40px}}
 .lstar{position:absolute;border-radius:50%;background:#fff;animation:lstarFade var(--d,3s) var(--del,0s) ease-in-out infinite alternate}
 @keyframes lstarFade{from{opacity:var(--oa,.1)}to{opacity:var(--ob,.6)}}
-
-/* planet */
 .gate-planet-wrap{position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:2.6rem;animation:fadeUp .8s .1s ease both}
 .gp-o1{position:absolute;inset:-30px;border-radius:50%;border:1px solid rgba(79,142,247,.18);animation:spin 9s linear infinite}
 .gp-o2{position:absolute;inset:-55px;border-radius:50%;border:1px dashed rgba(38,217,240,.1);animation:spin 15s linear infinite reverse}
@@ -57,8 +53,6 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;bac
 @keyframes ringPulse{0%,100%{border-color:rgba(79,142,247,.22)}50%{border-color:rgba(38,217,240,.4)}}
 .gate-comet{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan),0 0 14px var(--cyan),-8px 0 6px rgba(38,217,240,.5),-20px 0 8px rgba(38,217,240,.3);animation:cometOrbit 5s linear infinite;transform-origin:0 0;top:50%;left:50%}
 @keyframes cometOrbit{from{transform:rotate(0deg) translate(90px,0)}to{transform:rotate(360deg) translate(90px,0)}}
-
-/* gate text */
 .gate-logo{font-family:var(--mono);font-size:2.8rem;font-weight:700;letter-spacing:-2px;color:var(--text);display:flex;align-items:center;gap:10px;margin-bottom:.4rem;animation:fadeUp .8s .2s ease both;text-shadow:0 0 40px rgba(79,142,247,.3)}
 .gate-dot{color:var(--blue)}
 .gate-sub{font-family:var(--mono);font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--text2);margin-bottom:2.2rem;animation:fadeUp .8s .3s ease both}
@@ -80,17 +74,12 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;bac
 @keyframes pring{0%{transform:scale(1);opacity:.8}100%{transform:scale(1.6);opacity:0}}
 .gate-hint{font-family:var(--mono);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);animation:blinkHint 2s step-end infinite}
 @keyframes blinkHint{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* easter egg */
 .lo-egg{position:absolute;bottom:28px;left:28px;width:6px;height:6px;border-radius:50%;background:rgba(79,142,247,.2);cursor:none;animation:eggPulse 2.8s ease-in-out infinite;transition:background .3s}
 @keyframes eggPulse{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.7;transform:scale(1.5)}}
 .lo-egg-msg{position:absolute;bottom:18px;left:14px;font-family:var(--mono);font-size:.55rem;letter-spacing:1.5px;color:var(--cyan);background:rgba(6,13,28,.92);border:1px solid var(--border2);border-radius:6px;padding:.3rem .6rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .3s}
 .lo-egg.show .lo-egg-msg{opacity:1}
-
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-
-/* =================== LOADER ==================== */
 #loader{
   position:fixed;inset:0;z-index:8500;
   background:var(--bg);
@@ -294,10 +283,16 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 .ft-links{display:flex;gap:1.4rem}
 .ft-links a{font-family:var(--mono);font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .ft-links a:hover{color:var(--text)}
-#audio-toggle{position:fixed;bottom:24px;right:24px;z-index:700;width:38px;height:38px;border-radius:50%;background:rgba(8,15,32,.85);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:none;transition:border-color .2s,box-shadow .2s;backdrop-filter:blur(10px)}
+#audio-toggle{position:fixed;bottom:24px;right:24px;z-index:700;width:38px;height:38px;border-radius:50%;background:rgba(8,15,32,.85);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:none;transition:border-color .32s,box-shadow .32s;backdrop-filter:blur(10px)}
 #audio-toggle:hover{border-color:var(--cyan);box-shadow:0 0 14px var(--glowc)}
-#audio-toggle svg{width:16px;height:16px;stroke:var(--text2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+#audio-toggle svg{width:16px;height:16px;stroke:var(--text2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .32s}
 #audio-toggle:hover svg{stroke:var(--cyan)}
+#volume-slider-wrap{position:fixed;bottom:73px;right:24px;z-index:700;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;pointer-events:none;transition:opacity .36s cubic-bezier(.25,.46,.45,.94)}
+#volume-slider-wrap.show{opacity:1;pointer-events:auto}
+#volume-value{font-family:var(--mono);font-size:.65rem;color:var(--text2);min-width:24px;text-align:center}
+#volume-slider{width:6px;height:120px;-webkit-appearance:slider-vertical;appearance:slider-vertical;background:linear-gradient(to top,rgba(79,142,247,.4),rgba(79,142,247,.1));border-radius:3px;outline:none;cursor:none;transition:all .28s cubic-bezier(.25,.46,.45,.94)}
+#volume-slider::-webkit-slider-thumb{-webkit-appearance:slider-thumb;appearance:slider-thumb;width:16px;height:16px;background:var(--blue);border-radius:50%;border:1px solid rgba(79,142,247,.5);box-shadow:0 0 8px rgba(79,142,247,.4);cursor:none;transition:all .28s cubic-bezier(.25,.46,.45,.94)}
+#volume-slider::-moz-range-thumb{width:16px;height:16px;background:var(--blue);border-radius:50%;border:1px solid rgba(79,142,247,.5);box-shadow:0 0 8px rgba(79,142,247,.4);cursor:none;transition:all .28s cubic-bezier(.25,.46,.45,.94)}
 @media(max-width:1024px){.hero{flex-direction:column-reverse;text-align:center;gap:50px;padding-top:110px}.hero-bio{margin:0 auto 2.4rem}.hero-pills{justify-content:center}.hero-cta{justify-content:center}.hero-right{justify-content:center}#contact{grid-template-columns:1fr}.f-row{grid-template-columns:1fr}.av-badge{display:none}}
 @media(max-width:700px){nav{padding:1rem 5%}section{padding:65px 5%}.hero{padding:100px 5% 60px}.av-wrap{width:260px;height:260px}.nav-links{gap:1.4rem}.nav-cta{display:none}.stack-grid{grid-template-columns:repeat(auto-fill,minmax(108px,1fr))}.proj-grid,.collab-grid{grid-template-columns:1fr}}
 </style>
@@ -411,7 +406,7 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
     <div class="hero-location">
       <span class="loc-dot"></span>
       <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      <span>Caloocan City, Philippines</span>
+      <a href="https://www.google.com/maps/place/Caloocan,+Metro+Manila/data=!4m2!3m1!1s0x3397b1b519841b5f:0x5e770e225042d1a?sa=X&ved=1t:242&ictx=111" target="_blank" style="text-decoration:none;color:inherit;cursor:pointer;transition:color .32s cubic-bezier(.25,.46,.45,.94);">Caloocan City, Philippines</a>
     </div>
     <div class="hero-pills"><span class="pill">Dev</span><span class="pill">ICT</span><span class="pill">Backend</span><span class="pill">Cross-Platform</span><span class="pill">Systems</span></div>
     <div class="hero-bio">Proficient in <strong>Java</strong>, <strong>VB</strong>, and <strong>.NET MAUI</strong> for building modern cross-platform apps. Expert in high-performance database management with <strong>PostgreSQL</strong> and <strong>SQL Server</strong>. Background in <strong>PAWN</strong> scripting and server-side architecture — bridging clean logic with polished UI design.</div>
@@ -434,7 +429,7 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
       <div class="av-badge loc">
         <span class="bdot-red"></span>
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        <span style="color:var(--text)">Caloocan, PH</span>
+        <a href="https://www.google.com/maps/place/Caloocan,+Metro+Manila/data=!4m2!3m1!1s0x3397b1b519841b5f:0x5e770e225042d1a?sa=X&ved=1t:242&ictx=111" target="_blank" style="color:var(--text);text-decoration:none;transition:opacity .32s cubic-bezier(.25,.46,.45,.94);">Caloocan, PH</a>
       </div>
     </div>
   </div>
@@ -471,7 +466,7 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
     <div class="contact-items">
       <div class="c-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:samongud@gmail.com">samongud@gmail.com</a></div>
       <div class="c-item"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><a href="https://github.com/AstroNutws" target="_blank">github.com/AstroNutws</a></div>
-      <div class="c-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Caloocan City, Philippines</span></div>
+      <div class="c-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><a href="https://www.google.com/maps/place/Caloocan,+Metro+Manila/data=!4m2!3m1!1s0x3397b1b519841b5f:0x5e770e225042d1a?sa=X&ved=1t:242&ictx=111" target="_blank" style="text-decoration:none;color:inherit;transition:color .32s cubic-bezier(.25,.46,.45,.94);">Caloocan City, Philippines</a></div>
     </div>
   </div>
   <div class="rv">
@@ -493,7 +488,21 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   <div class="ft-links"><a href="https://github.com/AstroNutws" target="_blank">GitHub</a><a href="mailto:samongud@gmail.com">Email</a></div>
 </footer>
 
-<!-- mute/unmute button -->
+<div id="volume-slider-wrap">
+  <div id="volume-value">50%</div>
+  <input id="volume-slider" type="range" min="0" max="100" value="50" title="Adjust volume">
+</div>
+
+<div id="snake-game" style="position:fixed;bottom:120px;right:24px;z-index:700;width:150px;padding:10px;background:rgba(8,15,32,.95);border:1px solid rgba(79,142,247,.2);border-radius:12px;backdrop-filter:blur(10px);font-family:var(--mono);font-size:10px;color:var(--text2);text-align:center">
+  <div style="font-size:9px;margin-bottom:6px;color:var(--cyan)">SNAKE</div>
+  <canvas id="snake-canvas" width="128" height="128" style="border:1px solid rgba(79,142,247,.3);border-radius:6px;display:block;margin:0 auto 6px;background:rgba(2,5,16,.8);image-rendering:pixelated"></canvas>
+  <div style="display:flex;gap:4px;margin-bottom:6px;font-size:8px">
+    <div style="flex:1">Score:<br><span id="snake-score" style="color:var(--cyan);font-weight:bold">0</span></div>
+    <div style="flex:1">Speed:<br><span id="snake-speed" style="color:var(--cyan);font-weight:bold">1</span></div>
+  </div>
+  <button id="snake-btn" style="width:100%;padding:4px;background:var(--blue);border:1px solid rgba(79,142,247,.5);color:#fff;border-radius:4px;font-size:8px;font-family:var(--mono);cursor:pointer;transition:all .24s cubic-bezier(.25,.46,.45,.94)">START</button>
+</div>
+
 <button id="audio-toggle" title="Toggle music">
   <svg id="audio-icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
 </button>
@@ -604,6 +613,215 @@ document.getElementById('audio-toggle').addEventListener('click',function(){
     icon.innerHTML='<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>';
   }
 });
+
+var audioToggle = document.getElementById('audio-toggle');
+var volSlider = document.getElementById('volume-slider');
+var volValue = document.getElementById('volume-value');
+var volWrap = document.getElementById('volume-slider-wrap');
+
+audioToggle.addEventListener('mouseenter', function(){
+  volWrap.classList.add('show');
+});
+
+audioToggle.addEventListener('mouseleave', function(){
+  setTimeout(function(){
+    if(!volWrap.matches(':hover')) volWrap.classList.remove('show');
+  }, 100);
+});
+
+volWrap.addEventListener('mouseleave', function(){
+  volWrap.classList.remove('show');
+});
+
+volSlider.addEventListener('input', function(){
+  volValue.textContent = this.value + '%';
+  var vol = this.value / 100;
+  if(!muted){
+    if(loAudio && !loAudio.paused) loAudio.volume = vol * 0.6;
+    if(mainAudio && !mainAudio.paused) mainAudio.volume = vol * 0.5;
+  }
+});
+
+var canvas = document.getElementById('snake-canvas');
+var ctx = canvas.getContext('2d');
+var snakeBtn = document.getElementById('snake-btn');
+var scoreEl = document.getElementById('snake-score');
+var speedEl = document.getElementById('snake-speed');
+
+var gridSize = 8;
+var tileSize = canvas.width / gridSize;
+var snake = [{x: 3, y: 3}];
+var food = {x: 6, y: 6};
+var direction = {x: 1, y: 0};
+var nextDirection = {x: 1, y: 0};
+var score = 0;
+var speedLevel = 1;
+var gameRunning = false;
+var gameOver = false;
+var powerUp = null;
+var powerUpTimer = 0;
+var gameSpeed = 10 - (speedLevel * 3);
+
+function drawGame(){
+  ctx.fillStyle = 'rgba(2,5,16,.8)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  ctx.fillStyle = '#4f8ef7';
+  for(var i = 0; i < snake.length; i++){
+    var head = i === 0;
+    ctx.fillStyle = head ? '#26d9f0' : '#4f8ef7';
+    ctx.fillRect(snake[i].x * tileSize + 1, snake[i].y * tileSize + 1, tileSize - 2, tileSize - 2);
+  }
+  
+  ctx.fillStyle = '#ff6b6b';
+  ctx.beginPath();
+  ctx.arc(food.x * tileSize + tileSize/2, food.y * tileSize + tileSize/2, tileSize/2.5, 0, Math.PI * 2);
+  ctx.fill();
+  
+  if(powerUp){
+    ctx.fillStyle = '#30e8c8';
+    ctx.fillRect(powerUp.x * tileSize + 2, powerUp.y * tileSize + 2, tileSize - 4, tileSize - 4);
+  }
+}
+
+function updateGame(){
+  if(!gameRunning || gameOver) return;
+  
+  direction = nextDirection;
+  var head = {x: snake[0].x + direction.x, y: snake[0].y + direction.y};
+  
+  if(head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize){
+    gameOver = true;
+    snakeBtn.textContent = 'GAME OVER';
+    return;
+  }
+  
+  for(var i = 0; i < snake.length; i++){
+    if(head.x === snake[i].x && head.y === snake[i].y){
+      gameOver = true;
+      snakeBtn.textContent = 'GAME OVER';
+      return;
+    }
+  }
+  
+  snake.unshift(head);
+  
+  if(head.x === food.x && head.y === food.y){
+    score += speedLevel * 10;
+    scoreEl.textContent = score;
+    spawnFood();
+    if(Math.random() < 0.3) spawnPowerUp();
+  } else {
+    snake.pop();
+  }
+  
+  if(powerUp && head.x === powerUp.x && head.y === powerUp.y){
+    var type = powerUp.type;
+    snake.pop();
+    
+    if(type === 'speedUp'){
+      speedLevel = Math.min(3, speedLevel + 1);
+      gameSpeed = 10 - (speedLevel * 3);
+    } else if(type === 'slowDown'){
+      speedLevel = Math.max(1, speedLevel - 1);
+      gameSpeed = 10 - (speedLevel * 3);
+    }
+    speedEl.textContent = speedLevel;
+    score += 50;
+    scoreEl.textContent = score;
+    powerUp = null;
+  }
+  
+  if(powerUp && powerUpTimer++ > 150) powerUp = null;
+  
+  drawGame();
+}
+
+function spawnFood(){
+  var x, y, valid;
+  do {
+    x = Math.floor(Math.random() * gridSize);
+    y = Math.floor(Math.random() * gridSize);
+    valid = true;
+    for(var i = 0; i < snake.length; i++){
+      if(snake[i].x === x && snake[i].y === y) valid = false;
+    }
+  } while(!valid);
+  food = {x: x, y: y};
+}
+
+function spawnPowerUp(){
+  var x, y, valid;
+  do {
+    x = Math.floor(Math.random() * gridSize);
+    y = Math.floor(Math.random() * gridSize);
+    valid = true;
+    for(var i = 0; i < snake.length; i++){
+      if(snake[i].x === x && snake[i].y === y) valid = false;
+    }
+  } while(!valid);
+  var type = Math.random() < 0.5 ? 'speedUp' : 'slowDown';
+  powerUp = {x: x, y: y, type: type};
+  powerUpTimer = 0;
+}
+
+function startGame(){
+  if(gameRunning) return;
+  snake = [{x: 3, y: 3}];
+  direction = {x: 1, y: 0};
+  nextDirection = {x: 1, y: 0};
+  score = 0;
+  speedLevel = 1;
+  gameRunning = true;
+  gameOver = false;
+  powerUp = null;
+  gameSpeed = 7;
+  scoreEl.textContent = score;
+  speedEl.textContent = speedLevel;
+  snakeBtn.textContent = 'PLAYING';
+  spawnFood();
+  drawGame();
+}
+
+var lastUpdate = 0;
+var tickCount = 0;
+
+function gameLoop(timestamp){
+  if(!lastUpdate) lastUpdate = timestamp;
+  var delta = timestamp - lastUpdate;
+  lastUpdate = timestamp;
+  
+  tickCount += delta;
+  var updateInterval = 1000 / gameSpeed;
+  
+  if(tickCount > updateInterval && gameRunning && !gameOver){
+    updateGame();
+    tickCount = 0;
+  }
+  
+  if(gameRunning && gameOver){
+    snakeBtn.textContent = 'RESTART';
+  }
+  
+  requestAnimationFrame(gameLoop);
+}
+
+snakeBtn.addEventListener('click', function(){
+  if(!gameRunning || gameOver) startGame();
+});
+
+document.addEventListener('keydown', function(e){
+  if(!gameRunning) return;
+  switch(e.key){
+    case 'ArrowUp': if(direction.y === 0) nextDirection = {x: 0, y: -1}; break;
+    case 'ArrowDown': if(direction.y === 0) nextDirection = {x: 0, y: 1}; break;
+    case 'ArrowLeft': if(direction.x === 0) nextDirection = {x: -1, y: 0}; break;
+    case 'ArrowRight': if(direction.x === 0) nextDirection = {x: 1, y: 0}; break;
+  }
+});
+
+drawGame();
+requestAnimationFrame(gameLoop);
 
 /* ── Easter egg ──────────────────────────────────── */
 var egg=document.getElementById('lo-egg');
