@@ -288,6 +288,22 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 #volume-slider{width:6px;height:120px;-webkit-appearance:slider-vertical;appearance:slider-vertical;background:linear-gradient(to top,rgba(79,142,247,.4),rgba(79,142,247,.1));border-radius:3px;outline:none;cursor:none;transition:all .28s cubic-bezier(.25,.46,.45,.94)}
 #volume-slider::-webkit-slider-thumb{-webkit-appearance:slider-thumb;appearance:slider-thumb;width:16px;height:16px;background:var(--blue);border-radius:50%;border:1px solid rgba(79,142,247,.5);box-shadow:0 0 8px rgba(79,142,247,.4);cursor:none;transition:all .28s cubic-bezier(.25,.46,.45,.94)}
 #volume-slider::-moz-range-thumb{width:16px;height:16px;background:var(--blue);border-radius:50%;border:1px solid rgba(79,142,247,.5);box-shadow:0 0 8px rgba(79,142,247,.4);cursor:none;transition:all .28s cubic-bezier(.25,.46,.45,.94)}
+#snake-game{position:fixed;bottom:24px;left:24px;z-index:700;width:150px;padding:10px;background:rgba(8,15,32,.95);border:1px solid rgba(79,142,247,.2);border-radius:12px;backdrop-filter:blur(10px);font-family:var(--mono);font-size:10px;color:var(--text2);text-align:center;display:none}
+#snake-game.visible{display:block}
+#snake-game-close{position:absolute;top:5px;right:5px;background:none;border:none;color:var(--cyan);cursor:pointer;font-size:16px;padding:0 4px;transition:color .2s}
+#snake-game-close:hover{color:var(--text)}
+#game-modal{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
+#game-modal.hidden{display:none}
+#game-modal-content{background:rgba(8,15,32,.98);border:2px solid var(--cyan);border-radius:16px;padding:2rem;max-width:380px;text-align:center;box-shadow:0 0 40px rgba(38,217,240,.3)}
+#game-modal h2{color:var(--cyan);font-family:var(--mono);font-size:1.4rem;margin-bottom:1rem;letter-spacing:2px}
+#game-modal p{color:var(--text2);margin-bottom:1.5rem;line-height:1.6;font-size:.95rem}
+#game-modal-buttons{display:flex;gap:1rem;justify-content:center}
+.modal-btn{padding:.6rem 1.4rem;border:none;border-radius:8px;font-family:var(--mono);font-weight:600;cursor:pointer;transition:all .2s;font-size:.9rem}
+.modal-btn-yes{background:var(--cyan);color:var(--bg);letter-spacing:1px}
+.modal-btn-yes:hover{box-shadow:0 0 20px var(--glowc);transform:translateY(-2px)}
+.modal-btn-no{background:transparent;border:1.5px solid var(--text2);color:var(--text2);letter-spacing:1px}
+.modal-btn-no:hover{border-color:var(--cyan);color:var(--cyan)}
+#countdown{font-family:var(--mono);font-size:3rem;font-weight:700;color:var(--cyan);margin:2rem 0;letter-spacing:4px}
 @media(max-width:1024px){.hero{flex-direction:column-reverse;text-align:center;gap:50px;padding-top:110px}.hero-bio{margin:0 auto 2.4rem}.hero-pills{justify-content:center}.hero-cta{justify-content:center}.hero-right{justify-content:center}#contact{grid-template-columns:1fr}.f-row{grid-template-columns:1fr}.av-badge{display:none}}
 @media(max-width:700px){nav{padding:1rem 5%}section{padding:65px 5%}.hero{padding:100px 5% 60px}.av-wrap{width:260px;height:260px}.nav-links{gap:1.4rem}.nav-cta{display:none}.stack-grid{grid-template-columns:repeat(auto-fill,minmax(108px,1fr))}.proj-grid,.collab-grid{grid-template-columns:1fr}}
 </style>
@@ -498,8 +514,21 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   <input id="volume-slider" type="range" min="0" max="100" value="50" title="Adjust volume">
 </div>
 
-<div id="snake-game" style="position:fixed;bottom:24px;left:24px;z-index:700;width:150px;padding:10px;background:rgba(8,15,32,.95);border:1px solid rgba(79,142,247,.2);border-radius:12px;backdrop-filter:blur(10px);font-family:var(--mono);font-size:10px;color:var(--text2);text-align:center">
-  <div style="font-size:9px;margin-bottom:6px;color:var(--cyan)">SNAKE</div>
+<div id="game-modal" class="hidden">
+  <div id="game-modal-content">
+    <h2>🐍 SNAKE GAME</h2>
+    <p>Do you wanna play a interactive game snake?</p>
+    <div id="countdown" style="display:none"></div>
+    <div id="game-modal-buttons">
+      <button class="modal-btn modal-btn-yes" id="modal-yes">YES, LET'S PLAY</button>
+      <button class="modal-btn modal-btn-no" id="modal-no">MAYBE LATER</button>
+    </div>
+  </div>
+</div>
+
+<div id="snake-game">
+  <button id="snake-game-close" title="Hide game">✕</button>
+  <div style="font-size:9px;margin-bottom:6px;color:var(--cyan);padding-top:4px">SNAKE</div>
   <canvas id="snake-canvas" width="128" height="128" style="border:1px solid rgba(79,142,247,.3);border-radius:6px;display:block;margin:0 auto 6px;background:rgba(2,5,16,.8);image-rendering:pixelated"></canvas>
   <div style="display:flex;gap:4px;margin-bottom:6px;font-size:8px">
     <div style="flex:1">Score:<br><span id="snake-score" style="color:var(--cyan);font-weight:bold">0</span></div>
@@ -637,6 +666,12 @@ volSlider.addEventListener('input', function(){
   }
 });
 
+setInterval(function(){
+  if(mainAudio && mainAudio.paused && !muted){
+    mainAudio.play().catch(function(){});
+  }
+}, 500);
+
 var canvas = document.getElementById('snake-canvas');
 var ctx = canvas.getContext('2d');
 var snakeBtn = document.getElementById('snake-btn');
@@ -687,14 +722,16 @@ function updateGame(){
   
   if(head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize){
     gameOver = true;
-    snakeBtn.textContent = 'GAME OVER';
+    gameRunning = false;
+    snakeBtn.textContent = 'RESTART';
     return;
   }
   
   for(var i = 0; i < snake.length; i++){
     if(head.x === snake[i].x && head.y === snake[i].y){
       gameOver = true;
-      snakeBtn.textContent = 'GAME OVER';
+      gameRunning = false;
+      snakeBtn.textContent = 'RESTART';
       return;
     }
   }
@@ -802,15 +839,73 @@ function gameLoop(timestamp){
   requestAnimationFrame(gameLoop);
 }
 
+var snakeGameDiv = document.getElementById('snake-game');
+var gameModal = document.getElementById('game-modal');
+var countdownEl = document.getElementById('countdown');
+var gameModalButtons = document.getElementById('game-modal-buttons');
+var snakeGameClose = document.getElementById('snake-game-close');
+
+function showGameModal(){
+  gameModal.classList.remove('hidden');
+  snakeGameDiv.classList.remove('visible');
+}
+
+function hideGameModal(){
+  gameModal.classList.add('hidden');
+}
+
+function startCountdown(callback){
+  gameModalButtons.style.display = 'none';
+  countdownEl.style.display = 'block';
+  var count = 5;
+  
+  function countDown(){
+    if(count > 0){
+      countdownEl.textContent = count;
+      count--;
+      setTimeout(countDown, 1000);
+    } else {
+      countdownEl.textContent = 'GO!';
+      setTimeout(function(){
+        hideGameModal();
+        snakeGameDiv.classList.add('visible');
+        countdownEl.style.display = 'none';
+        gameModalButtons.style.display = 'flex';
+        callback();
+      }, 800);
+    }
+  }
+  countDown();
+}
+
+document.getElementById('modal-yes').addEventListener('click', function(){
+  startCountdown(function(){
+    startGame();
+  });
+});
+
+document.getElementById('modal-no').addEventListener('click', function(){
+  hideGameModal();
+});
+
+snakeGameClose.addEventListener('click', function(){
+  snakeGameDiv.classList.remove('visible');
+  gameRunning = false;
+  gameOver = false;
+  snakeBtn.textContent = 'START GAME';
+  snakeBtn.style.background = 'var(--blue)';
+});
+
 snakeBtn.addEventListener('click', function(){
   if(!gameRunning && gameOver){
     if(confirm('Do you wanna restart the snake game?')){
-      gameOver = false;
-      startGame();
+      startCountdown(function(){
+        gameOver = false;
+        startGame();
+      });
     }
-  } else if(!gameRunning){
-    alert('HOW TO PLAY:\n\n⬆ Move Up\n⬇ Move Down\n⬅ Move Left\n➡ Move Right\n\n🔴 Red = Food (eat for points)\n🔵 Cyan = Power-ups\n\n💥 Power-ups:\n  Speed Up (faster)\n  Slow Down (slower)\n\nEat food to grow and earn points!\nDont hit walls or yourself!');
-    startGame();
+  } else if(!gameRunning && !gameOver){
+    showGameModal();
   }
 });
 
