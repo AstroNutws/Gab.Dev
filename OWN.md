@@ -1,1 +1,1 @@
-https://github.com/AstroNutws/Attendance-QRSYS
+https://github.com/AstroNutws/Attendance-QRSYS | VB.NET, .NET MAUI,
