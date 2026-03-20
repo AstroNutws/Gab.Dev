@@ -298,6 +298,15 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 #audio-toggle:hover{border-color:var(--cyan);box-shadow:0 0 14px var(--glowc)}
 #audio-toggle svg{width:16px;height:16px;stroke:var(--text2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
 #audio-toggle:hover svg{stroke:var(--cyan)}
+
+/* Volume slider */
+#volume-slider-wrap{position:fixed;bottom:73px;right:24px;z-index:700;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;pointer-events:none;transition:opacity .3s}
+#volume-slider-wrap.show{opacity:1;pointer-events:auto}
+#volume-value{font-family:var(--mono);font-size:.65rem;color:var(--text2);min-width:24px;text-align:center}
+#volume-slider{width:6px;height:120px;-webkit-appearance:slider-vertical;appearance:slider-vertical;background:linear-gradient(to top,rgba(79,142,247,.4),rgba(79,142,247,.1));border-radius:3px;outline:none;cursor:none}
+#volume-slider::-webkit-slider-thumb{-webkit-appearance:slider-thumb;appearance:slider-thumb;width:16px;height:16px;background:var(--blue);border-radius:50%;border:1px solid rgba(79,142,247,.5);box-shadow:0 0 8px var(--glowb);cursor:none}
+#volume-slider::-moz-range-thumb{width:16px;height:16px;background:var(--blue);border-radius:50%;border:1px solid rgba(79,142,247,.5);box-shadow:0 0 8px var(--glowb);cursor:none}
+
 @media(max-width:1024px){.hero{flex-direction:column-reverse;text-align:center;gap:50px;padding-top:110px}.hero-bio{margin:0 auto 2.4rem}.hero-pills{justify-content:center}.hero-cta{justify-content:center}.hero-right{justify-content:center}#contact{grid-template-columns:1fr}.f-row{grid-template-columns:1fr}.av-badge{display:none}}
 @media(max-width:700px){nav{padding:1rem 5%}section{padding:65px 5%}.hero{padding:100px 5% 60px}.av-wrap{width:260px;height:260px}.nav-links{gap:1.4rem}.nav-cta{display:none}.stack-grid{grid-template-columns:repeat(auto-fill,minmax(108px,1fr))}.proj-grid,.collab-grid{grid-template-columns:1fr}}
 </style>
@@ -493,6 +502,12 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   <div class="ft-links"><a href="https://github.com/AstroNutws" target="_blank">GitHub</a><a href="mailto:samongud@gmail.com">Email</a></div>
 </footer>
 
+<!-- Volume control -->
+<div id="volume-slider-wrap">
+  <div id="volume-value">50%</div>
+  <input id="volume-slider" type="range" min="0" max="100" value="50" title="Adjust volume">
+</div>
+
 <!-- mute/unmute button -->
 <button id="audio-toggle" title="Toggle music">
   <svg id="audio-icon" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
@@ -591,16 +606,38 @@ document.getElementById('gate-btn').addEventListener('click', function(){
   }
 });
 
+/* ── Volume slider ──────────────────────────────── */
+var volumeSlider = document.getElementById('volume-slider');
+var volumeValue = document.getElementById('volume-value');
+var volumeWrap = document.getElementById('volume-slider-wrap');
+var currentVolume = 50;
+
+function updateVolume(val) {
+  currentVolume = val;
+  volumeValue.textContent = val + '%';
+  var volLevel = val / 100;
+  if (!muted) {
+    if (!loAudio.paused) loAudio.volume = volLevel * 0.6;
+    if (!mainAudio.paused) mainAudio.volume = volLevel * 0.5;
+  }
+}
+
+volumeSlider.addEventListener('input', function() {
+  updateVolume(parseInt(this.value));
+});
+
 /* ── Mute toggle button ──────────────────────────── */
 document.getElementById('audio-toggle').addEventListener('click',function(){
+  volumeWrap.classList.toggle('show');
   muted=!muted;
   var icon=document.getElementById('audio-icon');
   if(muted){
     loAudio.volume=0; mainAudio.volume=0;
     icon.innerHTML='<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
   } else {
-    if(!loAudio.paused) loAudio.volume=0.6;
-    if(!mainAudio.paused) mainAudio.volume=0.5;
+    var volLevel = currentVolume / 100;
+    if(!loAudio.paused) loAudio.volume = volLevel * 0.6;
+    if(!mainAudio.paused) mainAudio.volume = volLevel * 0.5;
     icon.innerHTML='<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>';
   }
 });
