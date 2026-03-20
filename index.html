@@ -576,7 +576,7 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
     <h2 class="sec-title" style="margin-bottom:1.1rem">Let's <em>Build</em><br>Something.</h2>
     <p class="contact-copy">Open for team projects, collaborations, and new opportunities. Got an idea? Let's make it real.</p>
     <div class="contact-items">
-      <div class="c-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:samongud@gmail.com">samongud@gmail.com</a></div>
+      <div class="c-item"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="/cdn-cgi/l/email-protection#9ae9fbf7f5f4fdeffedafdf7fbf3f6b4f9f5f7"><span class="__cf_email__" data-cfemail="82f1e3efedece5f7e6c2e5efe3ebeeace1edef">[email&#160;protected]</span></a></div>
       <div class="c-item"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><a href="https://github.com/AstroNutws" target="_blank">github.com/AstroNutws</a></div>
       <div class="c-item">
         <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -600,30 +600,47 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 <footer>
   <div class="ft-brand"><svg viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="9" fill="#4f8ef7" fill-opacity=".1"/><path d="M10 13L6 18L10 23M26 13L30 18L26 23M16 26L20 10" stroke="#4f8ef7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>GAB<span class="ft-dot">.</span>DEV</div>
   <span class="ft-copy">Handcrafted by VSOURCE Group 2026</span>
-  <div class="ft-links"><a href="https://github.com/AstroNutws" target="_blank">GitHub</a><a href="mailto:samongud@gmail.com">Email</a></div>
+  <div class="ft-links"><a href="https://github.com/AstroNutws" target="_blank">GitHub</a><a href="/cdn-cgi/l/email-protection#87f4e6eae8e9e0f2e3c7e0eae6eeeba9e4e8ea">Email</a></div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ====================================================
-   LOADING SCREEN — 4-SECOND BOOT
+   LOADING SCREEN — FULLY AUTO, NO GATE, NO CLICK
+   Bar starts immediately on page load (visual).
+   Audio starts the instant the mouse enters the page
+   (mousemove = valid user gesture for browsers).
+   On mobile, the first touchstart unlocks audio.
 ==================================================== */
 (function(){
-  // Generate stars
-  var stars = document.getElementById('launch-stars');
+
+  /* ── Star field ───────────────────────────────── */
+  var stars=document.getElementById('launch-stars');
   for(var i=0;i<120;i++){
     var s=document.createElement('div');
     s.className='lstar';
-    var size=Math.random()<.85?1:Math.random()<.7?2:3;
+    var sz=Math.random()<.85?1:Math.random()<.7?2:3;
     s.style.cssText=[
-      'width:'+size+'px','height:'+size+'px',
-      'left:'+(Math.random()*100)+'%','top:'+(Math.random()*100)+'%',
-      '--d:'+(2+Math.random()*4)+'s','--del:'+(Math.random()*4)+'s',
-      '--oa:'+(0.05+Math.random()*.2),'--ob:'+(0.3+Math.random()*.7)
+      'width:'+sz+'px','height:'+sz+'px',
+      'left:'+(Math.random()*100)+'%',
+      'top:'+(Math.random()*100)+'%',
+      '--d:'+(2+Math.random()*4)+'s',
+      '--del:'+(Math.random()*4)+'s',
+      '--oa:'+(0.05+Math.random()*.2),
+      '--ob:'+(0.3+Math.random()*.7)
     ].join(';');
     stars.appendChild(s);
   }
 
-  var logs = [
+  /* ── Refs ─────────────────────────────────────── */
+  var bar       = document.getElementById('lo-bar');
+  var pct       = document.getElementById('lo-pct');
+  var logEl     = document.getElementById('lo-log-txt');
+  var launch    = document.getElementById('launch');
+  var egg       = document.getElementById('lo-egg');
+  var loAudio   = document.getElementById('lo-audio');
+  var mainAudio = document.getElementById('main-audio');
+
+  var logs=[
     'Initializing environment...',
     'Loading project registry...',
     'Connecting to GitHub API...',
@@ -636,118 +653,91 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
     'Launch sequence complete ✓'
   ];
 
-  var bar    = document.getElementById('lo-bar');
-  var pct    = document.getElementById('lo-pct');
-  var logEl  = document.getElementById('lo-log-txt');
-  var launch = document.getElementById('launch');
-  var egg    = document.getElementById('lo-egg');
-  var loAudio   = document.getElementById('lo-audio');
-  var mainAudio = document.getElementById('main-audio');
-
-  /* ── Audio helpers ─────────────────────────────── */
-  function tryPlay(el, vol){
+  /* ── Audio ─────────────────────────────────────── */
+  function tryPlay(el,vol){
     if(!el) return;
-    el.volume = vol || 0.5;
-    var p = el.play();
-    if(p && p.catch) p.catch(function(){});
+    el.volume=typeof vol==='number'?vol:0.5;
+    var p=el.play(); if(p&&p.catch) p.catch(function(){});
   }
   function tryStop(el){
-    if(!el) return;
-    el.pause();
-    el.currentTime = 0;
+    if(!el) return; el.pause(); el.currentTime=0;
   }
-  function fadeOut(el, ms){
-    if(!el) return;
-    var steps = 20, vol = el.volume, step = vol/steps, interval = ms/steps;
-    var t = setInterval(function(){
-      vol -= step;
-      if(vol <= 0){ el.volume=0; tryStop(el); clearInterval(t); }
-      else { try{ el.volume=vol; }catch(e){} }
-    }, interval);
+  function fadeOut(el,ms){
+    if(!el||el.paused) return;
+    var steps=20,vol=el.volume,step=vol/steps,iv=ms/steps;
+    var t=setInterval(function(){
+      vol-=step;
+      if(vol<=0){el.volume=0;tryStop(el);clearInterval(t);}
+      else{try{el.volume=vol;}catch(e){}}
+    },iv);
   }
-  function fadeIn(el, targetVol, ms){
+  function fadeIn(el,target,ms){
     if(!el) return;
-    el.volume = 0;
-    tryPlay(el, 0);
-    var steps = 30, step = targetVol/steps, cur = 0, interval = ms/steps;
-    var t = setInterval(function(){
-      cur += step;
-      if(cur >= targetVol){ try{ el.volume=targetVol; }catch(e){} clearInterval(t); }
-      else { try{ el.volume=cur; }catch(e){} }
-    }, interval);
+    el.volume=0; tryPlay(el,0);
+    var steps=40,step=target/steps,cur=0,iv=ms/steps;
+    var t=setInterval(function(){
+      cur+=step;
+      if(cur>=target){try{el.volume=target;}catch(e){}clearInterval(t);}
+      else{try{el.volume=cur;}catch(e){}}
+    },iv);
   }
 
-  /* ── Progress: exactly 4000ms total ────────────── */
-  var TOTAL_MS = 4000;
-  var startTime = null;
-  var logIdx = 0;
+  var audioUnlocked=false;
+  function unlockAudio(){
+    if(audioUnlocked) return;
+    audioUnlocked=true;
+    tryPlay(loAudio,0.6);
+  }
+
+  /* ── Progress bar: exactly 4000ms ─────────────── */
+  var TOTAL=4000,t0=null,logIdx=0;
 
   function updateLog(p){
-    var idx = Math.min(Math.floor(p/10), logs.length-1);
-    if(idx !== logIdx){
-      logIdx = idx;
+    var idx=Math.min(Math.floor(p/10),logs.length-1);
+    if(idx!==logIdx){
+      logIdx=idx;
       logEl.style.opacity='0';
-      setTimeout(function(){
-        logEl.textContent = logs[logIdx];
-        logEl.style.opacity='1';
-      }, 120);
+      setTimeout(function(){logEl.textContent=logs[logIdx];logEl.style.opacity='1';},120);
     }
   }
 
   function tick(now){
-    if(!startTime) startTime = now;
-    var elapsed = now - startTime;
-    var progress = Math.min((elapsed / TOTAL_MS) * 100, 100);
-
-    bar.style.width = progress.toFixed(1) + '%';
-    pct.textContent = Math.floor(progress) + '%';
-    updateLog(progress);
-
-    if(progress < 100){
-      requestAnimationFrame(tick);
-    } else {
-      // bar full — small pause then launch
-      setTimeout(doLaunch, 300);
-    }
+    if(!t0) t0=now;
+    var p=Math.min(((now-t0)/TOTAL)*100,100);
+    bar.style.width=p.toFixed(1)+'%';
+    pct.textContent=Math.floor(p)+'%';
+    updateLog(p);
+    p<100 ? requestAnimationFrame(tick) : setTimeout(doLaunch,300);
   }
 
   function doLaunch(){
-    // cross-fade: fade loading.mp3 out, fade main.mp3 in
-    fadeOut(loAudio, 800);
-    setTimeout(function(){
-      fadeIn(mainAudio, 0.45, 2000);
-    }, 400);
-
+    fadeOut(loAudio,800);
+    setTimeout(function(){ fadeIn(mainAudio,0.5,2500); },400);
     setTimeout(function(){
       launch.classList.add('exit');
-      setTimeout(function(){ launch.style.display='none'; startPage(); }, 900);
-    }, 200);
+      setTimeout(function(){ launch.style.display='none'; startPage(); },900);
+    },200);
   }
 
-  /* ── Kick off on first user interaction (autoplay policy) ── */
-  var started = false;
-  function startLoader(){
-    if(started) return; started=true;
-    tryPlay(loAudio, 0.55);
-    requestAnimationFrame(tick);
-  }
+  /* Bar starts immediately — no waiting */
+  requestAnimationFrame(tick);
 
-  // Try auto-start immediately (works if no prior interaction blocked)
-  setTimeout(function(){ startLoader(); }, 100);
-
-  // Also hook any interaction as fallback
-  ['click','keydown','touchstart','mousemove'].forEach(function(ev){
-    document.addEventListener(ev, startLoader, {once:true});
+  /* Audio unlocks on first ANY gesture — mousemove is
+     enough on desktop (no click required).
+     On mobile touchstart fires before any tap delay.   */
+  ['mousemove','pointerover','touchstart','touchend','click','keydown'].forEach(function(ev){
+    document.addEventListener(ev, unlockAudio, {once:true, passive:true});
   });
 
   /* ── Easter egg ──────────────────────────────── */
-  egg.addEventListener('click', function(){ egg.classList.toggle('show'); });
-
-  var kseq=[38,38,40,40,37,39,37,39,66,65], kpos=0;
-  document.addEventListener('keydown', function(e){
-    if(e.keyCode===kseq[kpos]){ kpos++; if(kpos===kseq.length){ kpos=0; egg.classList.add('show'); }}
-    else{ kpos=0; }
+  egg.addEventListener('click',function(){egg.classList.toggle('show');});
+  var kseq=[38,38,40,40,37,39,37,39,66,65],kpos=0;
+  document.addEventListener('keydown',function(e){
+    unlockAudio();
+    if(e.keyCode===kseq[kpos]){kpos++;if(kpos===kseq.length){kpos=0;egg.classList.add('show');}}
+    else{kpos=0;}
   });
+
 })();
 
 /* ====================================================
