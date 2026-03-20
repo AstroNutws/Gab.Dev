@@ -487,19 +487,26 @@ var loAudio   = document.getElementById('lo-audio');
 var mainAudio = document.getElementById('main-audio');
 var muted     = false;
 
-loAudio.volume   = 0.6;
-mainAudio.volume = 0.5;
-mainAudio.loop   = true;
 loAudio.loop     = true;
+mainAudio.loop   = true;
+loAudio.volume   = 0.6;
+mainAudio.volume = 0;
 
 document.getElementById('gate-btn').addEventListener('click', function(){
   var gate   = document.getElementById('gate');
   var loader = document.getElementById('loader');
 
-  loAudio.currentTime = 0;
-  loAudio.volume = 0.6;
+  loAudio.currentTime  = 0;
+  mainAudio.currentTime = 0;
+
+  loAudio.volume  = 0.6;
+  mainAudio.volume = 0;
+
   var lp = loAudio.play();
   if(lp) lp.catch(function(){});
+
+  var mp = mainAudio.play();
+  if(mp) mp.catch(function(){});
 
   gate.classList.add('exit');
   setTimeout(function(){ gate.style.display='none'; }, 850);
@@ -528,30 +535,26 @@ document.getElementById('gate-btn').addEventListener('click', function(){
   requestAnimationFrame(tick);
 
   function doLaunch(){
-    var fadeSteps = 30, fadeIv = 1000/fadeSteps;
-    var vol = loAudio.paused ? 0 : loAudio.volume;
-    var step = vol / fadeSteps;
-    var count = 0;
-    var ft = setInterval(function(){
+    var steps = 30, iv = 1000/steps, count = 0;
+    var startVol = loAudio.paused ? 0 : loAudio.volume;
+    var step = startVol / steps;
+    var t = setInterval(function(){
       count++;
-      vol -= step;
-      if(!loAudio.paused){ try{ loAudio.volume = Math.max(0, vol); }catch(e){} }
-      if(count >= fadeSteps){
-        clearInterval(ft);
+      startVol -= step;
+      if(!loAudio.paused){ try{ loAudio.volume = Math.max(0, startVol); }catch(e){} }
+      if(count >= steps){
+        clearInterval(t);
         try{ loAudio.volume=0; loAudio.pause(); }catch(e){}
-        mainAudio.currentTime = 0;
-        mainAudio.volume = 0;
-        var mp = mainAudio.play();
-        if(mp) mp.catch(function(){});
-        var fi = 0;
-        var fadeIn = setInterval(function(){
-          fi++;
-          var v = Math.min(fi/40, 1) * 0.5;
-          try{ mainAudio.volume = muted ? 0 : v; }catch(e){}
-          if(fi >= 40) clearInterval(fadeIn);
-        }, 2500/40);
+        if(!muted){
+          var fi=0;
+          var fit = setInterval(function(){
+            fi++;
+            try{ mainAudio.volume = Math.min(fi/40,1)*0.5; }catch(e){}
+            if(fi>=40) clearInterval(fit);
+          }, 2500/40);
+        }
       }
-    }, fadeIv);
+    }, iv);
 
     loader.classList.add('exit');
     setTimeout(function(){ loader.style.display='none'; startPage(); }, 2200);
