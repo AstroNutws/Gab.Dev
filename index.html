@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GAB.DEV — Joshua Gabriel De Leon</title>
-
-<!-- ── FAVICON: custom code-bracket logo ── -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='9' fill='%23020510'/%3E%3Crect width='36' height='36' rx='9' fill='none' stroke='%234f8ef7' stroke-width='1.5'/%3E%3Cpath d='M10 13L6 18L10 23M26 13L30 18L26 23M16 26L20 10' stroke='%234f8ef7' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 13L6 18L10 23M26 13L30 18L26 23M16 26L20 10' stroke='%2326d9f0' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' stroke-dasharray='5 28' stroke-dashoffset='-10'/%3E%3C/svg%3E">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
@@ -27,17 +24,17 @@ a,button{cursor:none;text-decoration:none;color:inherit;font-family:inherit}
 img{display:block;max-width:100%}
 strong{font-weight:700;color:var(--text)}
 
-/* ── CURSOR ── */
+/* CURSOR */
 #cur{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;will-change:transform;filter:drop-shadow(0 0 7px rgba(79,142,247,.9)) drop-shadow(0 0 16px rgba(79,142,247,.45));transition:filter .2s}
 #trail-cv{position:fixed;inset:0;pointer-events:none;z-index:9996}
 body.on-link #cur{filter:drop-shadow(0 0 9px rgba(38,217,240,1)) drop-shadow(0 0 22px rgba(38,217,240,.6))}
 
-/* ── CANVAS / GRAIN ── */
+/* CANVAS / GRAIN */
 #bgcv{position:fixed;inset:0;z-index:0;pointer-events:none}
 body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");background-size:250px;animation:grain 8s steps(10) infinite}
 @keyframes grain{0%{transform:translate(0,0)}10%{transform:translate(-3%,-4%)}20%{transform:translate(-5%,3%)}30%{transform:translate(4%,-1%)}40%{transform:translate(-1%,6%)}50%{transform:translate(-4%,2%)}60%{transform:translate(5%,-3%)}70%{transform:translate(-3%,5%)}80%{transform:translate(2%,-5%)}90%{transform:translate(-4%,-2%)}100%{transform:translate(0,0)}}
 
-/* ── LAUNCH ── */
+/* LAUNCH */
 #launch{position:fixed;inset:0;z-index:8000;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transition:opacity .7s ease,transform .7s ease}
 #launch.exit{opacity:0;transform:scale(.97);pointer-events:none}
 .lo-logo{font-family:var(--mono);font-size:2.2rem;font-weight:700;color:var(--text);letter-spacing:-2px;margin-bottom:2.8rem;animation:fadeUp .7s ease both;display:flex;align-items:center;gap:12px}
@@ -57,7 +54,7 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;bac
 .lo-hint{font-family:var(--mono);font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);animation:fadeUp .7s .3s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── TRANSITION ── */
+/* TRANSITION */
 #tov{position:fixed;inset:0;z-index:7500;background:var(--bg);clip-path:inset(0 0 100% 0);pointer-events:none;display:flex;align-items:center;justify-content:center}
 #tov.go{clip-path:inset(0 0 0% 0);transition:clip-path .5s cubic-bezier(.76,0,.24,1);pointer-events:all}
 #tov.bye{clip-path:inset(100% 0 0 0);transition:clip-path .5s cubic-bezier(.76,0,.24,1) .05s;pointer-events:none}
@@ -67,7 +64,7 @@ body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;bac
 @keyframes tglow{from{box-shadow:0 0 10px var(--glowc)}to{box-shadow:0 0 28px var(--glowc),0 0 55px rgba(38,217,240,.07)}}
 .tov-txt{font-family:var(--mono);font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--cyan)}
 
-/* ── NAV ── */
+/* NAV */
 #page{position:relative;z-index:2}
 nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 7%;background:rgba(2,5,16,.78);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);will-change:transform}
 .nav-brand{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-weight:700;font-size:1rem;color:var(--text);letter-spacing:-.5px}
@@ -82,7 +79,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:cen
 .nav-cta:hover{box-shadow:0 0 22px var(--glowc);transform:translateY(-2px)!important}
 .nav-cta::after{display:none!important}
 
-/* ── HERO ── */
+/* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;padding:130px 7% 90px;gap:70px;position:relative}
 .hero-left{flex:1.3;max-width:640px}
 .hero-right{flex:1;display:flex;justify-content:flex-end;align-items:center}
@@ -107,7 +104,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:cen
 .btn-sec:hover{color:var(--cyan);border-color:var(--cyan);transform:translateY(-4px)}
 .ic{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── AVATAR ── */
+/* AVATAR */
 .av-wrap{position:relative;width:320px;height:320px}
 .av-r1{position:absolute;inset:-14px;border:1px solid var(--border2);border-radius:32px;animation:spin 14s linear infinite}
 .av-r2{position:absolute;inset:-26px;border:1px solid rgba(79,142,247,.05);border-radius:44px;animation:spin 20s linear infinite reverse}
@@ -131,7 +128,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:cen
 .sc-line::after{content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--cyan);animation:slide 2.4s ease-in-out infinite}
 @keyframes slide{0%{left:-100%}50%{left:100%}100%{left:100%}}
 
-/* ── SECTIONS ── */
+/* SECTIONS */
 section{padding:100px 7%;position:relative}
 .sec-ey{display:flex;align-items:center;gap:12px;margin-bottom:.7rem}
 .sec-ey-line{width:26px;height:1.5px;background:var(--blue);border-radius:2px}
@@ -142,7 +139,7 @@ section{padding:100px 7%;position:relative}
 .rv.on{opacity:1;transform:none}
 .divl{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
 
-/* ── PROJ CARDS ── */
+/* PROJ CARDS */
 #projects{background:var(--bg)}
 .proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
 .proj-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:1.8rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:border-color .3s,transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s;position:relative;overflow:hidden;will-change:transform}
@@ -151,9 +148,10 @@ section{padding:100px 7%;position:relative}
 .proj-top{display:flex;justify-content:space-between;align-items:flex-start}
 .proj-ibox{width:38px;height:38px;background:rgba(79,142,247,.1);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center}
 .proj-ibox svg{width:18px;height:18px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.proj-badge{font-family:var(--mono);font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);background:rgba(38,217,240,.08);border:1px solid rgba(38,217,240,.16);border-radius:5px;padding:.2rem .6rem}
 .proj-name{font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-.5px;text-transform:capitalize}
 .proj-desc{font-size:.92rem;color:var(--text2);line-height:1.7;flex:1}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px}
+.proj-tag{font-family:var(--mono);font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);background:rgba(79,142,247,.08);border:1px solid rgba(79,142,247,.16);border-radius:4px;padding:.19rem .55rem}
 .proj-meta{display:flex;align-items:center;gap:1rem;font-family:var(--mono);font-size:.62rem;color:var(--muted)}
 .proj-meta span{display:flex;align-items:center;gap:4px}
 .proj-meta svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -166,7 +164,7 @@ section{padding:100px 7%;position:relative}
 .skel{background:linear-gradient(90deg,var(--card) 25%,var(--card2) 50%,var(--card) 75%);background-size:200% 100%;animation:skelsh 1.5s infinite;border-radius:20px}
 @keyframes skelsh{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* ── COLLAB CARDS ── */
+/* COLLAB CARDS */
 #collabs{background:var(--bg2)}
 #collabs::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 100% 50%,rgba(48,232,200,.04) 0%,transparent 55%)}
 .collab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
@@ -181,7 +179,7 @@ section{padding:100px 7%;position:relative}
 .collab-badge{font-family:var(--mono);font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--teal);background:rgba(48,232,200,.08);border:1px solid rgba(48,232,200,.18);border-radius:5px;padding:.2rem .6rem}
 .collab-name{font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-.5px}
 .collab-desc{font-size:.92rem;color:var(--text2);line-height:1.7;flex:1}
-.collab-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:.2rem}
+.collab-tags{display:flex;flex-wrap:wrap;gap:7px}
 .collab-tag{font-family:var(--mono);font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);background:rgba(48,232,200,.07);border:1px solid rgba(48,232,200,.14);border-radius:4px;padding:.19rem .55rem}
 .collab-foot{display:flex;justify-content:space-between;align-items:center;padding-top:.9rem;border-top:1px solid var(--border);margin-top:auto}
 .btn-cv{font-family:var(--mono);font-size:.63rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--bg);background:var(--teal);border-radius:7px;padding:.42rem 1rem;font-weight:600;border:none;display:inline-flex;align-items:center;gap:6px;transition:background .2s,box-shadow .2s,transform .2s}
@@ -190,7 +188,7 @@ section{padding:100px 7%;position:relative}
 .btn-co:hover{color:var(--text)}
 .btn-cv svg,.btn-co svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── STACK ── */
+/* STACK */
 #stack{background:var(--bg)}
 .stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}
 .stack-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.6rem 1rem;display:flex;flex-direction:column;align-items:center;gap:.75rem;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s;cursor:default;position:relative;overflow:hidden;will-change:transform}
@@ -202,7 +200,7 @@ section{padding:100px 7%;position:relative}
 .stack-ico svg{width:20px;height:20px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .stack-lbl{font-size:.82rem;font-weight:700;color:var(--text);text-align:center;letter-spacing:-.1px}
 
-/* ── CONTACT ── */
+/* CONTACT */
 #contact{background:var(--bg2);display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
 #contact::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 0% 50%,rgba(79,142,247,.04) 0%,transparent 55%)}
 .contact-copy{font-size:.97rem;color:var(--text2);line-height:1.85;max-width:380px;margin-bottom:2rem}
@@ -223,7 +221,7 @@ section{padding:100px 7%;position:relative}
 .f-submit:hover{transform:translateY(-3px);box-shadow:0 14px 32px var(--glowb)}
 .f-submit svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── FOOTER ── */
+/* FOOTER */
 footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;position:relative;z-index:2;background:var(--bg)}
 .ft-brand{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.85rem;font-weight:700;color:var(--text2)}
 .ft-brand svg{width:22px;height:22px}
@@ -233,7 +231,7 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 .ft-links a{font-family:var(--mono);font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .ft-links a:hover{color:var(--text)}
 
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media(max-width:1024px){
   .hero{flex-direction:column-reverse;text-align:center;gap:50px;padding-top:110px}
   .hero-bio{margin:0 auto 2.4rem}
@@ -272,13 +270,13 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   <div class="lo-area">
     <div class="lo-orbit" id="lo-ring">
       <div class="lo-o1"></div><div class="lo-o2"></div><div class="lo-o3"></div>
-      <button class="lo-btn" id="lo-btn">&#9654;</button>
+      <button class="lo-btn">&#9654;</button>
     </div>
     <div class="lo-hint">Click anywhere to enter</div>
   </div>
 </div>
 
-<!-- PAGE TRANSITION -->
+<!-- TRANSITION -->
 <div id="tov">
   <div id="tov-label">
     <div class="tov-box">&#128279;</div>
@@ -296,8 +294,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 <canvas id="bgcv"></canvas>
 
 <div id="page">
-
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-brand">
     <svg viewBox="0 0 36 36" fill="none">
@@ -316,7 +312,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="about">
   <div class="hero-left">
     <div class="term-badge"><span class="t-pfx">~/gab&nbsp;$&nbsp;</span><span id="typed"></span><span class="t-blink"></span></div>
@@ -365,30 +360,27 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 
 <div class="divl"></div>
 
-<!-- OWN PROJECTS -->
 <section id="projects">
   <div class="sec-ey rv"><div class="sec-ey-line"></div><span class="sec-ey-lbl">Personal Work · OWN.md</span></div>
   <h2 class="sec-title rv">My <em>Projects</em></h2>
   <div class="proj-grid" id="own-grid">
-    <div class="skel" style="height:220px"></div>
-    <div class="skel" style="height:220px"></div>
+    <div class="skel" style="height:230px"></div>
+    <div class="skel" style="height:230px"></div>
   </div>
 </section>
 
 <div class="divl"></div>
 
-<!-- COLLABS -->
 <section id="collabs">
   <div class="sec-ey rv"><div class="sec-ey-line"></div><span class="sec-ey-lbl">Teamwork · COLLAB.md</span></div>
   <h2 class="sec-title rv">Collab <em>Projects</em></h2>
   <div class="collab-grid" id="collab-grid">
-    <div class="skel" style="height:220px"></div>
+    <div class="skel" style="height:230px"></div>
   </div>
 </section>
 
 <div class="divl"></div>
 
-<!-- STACK -->
 <section id="stack">
   <div class="sec-ey rv"><div class="sec-ey-line"></div><span class="sec-ey-lbl">Technologies · STACKS.md</span></div>
   <h2 class="sec-title rv">Tech <em>Stack</em></h2>
@@ -399,7 +391,6 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 
 <div class="divl"></div>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="rv">
     <div class="sec-ey" style="margin-bottom:.7rem"><div class="sec-ey-line"></div><span class="sec-ey-lbl">Get In Touch</span></div>
@@ -445,293 +436,368 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 </footer>
 
 <script>
-/* ── GLOBALS ── */
-let mx = innerWidth / 2, my = innerHeight / 2;
+/* ════════════════════════════════════════
+   GLOBALS
+════════════════════════════════════════ */
+var mx = innerWidth / 2;
+var my = innerHeight / 2;
 
-/* ── LAUNCH ── */
-const launchEl = document.getElementById('launch');
-document.getElementById('lo-ring').addEventListener('mouseenter', () => document.body.classList.add('on-link'));
-document.getElementById('lo-ring').addEventListener('mouseleave', () => document.body.classList.remove('on-link'));
-launchEl.addEventListener('click', () => {
+/* ════════════════════════════════════════
+   LAUNCH
+════════════════════════════════════════ */
+var launchEl = document.getElementById('launch');
+document.getElementById('lo-ring').addEventListener('mouseenter', function(){ document.body.classList.add('on-link'); });
+document.getElementById('lo-ring').addEventListener('mouseleave', function(){ document.body.classList.remove('on-link'); });
+launchEl.addEventListener('click', function(){
   launchEl.classList.add('exit');
-  setTimeout(() => { launchEl.style.display = 'none'; startPage(); }, 720);
+  setTimeout(function(){ launchEl.style.display = 'none'; startPage(); }, 720);
 });
 
-/* ── CURSOR + TRAIL ── */
-const curEl = document.getElementById('cur');
-const trailCv = document.getElementById('trail-cv');
-const tc = trailCv.getContext('2d');
-let trail = [];
-const TN = 14;
+/* ════════════════════════════════════════
+   CURSOR + TRAIL
+════════════════════════════════════════ */
+var curEl   = document.getElementById('cur');
+var trailCv = document.getElementById('trail-cv');
+var tc      = trailCv.getContext('2d');
+var trail   = [];
+var TN      = 14;
 
-function resizeTrail() { trailCv.width = innerWidth; trailCv.height = innerHeight; }
+function resizeTrail(){ trailCv.width = innerWidth; trailCv.height = innerHeight; }
 resizeTrail();
 window.addEventListener('resize', resizeTrail);
 
-document.addEventListener('mousemove', e => {
+document.addEventListener('mousemove', function(e){
   mx = e.clientX; my = e.clientY;
   curEl.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
   trail.unshift({ x: mx, y: my, age: 0 });
   if (trail.length > TN) trail.length = TN;
 });
 
-function hookLinks() {
-  document.querySelectorAll('a,button').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('on-link'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('on-link'));
+function hookLinks(){
+  document.querySelectorAll('a,button').forEach(function(el){
+    el.addEventListener('mouseenter', function(){ document.body.classList.add('on-link'); });
+    el.addEventListener('mouseleave', function(){ document.body.classList.remove('on-link'); });
   });
 }
 hookLinks();
 
-/* ── BACKGROUND CANVAS ── */
-const bgcv = document.getElementById('bgcv');
-const bx = bgcv.getContext('2d');
-let W = 0, H = 0;
-const PN = 55, CD = 110, CD2 = CD * CD, MR = 90, MR2 = MR * MR;
+/* ════════════════════════════════════════
+   BACKGROUND CANVAS
+════════════════════════════════════════ */
+var bgcv = document.getElementById('bgcv');
+var bx   = bgcv.getContext('2d');
+var W = 0, H = 0;
+var PN = 55, CD = 110, CD2 = CD * CD, MR = 90, MR2 = MR * MR;
+var ptx  = new Float32Array(PN), pty  = new Float32Array(PN);
+var pvx  = new Float32Array(PN), pvy  = new Float32Array(PN);
+var prad = new Float32Array(PN), pcol = new Uint8Array(PN);
+var gridCv = null;
 
-/* typed arrays — fast iteration */
-const ptx = new Float32Array(PN), pty = new Float32Array(PN);
-const pvx = new Float32Array(PN), pvy = new Float32Array(PN);
-const prad = new Float32Array(PN), pcol = new Uint8Array(PN);
-
-let gridCv = null;
-function buildGrid() {
+function buildGrid(){
   gridCv = document.createElement('canvas');
   gridCv.width = W; gridCv.height = H;
-  const gc = gridCv.getContext('2d');
+  var gc = gridCv.getContext('2d');
   gc.strokeStyle = 'rgba(79,142,247,.022)'; gc.lineWidth = 1;
   gc.beginPath();
-  for (let x = 0; x <= W; x += 90) { gc.moveTo(x, 0); gc.lineTo(x, H); }
-  for (let y = 0; y <= H; y += 90) { gc.moveTo(0, y); gc.lineTo(W, y); }
+  for (var x = 0; x <= W; x += 90){ gc.moveTo(x,0); gc.lineTo(x,H); }
+  for (var y = 0; y <= H; y += 90){ gc.moveTo(0,y); gc.lineTo(W,y); }
   gc.stroke();
 }
-function initPt(i, rndY) {
-  ptx[i] = Math.random() * W;
-  pty[i] = rndY ? Math.random() * H : (Math.random() < .5 ? -4 : H + 4);
-  pvx[i] = (Math.random() - .5) * .24; pvy[i] = (Math.random() - .5) * .24;
-  prad[i] = Math.random() * 1.2 + .4; pcol[i] = Math.random() < .6 ? 0 : 1;
+
+function initPt(i, rndY){
+  ptx[i]  = Math.random() * W;
+  pty[i]  = rndY ? Math.random() * H : (Math.random() < .5 ? -4 : H + 4);
+  pvx[i]  = (Math.random() - .5) * .24;
+  pvy[i]  = (Math.random() - .5) * .24;
+  prad[i] = Math.random() * 1.2 + .4;
+  pcol[i] = Math.random() < .6 ? 0 : 1;
 }
-function resizeBG() { W = bgcv.width = innerWidth; H = bgcv.height = innerHeight; buildGrid(); }
+
+function resizeBG(){ W = bgcv.width = innerWidth; H = bgcv.height = innerHeight; buildGrid(); }
 resizeBG();
 window.addEventListener('resize', resizeBG);
-for (let i = 0; i < PN; i++) initPt(i, true);
+for (var ii = 0; ii < PN; ii++) initPt(ii, true);
 
-/* ── UNIFIED RAF LOOP (38fps cap) ── */
-let lastT = 0;
-const FPS_CAP = 1000 / 38;
+var lastT = 0;
+var FPS_CAP = 1000 / 38;
 
-function loop(now) {
+function loop(now){
   requestAnimationFrame(loop);
   if (now - lastT < FPS_CAP) return;
   lastT = now;
 
-  /* BG */
-  bx.clearRect(0, 0, W, H);
-  if (gridCv) bx.drawImage(gridCv, 0, 0);
+  bx.clearRect(0,0,W,H);
+  if (gridCv) bx.drawImage(gridCv,0,0);
 
-  for (let i = 0; i < PN; i++) {
-    const ddx = ptx[i] - mx, ddy = pty[i] - my, d2 = ddx * ddx + ddy * ddy;
-    if (d2 < MR2 && d2 > .01) { const d = Math.sqrt(d2), f = (MR - d) / MR; pvx[i] += ddx / d * f * .28; pvy[i] += ddy / d * f * .28; }
-    pvx[i] *= .982; pvy[i] *= .982;
-    ptx[i] += pvx[i]; pty[i] += pvy[i];
-    if (ptx[i] < -10 || ptx[i] > W + 10 || pty[i] < -10 || pty[i] > H + 10) initPt(i, false);
+  for (var i = 0; i < PN; i++){
+    var ddx = ptx[i]-mx, ddy = pty[i]-my, d2 = ddx*ddx+ddy*ddy;
+    if (d2 < MR2 && d2 > .01){ var d=Math.sqrt(d2),f=(MR-d)/MR; pvx[i]+=ddx/d*f*.28; pvy[i]+=ddy/d*f*.28; }
+    pvx[i]*=.982; pvy[i]*=.982;
+    ptx[i]+=pvx[i]; pty[i]+=pvy[i];
+    if (ptx[i]<-10||ptx[i]>W+10||pty[i]<-10||pty[i]>H+10) initPt(i,false);
   }
 
   bx.lineWidth = .7;
-  for (let i = 0; i < PN; i++) for (let j = i + 1; j < PN; j++) {
-    const ddx = ptx[i] - ptx[j], ddy = pty[i] - pty[j], d2 = ddx * ddx + ddy * ddy;
-    if (d2 < CD2) {
-      const a = ((1 - Math.sqrt(d2) / CD) * .13).toFixed(2);
-      bx.beginPath(); bx.strokeStyle = 'rgba(79,142,247,' + a + ')';
-      bx.moveTo(ptx[i], pty[i]); bx.lineTo(ptx[j], pty[j]); bx.stroke();
+  for (var i = 0; i < PN; i++){
+    for (var j = i+1; j < PN; j++){
+      var ddx=ptx[i]-ptx[j], ddy=pty[i]-pty[j], d2=ddx*ddx+ddy*ddy;
+      if (d2 < CD2){
+        var a = ((1-Math.sqrt(d2)/CD)*.13).toFixed(2);
+        bx.beginPath();
+        bx.strokeStyle = 'rgba(79,142,247,'+a+')';
+        bx.moveTo(ptx[i],pty[i]); bx.lineTo(ptx[j],pty[j]); bx.stroke();
+      }
     }
   }
 
   bx.beginPath();
-  for (let i = 0; i < PN; i++) if (pcol[i] === 0) { bx.moveTo(ptx[i] + prad[i], pty[i]); bx.arc(ptx[i], pty[i], prad[i], 0, Math.PI * 2); }
-  bx.fillStyle = 'rgba(79,142,247,0.32)'; bx.fill();
+  for (var i=0;i<PN;i++) if(pcol[i]===0){bx.moveTo(ptx[i]+prad[i],pty[i]);bx.arc(ptx[i],pty[i],prad[i],0,Math.PI*2);}
+  bx.fillStyle='rgba(79,142,247,0.32)'; bx.fill();
   bx.beginPath();
-  for (let i = 0; i < PN; i++) if (pcol[i] === 1) { bx.moveTo(ptx[i] + prad[i], pty[i]); bx.arc(ptx[i], pty[i], prad[i], 0, Math.PI * 2); }
-  bx.fillStyle = 'rgba(38,217,240,0.28)'; bx.fill();
+  for (var i=0;i<PN;i++) if(pcol[i]===1){bx.moveTo(ptx[i]+prad[i],pty[i]);bx.arc(ptx[i],pty[i],prad[i],0,Math.PI*2);}
+  bx.fillStyle='rgba(38,217,240,0.28)'; bx.fill();
 
-  /* trail */
-  tc.clearRect(0, 0, trailCv.width, trailCv.height);
-  for (let i = 0; i < trail.length; i++) {
-    const p = trail[i], t = 1 - i / TN, r = t * 4.5;
-    tc.beginPath(); tc.arc(p.x, p.y, r * 3, 0, Math.PI * 2);
-    tc.fillStyle = 'rgba(79,142,247,' + (t * .28).toFixed(2) + ')'; tc.fill();
-    tc.beginPath(); tc.arc(p.x, p.y, r, 0, Math.PI * 2);
-    tc.fillStyle = 'rgba(147,197,253,' + (t * .4).toFixed(2) + ')'; tc.fill();
+  tc.clearRect(0,0,trailCv.width,trailCv.height);
+  for (var i=0;i<trail.length;i++){
+    var p=trail[i], t=1-i/TN, r=t*4.5;
+    tc.beginPath(); tc.arc(p.x,p.y,r*3,0,Math.PI*2);
+    tc.fillStyle='rgba(79,142,247,'+(t*.28).toFixed(2)+')'; tc.fill();
+    tc.beginPath(); tc.arc(p.x,p.y,r,0,Math.PI*2);
+    tc.fillStyle='rgba(147,197,253,'+(t*.4).toFixed(2)+')'; tc.fill();
     p.age++;
   }
-  trail = trail.filter(p => p.age < TN);
+  trail = trail.filter(function(p){ return p.age < TN; });
 }
 requestAnimationFrame(loop);
 
-/* ── TYPED BADGE ── */
-const phrases = ['whoami', 'cat portfolio.md', './run projects', 'ls -la stack/', 'git log --oneline'];
-let pi = 0, ci = 0, delMode = false, wt = 0;
-const typedEl = document.getElementById('typed');
-(function typeIt() {
-  if (wt-- > 0) { setTimeout(typeIt, 80); return; }
-  const ph = phrases[pi];
-  if (!delMode) { typedEl.textContent = ph.slice(0, ++ci); if (ci === ph.length) { delMode = true; wt = 30; } setTimeout(typeIt, 105); }
-  else { typedEl.textContent = ph.slice(0, --ci); if (ci === 0) { delMode = false; pi = (pi + 1) % phrases.length; wt = 10; } setTimeout(typeIt, 50); }
+/* ════════════════════════════════════════
+   TYPED BADGE
+════════════════════════════════════════ */
+var phrases = ['whoami','cat portfolio.md','./run projects','ls -la stack/','git log --oneline'];
+var pi=0, ci=0, delMode=false, wt=0;
+var typedEl = document.getElementById('typed');
+(function typeIt(){
+  if (wt-- > 0){ setTimeout(typeIt, 80); return; }
+  var ph = phrases[pi];
+  if (!delMode){
+    typedEl.textContent = ph.slice(0,++ci);
+    if (ci===ph.length){ delMode=true; wt=30; }
+    setTimeout(typeIt, 105);
+  } else {
+    typedEl.textContent = ph.slice(0,--ci);
+    if (ci===0){ delMode=false; pi=(pi+1)%phrases.length; wt=10; }
+    setTimeout(typeIt, 50);
+  }
 })();
 
-/* ── PAGE TRANSITION ── */
-const tov = document.getElementById('tov');
-const tovTxt = document.getElementById('tov-txt');
-function openLink(url, label) {
+/* ════════════════════════════════════════
+   PAGE TRANSITION
+════════════════════════════════════════ */
+var tov    = document.getElementById('tov');
+var tovTxt = document.getElementById('tov-txt');
+function openLink(url, label){
   tovTxt.textContent = label || 'Opening…';
   tov.className = 'go';
-  setTimeout(() => {
-    window.open(url, '_blank');
+  setTimeout(function(){
+    window.open(url,'_blank');
     tov.className = 'bye';
-    setTimeout(() => { tov.className = ''; }, 700);
+    setTimeout(function(){ tov.className=''; }, 700);
   }, 660);
 }
 
-/* ── SVG SNIPPETS ── */
-const IGH = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
-const IEX = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
-const IST = '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
-const IFO = '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>';
-const IGS = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
-const ITE = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
+/* ════════════════════════════════════════
+   SVG ICONS
+════════════════════════════════════════ */
+var IGH = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
+var IEX = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>';
+var IST = '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+var IFO = '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>';
+var IGS = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>';
+var ITE = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
 
-/* ── OWN.md → GITHUB API ── */
-async function loadOwn() {
-  const grid = document.getElementById('own-grid');
-  let text = window.OWN_DATA || '';
-  if (!text) {
-    try { const r = await fetch('OWN.md'); if (!r.ok) throw 1; text = await r.text(); }
-    catch (e) { grid.innerHTML = note('Place OWN.md beside index.html — one GitHub URL per line.'); return; }
-  }
-  const urls = text.split('\n').map(s => s.trim()).filter(s => /^https?:\/\//.test(s));
-  if (!urls.length) { grid.innerHTML = note('No URLs found in OWN.md'); return; }
+/* ════════════════════════════════════════
+   PARSE LINE HELPER
+   Supports BOTH formats:
+     https://github.com/owner/repo | tag1, tag2
+     https://github.com/owner/repo
+════════════════════════════════════════ */
+function parseLine(line){
+  var parts = line.split('|').map(function(s){ return s.trim(); });
+  var url   = parts[0] || '';
+  var tags  = parts[1] ? parts[1].split(',').map(function(t){ return t.trim(); }).filter(Boolean) : [];
+  return { url: url, tags: tags };
+}
+
+function tagsHTML(tags, cls){
+  if (!tags.length) return '';
+  return '<div class="' + cls + '-tags">' +
+    tags.map(function(t){ return '<span class="' + cls + '-tag">' + t + '</span>'; }).join('') +
+    '</div>';
+}
+
+/* ════════════════════════════════════════
+   OWN.md  → GitHub API
+   Format: https://github.com/owner/repo | tag1, tag2
+════════════════════════════════════════ */
+function loadOwn(){
+  var grid = document.getElementById('own-grid');
+  var raw  = (window.OWN_DATA || '').trim();
+  if (!raw){ grid.innerHTML = note('Add GitHub URLs to OWN.md — one per line.'); return; }
+
+  var lines = raw.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
   grid.innerHTML = '';
-  for (const url of urls) {
-    const match = url.match(/github\.com\/([^/]+)\/([^/\s#?]+)/);
-    if (!match) continue;
-    const owner = match[1], repo = match[2];
-    const card = document.createElement('div');
+
+  lines.forEach(function(line){
+    var parsed = parseLine(line);
+    var url    = parsed.url;
+    var tags   = parsed.tags;
+    if (!url.match(/^https?:\/\//)) return;
+
+    var match = url.match(/github\.com\/([^/]+)\/([^/\s#?]+)/);
+    if (!match) return;
+    var owner = match[1], repo = match[2];
+
+    var card = document.createElement('div');
     card.className = 'proj-card rv';
     card.innerHTML = '<div class="skel" style="height:160px;border-radius:10px"></div>';
     grid.appendChild(card);
-    try {
-      const res = await fetch('https://api.github.com/repos/' + owner + '/' + repo);
-      const d = await res.json();
-      if (d.message) throw new Error(d.message);
-      const hp = d.homepage && d.homepage.trim() && d.homepage !== 'null' ? d.homepage : null;
-      const nm = (d.name || repo).replace(/-/g, ' ');
-      card.innerHTML =
-        '<div class="proj-top"><div class="proj-ibox">' + IGH + '</div><span class="proj-badge">' + (d.language || 'Code') + '</span></div>' +
-        '<div class="proj-name">' + nm + '</div>' +
-        '<div class="proj-desc">' + (d.description || 'A personal project by GAB.DEV.') + '</div>' +
-        '<div class="proj-meta"><span>' + IST + '&nbsp;' + (d.stargazers_count || 0) + '</span><span>' + IFO + '&nbsp;' + (d.forks_count || 0) + '</span><span style="margin-left:auto;opacity:.5;font-size:.58rem">' + owner + '</span></div>' +
-        '<div class="proj-foot"><button class="btn-visit" id="bv-' + repo + '">' + (hp ? IEX + '&nbsp;Visit Site' : IGS + '&nbsp;Open Repo') + '</button>' +
-        '<a href="' + url + '" target="_blank" class="btn-gh">' + IGS + '&nbsp;GitHub</a></div>';
-      const tgt = hp || url;
-      document.getElementById('bv-' + repo).addEventListener('click', function () { openLink(tgt, nm); });
-    } catch (e) {
-      const nm = repo.replace(/-/g, ' ');
-      card.innerHTML =
-        '<div class="proj-top"><div class="proj-ibox">' + IGH + '</div></div>' +
-        '<div class="proj-name">' + nm + '</div>' +
-        '<div class="proj-desc" style="color:var(--muted)">Could not load — check URL or GitHub API rate limit.</div>' +
-        '<div class="proj-foot"><button class="btn-visit" id="be-' + repo + '">' + IGS + '&nbsp;Open Repo</button></div>';
-      document.getElementById('be-' + repo).addEventListener('click', function () { openLink(url, nm); });
-    }
-  }
-  hookLinks(); rvAll();
+
+    fetch('https://api.github.com/repos/' + owner + '/' + repo)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d.message) throw new Error(d.message);
+        var hp  = d.homepage && d.homepage.trim() && d.homepage !== 'null' ? d.homepage : null;
+        var nm  = (d.name || repo).replace(/-/g,' ');
+        var tgt = hp || url;
+        var btnId = 'bv-' + repo;
+
+        card.innerHTML =
+          '<div class="proj-top"><div class="proj-ibox">' + IGH + '</div></div>' +
+          '<div class="proj-name">' + nm + '</div>' +
+          '<div class="proj-desc">' + (d.description || 'A personal project by GAB.DEV.') + '</div>' +
+          tagsHTML(tags, 'proj') +
+          '<div class="proj-meta">' +
+            '<span>' + IST + '&nbsp;' + (d.stargazers_count||0) + '</span>' +
+            '<span>' + IFO + '&nbsp;' + (d.forks_count||0) + '</span>' +
+            '<span style="margin-left:auto;opacity:.5;font-size:.58rem">' + owner + '</span>' +
+          '</div>' +
+          '<div class="proj-foot">' +
+            '<button class="btn-visit" id="' + btnId + '">' + (hp ? IEX+'&nbsp;Visit Site' : IGS+'&nbsp;Open Repo') + '</button>' +
+            '<a href="' + url + '" target="_blank" class="btn-gh">' + IGS + '&nbsp;GitHub</a>' +
+          '</div>';
+
+        document.getElementById(btnId).addEventListener('click', function(){ openLink(tgt, nm); });
+        hookLinks(); rvAll();
+      })
+      .catch(function(){
+        var nm = repo.replace(/-/g,' ');
+        var btnId = 'be-' + repo;
+        card.innerHTML =
+          '<div class="proj-top"><div class="proj-ibox">' + IGH + '</div></div>' +
+          '<div class="proj-name">' + nm + '</div>' +
+          tagsHTML(tags, 'proj') +
+          '<div class="proj-desc" style="color:var(--muted);margin-top:.5rem">Could not load from GitHub API.</div>' +
+          '<div class="proj-foot">' +
+            '<button class="btn-visit" id="' + btnId + '">' + IGS + '&nbsp;Open Repo</button>' +
+          '</div>';
+        document.getElementById(btnId).addEventListener('click', function(){ openLink(url, nm); });
+        hookLinks(); rvAll();
+      });
+  });
 }
 
-/* ── COLLAB.md ── */
-/* Format per line: Title | tag1, tag2 | Description | URL */
-function renderCollabs(text) {
-  const grid = document.getElementById('collab-grid');
-  const lines = text.split('\n').map(l => l.trim()).filter(l => l && !l.startsWith('#') && l.includes('|'));
-  if (!lines.length) { grid.innerHTML = note('No entries in COLLAB.md — format: Title | tags | Description | URL'); return; }
-  grid.innerHTML = '';
-  lines.forEach(function (line, idx) {
-    const parts = line.split('|').map(s => s.trim());
-    const title = parts[0] || 'Untitled';
-    const tags = (parts[1] || '').split(',').map(t => t.trim()).filter(Boolean);
-    const desc = parts[2] || '';
-    const url = (parts[3] || '').trim();
-    const isGH = url.indexOf('github.com') !== -1;
+/* ════════════════════════════════════════
+   COLLAB.md → GitHub API
+   Format: https://github.com/owner/repo | tag1, tag2
+════════════════════════════════════════ */
+function loadCollabs(){
+  var grid = document.getElementById('collab-grid');
+  var raw  = (window.COLLAB_DATA || '').trim();
+  if (!raw){ grid.innerHTML = note('Add GitHub URLs to COLLAB.md — one per line.'); return; }
 
-    const card = document.createElement('div');
+  var lines = raw.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+  grid.innerHTML = '';
+
+  lines.forEach(function(line, idx){
+    var parsed = parseLine(line);
+    var url    = parsed.url;
+    var tags   = parsed.tags;
+    if (!url.match(/^https?:\/\//)) return;
+
+    var match = url.match(/github\.com\/([^/]+)\/([^/\s#?]+)/);
+    if (!match) return;
+    var owner = match[1], repo = match[2];
+
+    var card = document.createElement('div');
     card.className = 'collab-card rv';
     card.style.transitionDelay = (idx * .08) + 's';
-
-    const tagHTML = tags.map(t => '<span class="collab-tag">' + t + '</span>').join('');
-    const footHTML = url
-      ? '<button class="btn-cv" id="bcv-' + idx + '">' + IEX + '&nbsp;' + (isGH ? 'View Repo' : 'Visit Site') + '</button>' +
-        '<a href="' + url + '" target="_blank" class="btn-co">' + IGS + '&nbsp;Open</a>'
-      : '<span></span>';
-
-    card.innerHTML =
-      '<div class="collab-top"><div class="collab-ibox">' + ITE + '</div><span class="collab-badge">COLLAB</span></div>' +
-      '<div class="collab-name">' + title + '</div>' +
-      (desc ? '<div class="collab-desc">' + desc + '</div>' : '') +
-      (tags.length ? '<div class="collab-tags">' + tagHTML + '</div>' : '') +
-      '<div class="collab-foot">' + footHTML + '</div>';
-
+    card.innerHTML = '<div class="skel" style="height:160px;border-radius:10px"></div>';
     grid.appendChild(card);
 
-    if (url) {
-      /* safe click binding — no inline onclick, no quote issues */
-      setTimeout(function () {
-        const btn = document.getElementById('bcv-' + idx);
-        if (btn) btn.addEventListener('click', function () { openLink(url, title); });
-      }, 0);
-    }
+    fetch('https://api.github.com/repos/' + owner + '/' + repo)
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d.message) throw new Error(d.message);
+        var hp  = d.homepage && d.homepage.trim() && d.homepage !== 'null' ? d.homepage : null;
+        var nm  = (d.name || repo).replace(/-/g,' ');
+        var tgt = hp || url;
+        var btnId = 'cbv-' + idx;
+
+        card.innerHTML =
+          '<div class="collab-top"><div class="collab-ibox">' + ITE + '</div><span class="collab-badge">COLLAB</span></div>' +
+          '<div class="collab-name">' + nm + '</div>' +
+          '<div class="collab-desc">' + (d.description || 'A collaboration project by GAB.DEV.') + '</div>' +
+          tagsHTML(tags, 'collab') +
+          '<div class="collab-foot">' +
+            '<button class="btn-cv" id="' + btnId + '">' + (hp ? IEX+'&nbsp;Visit Site' : IGS+'&nbsp;View Repo') + '</button>' +
+            '<a href="' + url + '" target="_blank" class="btn-co">' + IGS + '&nbsp;Open</a>' +
+          '</div>';
+
+        document.getElementById(btnId).addEventListener('click', function(){ openLink(tgt, nm); });
+        hookLinks(); rvAll();
+      })
+      .catch(function(){
+        var nm = repo.replace(/-/g,' ');
+        var btnId = 'cbe-' + idx;
+        card.innerHTML =
+          '<div class="collab-top"><div class="collab-ibox">' + ITE + '</div><span class="collab-badge">COLLAB</span></div>' +
+          '<div class="collab-name">' + nm + '</div>' +
+          tagsHTML(tags, 'collab') +
+          '<div class="collab-desc" style="color:var(--muted);margin-top:.5rem">Could not load from GitHub API.</div>' +
+          '<div class="collab-foot">' +
+            '<button class="btn-cv" id="' + btnId + '">' + IGS + '&nbsp;View Repo</button>' +
+          '</div>';
+        document.getElementById(btnId).addEventListener('click', function(){ openLink(url, nm); });
+        hookLinks(); rvAll();
+      });
   });
-  hookLinks(); rvAll();
 }
 
-async function loadCollabs() {
-  /* 1) inline data embedded in page — works on file:// */
-  if (window.COLLAB_DATA) { renderCollabs(window.COLLAB_DATA); return; }
-  /* 2) fetch for server environments */
-  try {
-    const r = await fetch('COLLAB.md');
-    if (!r.ok) throw new Error('not found');
-    renderCollabs(await r.text());
-  } catch (e) {
-    document.getElementById('collab-grid').innerHTML = note('Add COLLAB.md beside index.html — format: Title | tags | Description | URL');
-  }
-}
-
-/* ── STACKS.md ── */
-const SICO = {
-  'postgresql': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
-  'vb.net': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>',
-  'vb': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>',
-  '.net maui': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
-  'java': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-  'pawn': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>',
-  'sql server': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
-  'supabase': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
-  'mysql': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
-  'default': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>'
+/* ════════════════════════════════════════
+   STACKS.md
+════════════════════════════════════════ */
+var SICO = {
+  'postgresql':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
+  'vb.net':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>',
+  'vb':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><polyline points="9 8 5 12 9 16"/><polyline points="15 8 19 12 15 16"/></svg>',
+  '.net maui':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
+  'java':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  'pawn':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>',
+  'sql server':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
+  'supabase':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
+  'mysql':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>',
+  'default':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>'
 };
 
-async function loadStack() {
-  const grid = document.getElementById('stack-grid');
-  let text = window.STACKS_DATA || '';
-  if (!text) {
-    try { const r = await fetch('STACKS.md'); if (!r.ok) throw 1; text = await r.text(); }
-    catch (e) { grid.innerHTML = note('Place STACKS.md beside index.html — one technology per line.'); return; }
-  }
-  const techs = text.split('\n').map(s => s.trim()).filter(s => s && !s.startsWith('#'));
-  if (!techs.length) { grid.innerHTML = note('No technologies in STACKS.md'); return; }
+function loadStack(){
+  var grid  = document.getElementById('stack-grid');
+  var raw   = (window.STACKS_DATA || '').trim();
+  if (!raw){ grid.innerHTML = note('Add technologies to STACKS.md — one per line.'); return; }
+  var techs = raw.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
   grid.innerHTML = '';
-  techs.forEach(function (tech, i) {
-    const icon = SICO[tech.toLowerCase()] || SICO['default'];
-    const card = document.createElement('div');
+  techs.forEach(function(tech, i){
+    var icon = SICO[tech.toLowerCase()] || SICO['default'];
+    var card = document.createElement('div');
     card.className = 'stack-card rv';
     card.style.transitionDelay = (i * .06) + 's';
     card.innerHTML = '<div class="stack-ico">' + icon + '</div><div class="stack-lbl">' + tech + '</div>';
@@ -740,43 +806,48 @@ async function loadStack() {
   rvAll();
 }
 
-/* ── CONTACT ── */
-function sendContact(e) {
+/* ════════════════════════════════════════
+   CONTACT
+════════════════════════════════════════ */
+function sendContact(e){
   e.preventDefault();
-  const name = document.getElementById('fn').value.trim();
-  const email = document.getElementById('fe').value.trim();
-  const msg = document.getElementById('fm').value.trim();
-  const sub = encodeURIComponent('[GAB.DEV] Message from ' + name);
-  const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + msg);
+  var name  = document.getElementById('fn').value.trim();
+  var email = document.getElementById('fe').value.trim();
+  var msg   = document.getElementById('fm').value.trim();
+  var sub   = encodeURIComponent('[GAB.DEV] Message from ' + name);
+  var body  = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + msg);
   window.location.href = 'mailto:samongud@gmail.com?subject=' + sub + '&body=' + body;
 }
 
-/* ── SCROLL REVEAL ── */
-const io = new IntersectionObserver(function (entries) {
-  entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('on'); });
+/* ════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════ */
+var io = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('on'); });
 }, { threshold: .1 });
-function rvAll() { document.querySelectorAll('.rv:not(.on)').forEach(function (el) { io.observe(el); }); }
+function rvAll(){ document.querySelectorAll('.rv:not(.on)').forEach(function(el){ io.observe(el); }); }
 
-/* ── HELPER ── */
-function note(msg) {
+function note(msg){
   return '<div style="grid-column:1/-1;font-family:var(--mono);font-size:.78rem;color:var(--text2);padding:1.2rem 0;line-height:1.8">' + msg + '</div>';
 }
 
-/* ── START ── */
-function startPage() { rvAll(); loadOwn(); loadCollabs(); loadStack(); }
+function startPage(){ rvAll(); loadOwn(); loadCollabs(); loadStack(); }
 rvAll();
 </script>
 
-<!-- ═══════════════════════════════════════════
-     EDIT YOUR DATA HERE
-     COLLAB_DATA : Title | tags | Description | URL   (one line each)
-     OWN_DATA    : one GitHub URL per line
-     STACKS_DATA : one technology per line
-════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     YOUR DATA — edit these three variables
+     
+     OWN_DATA / COLLAB_DATA format (one line per project):
+       https://github.com/user/repo | Tag1, Tag2, Tag3
+     
+     STACKS_DATA format:
+       One technology per line
+══════════════════════════════════════════════════════ -->
 <script>
-window.COLLAB_DATA = `School Store POS System | Java, Supabase, Inventory | Migrated core storage to cloud architecture, built backend logic for stock management and transaction processing. | https://github.com/AstroNutws/School-Store-Premium-Inventory-Point-of-Sale-POS-System`;
+window.OWN_DATA = `https://github.com/AstroNutws/Attendance-QRSYS | VB.NET, .NET MAUI, PostgreSQL;
 
-window.OWN_DATA = `https://github.com/AstroNutws/Attendance-QRSYS;
+window.COLLAB_DATA = `https://github.com/AstroNutws/School-Store-Premium-Inventory-Point-of-Sale-POS-System | Java, PostgreSQL, Inventory Management`;
 
 window.STACKS_DATA = `PostgreSQL
 VB.NET
