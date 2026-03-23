@@ -235,7 +235,9 @@ section{padding:100px 7%;position:relative}
 .proj-foot{display:flex;justify-content:space-between;align-items:center;padding-top:.9rem;border-top:1px solid var(--border);margin-top:auto}
 .btn-visit{font-family:var(--mono);font-size:.63rem;letter-spacing:1.5px;text-transform:uppercase;color:#fff;background:var(--blue);border-radius:7px;padding:.42rem 1rem;font-weight:600;border:none;display:inline-flex;align-items:center;gap:6px;transition:background .2s,box-shadow .2s,transform .2s}
 .btn-visit:hover{background:var(--cyan);color:var(--bg);box-shadow:0 6px 18px var(--glowc);transform:scale(1.05)}
-.btn-visit svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.btn-gh{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);transition:color .2s}
+.btn-gh:hover{color:var(--text)}
+.btn-gh svg,.btn-visit svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .skel{background:linear-gradient(90deg,var(--card) 25%,var(--card2) 50%,var(--card) 75%);background-size:200% 100%;animation:skelsh 1.5s infinite;border-radius:20px}
 @keyframes skelsh{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
@@ -282,7 +284,9 @@ section{padding:100px 7%;position:relative}
 .collab-foot{display:flex;justify-content:space-between;align-items:center;padding-top:.9rem;border-top:1px solid var(--border);margin-top:auto}
 .btn-cv{font-family:var(--mono);font-size:.63rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--bg);background:var(--teal);border-radius:7px;padding:.42rem 1rem;font-weight:600;border:none;display:inline-flex;align-items:center;gap:6px;transition:background .2s,box-shadow .2s,transform .2s}
 .btn-cv:hover{background:var(--cyan);box-shadow:0 6px 18px var(--glowc);transform:scale(1.05)}
-.btn-cv svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.btn-co{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);transition:color .2s}
+.btn-co:hover{color:var(--text)}
+.btn-cv svg,.btn-co svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 #stack{background:var(--bg)}
 .stack-section-intro{font-family:var(--mono);font-size:.78rem;color:var(--text2);margin-bottom:2.5rem;line-height:1.7;max-width:560px}
@@ -376,6 +380,13 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 .modal-btn-no:hover{border-color:var(--cyan);color:var(--cyan)}
 #countdown{font-family:var(--mono);font-size:3rem;font-weight:700;color:var(--cyan);margin:2rem 0;letter-spacing:4px}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+[data-theme="light"] #back-top{background:rgba(255,255,255,.92);border-color:rgba(37,99,235,.2)}
+[data-theme="light"] #back-top svg{stroke:var(--text2)}
+[data-theme="light"] #snake-game{background:rgba(255,255,255,.96);border-color:rgba(37,99,235,.2);color:var(--text2)}
+[data-theme="light"] #snake-game-close{color:var(--blue)}
+[data-theme="light"] #game-modal-content{background:rgba(255,255,255,.98);border-color:var(--cyan)}
+[data-theme="light"] #snake-canvas{background:rgba(240,244,255,.9)}
+[data-theme="light"] #snake-btn{background:var(--blue)}
 
 @media(max-width:1200px){
   .av-wrap{width:400px;height:400px}.av-box{width:400px;height:400px}.av-inner{width:400px;height:400px}
@@ -407,22 +418,15 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 }
 @media(max-width:768px){
   #snake-game{width:140px;bottom:20px;left:12px;font-size:9px}
+  #play-game-btn{bottom:12px;right:56px}
   #back-top{bottom:60px;right:12px}
 }
 @media(max-width:480px){
   #snake-game{width:130px;bottom:18px;left:8px;font-size:8px;padding:8px}
-    #play-game-btn{bottom:8px;right:50px;width:36px;height:36px}
+  #play-game-btn{bottom:8px;right:50px;width:36px;height:36px}
   #back-top{bottom:54px;right:8px;width:34px;height:34px}
   .value-prop{grid-template-columns:1fr}
 }
-
-[data-theme="light"] #back-top{background:rgba(255,255,255,.92);border-color:rgba(37,99,235,.2)}
-[data-theme="light"] #back-top svg{stroke:var(--text2)}
-[data-theme="light"] #snake-game{background:rgba(255,255,255,.96);border-color:rgba(37,99,235,.2);color:var(--text2)}
-[data-theme="light"] #snake-game-close{color:var(--blue)}
-[data-theme="light"] #game-modal-content{background:rgba(255,255,255,.98);border-color:var(--cyan)}
-[data-theme="light"] #snake-canvas{background:rgba(240,244,255,.9)}
-[data-theme="light"] #snake-btn{background:var(--blue)}
 </style>
 </head>
 <body>
@@ -434,7 +438,7 @@ footer{padding:2.2rem 7%;border-top:1px solid var(--border);display:flex;align-i
 
 <div id="kbd-hint">
   <span class="kbd">T</span> Theme &nbsp;·&nbsp;
-    <span class="kbd">R</span> Resume &nbsp;·&nbsp;
+  <span class="kbd">R</span> Resume &nbsp;·&nbsp;
   <span class="kbd">G</span> GitHub &nbsp;·&nbsp;
   <span class="kbd">C</span> Contact
 </div>
@@ -740,7 +744,6 @@ window.addEventListener('scroll',function(){
 },{passive:true});
 
 
-
 var NAV_SECTIONS=['about','projects','collabs','github-activity','stack','contact'];
 function updateActiveNav(){
   var sy=window.scrollY||window.pageYOffset,active='about';
@@ -881,12 +884,12 @@ function loadOwn(){
         var hp=d.homepage&&d.homepage.trim()&&d.homepage!=='null'?d.homepage:null,nm=(d.name||repo).replace(/-/g,' '),bid='bv'+repo.replace(/[^a-z0-9]/gi,'');
         card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+nm+'</div><div class="proj-desc">'+(d.description||'A personal project by GAB.DEV.')+'</div>'+mkTags(tags,'proj')+'<div class="proj-meta"><span>'+IST+'&nbsp;'+(d.stargazers_count||0)+'</span><span>'+IFO+'&nbsp;'+(d.forks_count||0)+'</span></div><div class="proj-foot"><button class="btn-visit" id="'+bid+'">'+IEX+'&nbsp;View Project</button></div>';
         var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(hp||p.url,nm);});
-        addCardTilt(card);hookLinks();rvAll();
+        addCardTilt(card);rvAll();
       }).catch(function(){
         var nm=repo.replace(/-/g,' '),bid='be'+repo.replace(/[^a-z0-9]/gi,'');
         card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+nm+'</div>'+mkTags(tags,'proj')+'<div class="proj-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div><div class="proj-foot"><button class="btn-visit" id="'+bid+'">'+IEX+'&nbsp;View Project</button></div>';
         var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(p.url,nm);});
-        addCardTilt(card);hookLinks();rvAll();
+        addCardTilt(card);rvAll();
       });
     });
   }).catch(function(){grid.innerHTML=note('OWN.md not found.');});
@@ -908,12 +911,12 @@ function loadCollabs(){
         var hp=d.homepage&&d.homepage.trim()&&d.homepage!=='null'?d.homepage:null,nm=(d.name||repo).replace(/-/g,' '),bid='cbv'+idx;
         card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div><div class="collab-desc">'+(d.description||'A collaboration project.')+'</div>'+mkTags(tags,'collab')+'<div class="collab-foot"><button class="btn-cv" id="'+bid+'">'+IEX+'&nbsp;View Project</button></div>';
         var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(hp||p.url,nm);});
-        addCardTilt(card);hookLinks();rvAll();
+        addCardTilt(card);rvAll();
       }).catch(function(){
         var nm=repo.replace(/-/g,' '),bid='cbe'+idx;
-        card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div>'+mkTags(tags,'collab')+'<div class="collab-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div><div class="collab-foot"><button class="btn-cv" id="'+bid+'">'+IGS+'&nbsp;View Repo</button></div>';
+        card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div>'+mkTags(tags,'collab')+'<div class="collab-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div><div class="collab-foot"><button class="btn-cv" id="'+bid+'">'+IEX+'&nbsp;View Project</button></div>';
         var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(p.url,nm);});
-        addCardTilt(card);hookLinks();rvAll();
+        addCardTilt(card);rvAll();
       });
     });
   }).catch(function(){grid.innerHTML=note('COLLAB.md not found.');});
@@ -990,14 +993,6 @@ function triggerHeroAnims(){document.querySelectorAll('.hero-animate').forEach(f
 function startPage(){
   rvAll();loadOwn();loadCollabs();loadStack();loadGhActivity();
   setTimeout(triggerHeroAnims,100);
-  /* Auto-play main audio on first user interaction */
-  var played=false;
-  function tryPlay(){
-    if(played)return;played=true;    var p=if(p&&p.catch)p.catch(function(){});
-  }
-  document.addEventListener('click',tryPlay,{once:true});
-  document.addEventListener('keydown',tryPlay,{once:true});
-  document.addEventListener('touchstart',tryPlay,{once:true,passive:true});
 }
 
 startPage();
