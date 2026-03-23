@@ -946,14 +946,12 @@ function loadOwn(){
       card.className='proj-card rv';card.innerHTML='<div class="skel" style="height:160px;border-radius:10px"></div>';grid.appendChild(card);
       fetch('https://api.github.com/repos/'+owner+'/'+repo).then(function(r){return r.json();}).then(function(d){
         if(d.message)throw 0;
-        var hp=d.homepage&&d.homepage.trim()&&d.homepage!=='null'?d.homepage:null,nm=(d.name||repo).replace(/-/g,' '),bid='bv'+repo.replace(/[^a-z0-9]/gi,'');
-        card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+nm+'</div><div class="proj-desc">'+(d.description||'A personal project by GAB.DEV.')+'</div>'+mkTags(tags,'proj')+'<div class="proj-meta"><span>'+IST+'&nbsp;'+(d.stargazers_count||0)+'</span><span>'+IFO+'&nbsp;'+(d.forks_count||0)+'</span></div><div class="proj-foot"><button class="btn-visit" id="'+bid+'">'+IEX+'&nbsp;View Project</button></div>';
-        var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(hp||p.url,nm);});
+        var hp=d.homepage&&d.homepage.trim()&&d.homepage!=='null'?d.homepage:null,nm=(d.name||repo).replace(/-/g,' '),bid='bv'+repo.replace(/[^a-z0-9]/gi,''),href=hp||p.url;
+        card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+nm+'</div><div class="proj-desc">'+(d.description||'A personal project by GAB.DEV.')+'</div>'+mkTags(tags,'proj')+'<div class="proj-meta"><span>'+IST+'&nbsp;'+(d.stargazers_count||0)+'</span><span>'+IFO+'&nbsp;'+(d.forks_count||0)+'</span></div><div class="proj-foot"><a href="'+href+'" target="_blank" class="btn-visit" id="'+bid+'" style="text-decoration:none">'+IEX+'&nbsp;View Project</a></div>';
         addCardTilt(card);rvAll();
       }).catch(function(){
-        var nm=repo.replace(/-/g,' '),bid='be'+repo.replace(/[^a-z0-9]/gi,'');
-        card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+nm+'</div>'+mkTags(tags,'proj')+'<div class="proj-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div><div class="proj-foot"><button class="btn-visit" id="'+bid+'">'+IEX+'&nbsp;View Project</button></div>';
-        var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(p.url,nm);});
+        var nm=repo.replace(/-/g,' '),bid='be'+repo.replace(/[^a-z0-9]/gi,''),href=p.url;
+        card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+nm+'</div>'+mkTags(tags,'proj')+'<div class="proj-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div><div class="proj-foot"><a href="'+href+'" target="_blank" class="btn-visit" id="'+bid+'" style="text-decoration:none">'+IEX+'&nbsp;View Project</a></div>';
         addCardTilt(card);rvAll();
       });
     });
@@ -973,14 +971,12 @@ function loadCollabs(){
       card.className='collab-card rv';card.style.transitionDelay=(idx*.08)+'s';card.innerHTML='<div class="skel" style="height:160px;border-radius:10px"></div>';grid.appendChild(card);
       fetch('https://api.github.com/repos/'+owner+'/'+repo).then(function(r){return r.json();}).then(function(d){
         if(d.message)throw 0;
-        var hp=d.homepage&&d.homepage.trim()&&d.homepage!=='null'?d.homepage:null,nm=(d.name||repo).replace(/-/g,' '),bid='cbv'+idx;
-        card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div><div class="collab-desc">'+(d.description||'A collaboration project.')+'</div>'+mkTags(tags,'collab')+'<div class="collab-foot"><button class="btn-cv" id="'+bid+'">'+IEX+'&nbsp;View Project</button></div>';
-        var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(hp||p.url,nm);});
+        var hp=d.homepage&&d.homepage.trim()&&d.homepage!=='null'?d.homepage:null,nm=(d.name||repo).replace(/-/g,' '),bid='cbv'+idx,href=hp||p.url;
+        card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div><div class="collab-desc">'+(d.description||'A collaboration project.')+'</div>'+mkTags(tags,'collab')+'<div class="collab-foot"><a href="'+href+'" target="_blank" class="btn-cv" id="'+bid+'" style="text-decoration:none">'+IEX+'&nbsp;View Project</a></div>';
         addCardTilt(card);rvAll();
       }).catch(function(){
-        var nm=repo.replace(/-/g,' '),bid='cbe'+idx;
-        card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div>'+mkTags(tags,'collab')+'<div class="collab-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div><div class="collab-foot"><button class="btn-cv" id="'+bid+'">'+IEX+'&nbsp;View Project</button></div>';
-        var btn=document.getElementById(bid);if(btn)btn.addEventListener('click',function(){openLink(p.url,nm);});
+        var nm=repo.replace(/-/g,' '),bid='cbe'+idx,href=p.url;
+        card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div>'+mkTags(tags,'collab')+'<div class="collab-desc" style="color:var(--muted);margin-top:.4rem">Could not load from GitHub API.</div><div class="collab-foot"><a href="'+href+'" target="_blank" class="btn-cv" id="'+bid+'" style="text-decoration:none">'+IEX+'&nbsp;View Project</a></div>';
         addCardTilt(card);rvAll();
       });
     });
