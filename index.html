@@ -210,13 +210,12 @@ body.no-touch #back-top{cursor:none}
 #back-top:hover svg{stroke:var(--cyan)}
 
 /* =============================================
-   HERO — FIXED AVATAR SIZE FOR DESKTOP
+   HERO
    ============================================= */
 .hero{min-height:100vh;display:flex;align-items:center;padding:130px 7% 90px;gap:70px;position:relative}
 .hero-left{flex:1.2;max-width:600px}
 .hero-right{flex:0 0 auto;display:flex;justify-content:flex-end;align-items:center}
 
-/* Avatar wrapper — bigger on desktop */
 .av-wrap{
   position:relative;
   width:460px;
@@ -246,12 +245,18 @@ body.no-touch #back-top{cursor:none}
   transition:box-shadow .15s
 }
 .av-box:hover{box-shadow:0 32px 80px rgba(79,142,247,.3),0 0 0 1px rgba(79,142,247,.25)}
+
+/* =============================================
+   FIX: object-position changed from "center top"
+   to "center 20%" so the face is properly framed
+   ============================================= */
 .av-box img{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center top
+  object-position:center 20%
 }
+
 .av-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .av-glow{position:absolute;bottom:-55px;left:50%;transform:translateX(-50%);width:260px;height:100px;background:radial-gradient(ellipse,rgba(79,142,247,.35) 0%,transparent 70%);filter:blur(20px);z-index:1}
 .ck{position:absolute;width:18px;height:18px;z-index:3}
@@ -541,7 +546,7 @@ body.no-touch #volume-slider{cursor:none}
 :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
 
 /* =============================================
-   RESPONSIVE — tablet/mobile overrides
+   RESPONSIVE
    ============================================= */
 @media(max-width:1200px){
   .av-wrap{width:400px;height:400px}
@@ -560,7 +565,6 @@ body.no-touch #volume-slider{cursor:none}
   #contact{grid-template-columns:1fr}
   .f-row{grid-template-columns:1fr}
   .av-badge{display:none}
-  /* On tablet stacked layout, avatar is full width / auto */
   .av-wrap{width:340px;height:340px}
   .av-box{width:340px;height:340px}
   .av-inner{width:340px;height:340px}
@@ -787,7 +791,7 @@ body.no-touch #volume-slider{cursor:none}
         <div class="av-r1"></div><div class="av-r2"></div>
         <div class="av-box">
           <div class="av-ph"><svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="32" r="16" stroke="#4f8ef7" stroke-width="2" fill="none" opacity=".3"/><path d="M12 68c0-15.464 12.536-28 28-28s28 12.536 28 28" stroke="#4f8ef7" stroke-width="2" fill="none" opacity=".3"/></svg></div>
-          <img src="pfp.jpg" alt="Joshua Gabriel De Leon — Developer from Caloocan City, Philippines" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top" onerror="this.style.display='none'">
+          <img src="pfp.jpg" alt="Joshua Gabriel De Leon — Developer from Caloocan City, Philippines" loading="lazy" onerror="this.style.display='none'">
         </div>
         <div class="av-glow"></div>
         <div class="ck ck-tl"></div><div class="ck ck-tr"></div><div class="ck ck-bl"></div><div class="ck ck-br"></div>
