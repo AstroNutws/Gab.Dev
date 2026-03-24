@@ -951,6 +951,16 @@ function nameFromUrl(url){
     return url;
   }
 }
+function fetchSiteMeta(url){
+  var api='https://api.microlink.io?url='+encodeURIComponent(url);
+  return fetch(api).then(function(r){return r.json();}).then(function(data){
+    var d=data&&data.data?data.data:{};
+    return {
+      title:(d.title||'').trim(),
+      description:(d.description||'').trim()
+    };
+  }).catch(function(){return {title:'',description:''};});
+}
 function mkTags(tags,cls){if(!tags.length)return'';return'<div class="'+cls+'-tags">'+tags.map(function(t){return'<span class="'+cls+'-tag">'+t+'</span>';}).join('')+'</div>';}
 function note(m){return'<div style="grid-column:1/-1;font-family:var(--mono);font-size:.78rem;color:var(--text2);padding:1.2rem 0">'+m+'</div>';}
 
@@ -967,8 +977,12 @@ function loadOwn(){
       card.className='proj-card rv';card.innerHTML='<div class="skel" style="height:160px;border-radius:10px"></div>';grid.appendChild(card);
       if(!m){
         var nm=nameFromUrl(p.url),bid='bvu'+nm.replace(/[^a-z0-9]/gi,''),href=p.url;
-        card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+nm+'</div><div class="proj-desc">External project link.</div>'+mkTags(tags,'proj')+'<div class="proj-foot"><a href="'+href+'" target="_blank" class="btn-visit" id="'+bid+'" style="text-decoration:none">'+IEX+'&nbsp;View Project</a></div>';
-        addCardTilt(card);rvAll();
+        fetchSiteMeta(p.url).then(function(meta){
+          var finalName=meta.title||nm;
+          var finalDesc=meta.description||'External project link.';
+          card.innerHTML='<div class="proj-top"><div class="proj-ibox">'+IGH+'</div></div><div class="proj-name">'+finalName+'</div><div class="proj-desc">'+finalDesc+'</div>'+mkTags(tags,'proj')+'<div class="proj-foot"><a href="'+href+'" target="_blank" class="btn-visit" id="'+bid+'" style="text-decoration:none">'+IEX+'&nbsp;View Project</a></div>';
+          addCardTilt(card);rvAll();
+        });
         return;
       }
       var owner=m[1],repo=m[2];
@@ -999,8 +1013,12 @@ function loadCollabs(){
       card.className='collab-card rv';card.style.transitionDelay=(idx*.08)+'s';card.innerHTML='<div class="skel" style="height:160px;border-radius:10px"></div>';grid.appendChild(card);
       if(!m){
         var nm=nameFromUrl(p.url),bid='cbvu'+idx,href=p.url;
-        card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+nm+'</div><div class="collab-desc">External collaboration link.</div>'+mkTags(tags,'collab')+'<div class="collab-foot"><a href="'+href+'" target="_blank" class="btn-cv" id="'+bid+'" style="text-decoration:none">'+IEX+'&nbsp;View Project</a></div>';
-        addCardTilt(card);rvAll();
+        fetchSiteMeta(p.url).then(function(meta){
+          var finalName=meta.title||nm;
+          var finalDesc=meta.description||'External collaboration link.';
+          card.innerHTML='<div class="collab-top"><div class="collab-ibox">'+ITE+'</div><span class="collab-badge">COLLAB</span></div><div class="collab-name">'+finalName+'</div><div class="collab-desc">'+finalDesc+'</div>'+mkTags(tags,'collab')+'<div class="collab-foot"><a href="'+href+'" target="_blank" class="btn-cv" id="'+bid+'" style="text-decoration:none">'+IEX+'&nbsp;View Project</a></div>';
+          addCardTilt(card);rvAll();
+        });
         return;
       }
       var owner=m[1],repo=m[2];
